@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  react:
+    container_name: fusen_react
+    build: ./frontend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    tty: true
+    
+  go:
+    container_name: fusen_go
+    build: ./backend
+    volumes:
+      - ./backend:/app
+    ports:
+      - "8080:8080"
+    environment:
+      - GO_ENV=development
+      - HOST=0.0.0.0
+    depends_on:
+      - postgres
+    tty: true
+
+  postgres:
+    container_name: fusen_db
+    image: postgres:15.4
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      POSTGRES_USER: 'fusenuser'
+      POSTGRES_PASSWORD: 'fusenpassword'
+      POSTGRES_DB: 'fusen'
+
+volumes:
+  postgres_data:
