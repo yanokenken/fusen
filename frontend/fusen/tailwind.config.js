@@ -26,8 +26,8 @@ module.exports = {
           // "accent": "#10de70",
           "accent": "#4ade80",
           "neutral": "#2b3440",                   
-          // 'base-100': '#e7eef3',// custom
-          'base-100': '#e5e7eb',// custom
+          'base-100': '#e7eef3',// 青っぽい
+          // 'base-100': '#e5e7eb',// グレー
           "info": "#3abff8",                   
           "success": "#36d399",                   
           "warning": "#fbbd23",                   
