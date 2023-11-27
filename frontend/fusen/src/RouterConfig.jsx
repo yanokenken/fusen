@@ -7,7 +7,6 @@ const RouterConfig = () => {
 		<BrowserRouter>
 			<Routes>
 				<Route index element={<Home />} />
-
 			</Routes>
 		</BrowserRouter>
 	);

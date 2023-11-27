@@ -1,0 +1,41 @@
+.card-body {
+	padding: 0.5rem;
+}
+
+.accent-title {
+	/* font-family: 'Audiowide', cursive; */
+	/* font-family: 'Press Start 2P', cursive; */
+	font-family: 'Bungee Shade', cursive;
+	color: #10de70;
+	/* text-shadow: #345a6c; */
+
+	-webkit-text-stroke: 1px #181b26;
+	text-stroke: 2px #181b26;
+	/* font-size: 2.65rem; */
+	font-size: 3.5rem;
+    font-weight: 50;
+}
+
+.fusen1 {
+	background-color: #74aacf;
+}
+.fusen2 {
+	/* background-color: #87d0b9; */
+	background-color: #88b0cd;
+}
+.fusen3 {
+	/* background-color: #aad087; */
+	background-color: #e8e8e8;
+}
+.fusen4 {
+	/* background-color: #d0af87; */
+	background-color: #a2b8c9;
+}
+
+.border-color-gray {
+	border-color: #bdbdbd;
+}
+.shadow-center {
+	box-shadow: 1px 5px 1rem rgba(0, 0, 0, 0.25);
+}
+
