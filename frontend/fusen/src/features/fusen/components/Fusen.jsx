@@ -1,28 +1,56 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function Fusen(props) {
-  const [isKyoju, setIsKyoju] = useState(props.isKyoju);
+  const [fusen, setFusen] = useState({
+    fusenTitle: props.fusen.fusenTitle, // タスク名
+    fusenMemo: props.fusen.fusenMemo, // メモ
+    isUrgent: props.fusen.isUrgent, // 急ぎ
+    isImportant: props.fusen.isImportant, // 重要
+    status: props.fusen.status, // 進行ステータス（未着手/進行中/今日やる/完了）
+    fusenColor: "fusen3", // 付箋の色
+    checkpoints: props.fusen.checkpoints, // チェックポイント
+  });
 
-  // const fusenColor = isKyoju === '1' ? 'bg-warning' : props.fusenColor;
-  const fusenColor = props.fusenColor;
+  useEffect(() => {
+    setFusen({
+      fusenTitle: props.fusen.fusenTitle,
+      fusenMemo: props.fusen.fusenMemo,
+      isUrgent: props.fusen.isUrgent,
+      isImportant: props.fusen.isImportant,
+      status: props.fusen.status,
+      fusenColor: "fusen3",
+      checkpoints: props.fusen.checkpoints,
+    });
+  }, [props]);
 
   return (
     <>
       <div
-        className={`card fusen h-52 shadow-sm cursor-pointer ${fusenColor}`}
-        onClick={() => document.getElementById("shosai_modal").showModal()}
+        className={`card fusen h-52 shadow-sm cursor-pointer ${fusen.fusenColor}`}
+        onClick={(e) => props.onClick(e)}
       >
         <div className="card-body relative">
-          <h2 className="card-title">〇〇を△△する</h2>
-          <p>xx月xx日までにxxxxxxする</p>
+          <h2 className="card-title">{fusen.fusenTitle}</h2>
+          <p>{fusen.fusenMemo}</p>
           <div className="card-actions flex flex-nowrap overflow-auto gap-1">
-            {props.isKyoju === "1" ? (
-              <div className="badge badge-accent">今日中!</div>
+            {/* fusen.statusによってbadgeを表示を切り替える */}
+            {fusen.status === 0 ? (
+              <div className="badge badge-zantei">未着手</div>
             ) : (
               ""
             )}
-            {props.isSinkochu === "1" ? (
-              <div className="badge badge-info">進行中</div>
+            {fusen.status === 1 ? (
+              <div className="badge badge-primary">進行中</div>
+            ) : (
+              ""
+            )}
+            {fusen.status === 2 ? (
+              <div className="badge badge-accent">今日やる!</div>
+            ) : (
+              ""
+            )}
+            {fusen.status === 3 ? (
+              <div className="badge badge-success">完了</div>
             ) : (
               ""
             )}
