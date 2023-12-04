@@ -1,4 +1,11 @@
 # react/Dockerfile
 FROM node:18
 
-WORKDIR /app
+WORKDIR /app/fusen
+
+CMD ["npm", "start"]
+
+
+
+
+

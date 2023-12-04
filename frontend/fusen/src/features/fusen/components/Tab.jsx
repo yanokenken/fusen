@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import FusenModal from "./FusenModal";
 import MatrixView from "./MatrixView";
+import ListView from "./ListView";
 
 function Tab({fusens, setFusens}) {
   const [selectetedFusen, setSelectedFusen] = useState(null);
-  const [activeTab, setActiveTab] = useState("matrix"); 
+  const [activeTab, setActiveTab] = useState("list"); 
 
   const handleFusenClick = (fusen) => {
     setSelectedFusen(fusen);
@@ -23,8 +24,8 @@ function Tab({fusens, setFusens}) {
         </p>
         <div className="flex justify-between mb-2">
           <div className="tabs tabs-boxed bg-base-300">
-            <a id="matrix" className={`tab tab-md ${activeTab === 'matrix' ? 'tab-active' : ''}`} onClick={() => setActiveTab('matrix')}>　表　</a>
             <a id="list" className={`tab tab-md ${activeTab === 'list' ? 'tab-active' : ''}`} onClick={() => setActiveTab('list')}>リスト</a>
+            <a id="matrix" className={`tab tab-md ${activeTab === 'matrix' ? 'tab-active' : ''}`} onClick={() => setActiveTab('matrix')}>　表　</a>
             <a id="complete" className={`tab tab-md ${activeTab === 'complete' ? 'tab-active' : ''}`} onClick={() => setActiveTab('complete')}> 完了 </a>
           </div>
           <div className="avatar">
@@ -35,8 +36,8 @@ function Tab({fusens, setFusens}) {
         </div>
         <div className="tab-body bg-base-200 w-full flex-grow rounded-xl shadow-center">
           {/* matrixViewにはfusen.status!=3以外 */}
+          {activeTab === 'list' && <ListView fusens={fusens} onFusenClick={handleFusenClick} />}
           {activeTab === 'matrix' && <MatrixView fusens={fusens} onFusenClick={handleFusenClick} />}
-          {activeTab === 'list' && <MatrixView fusens={fusens} onFusenClick={handleFusenClick} />}
           {activeTab === 'complete' && <MatrixView fusens={fusens} onFusenClick={handleFusenClick} />}
         </div>
       </div>

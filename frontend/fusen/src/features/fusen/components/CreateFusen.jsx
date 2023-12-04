@@ -3,7 +3,7 @@ import LabelCheckbox from "../../../components/LabelCheckbox";
 import { generateNanoId } from "../../../utils/generateId";
 import postFusen from "../api/postFusen";
 
-function CreateFusen({handleAddFusen}) {
+function CreateFusen({handleAddFusen, closeDrawer}) {
   let emptyFusen = {
       id:'',
       fusenTitle:"",
@@ -101,6 +101,7 @@ function CreateFusen({handleAddFusen}) {
         // 付箋を追加する
         handleAddFusen(res);
         setFusen(emptyFusen);
+        closeDrawer();
         // fusens一覧を更新する
       }
   )};
@@ -111,6 +112,7 @@ function CreateFusen({handleAddFusen}) {
         htmlFor="my-drawer-2"
         aria-label="close sidebar"
         className="drawer-overlay"
+        onClick={closeDrawer}
       ></label>
       <div className="w-80 ">
         <div className="px-4 pb-4 h-[85vh] bg-base-300 text-base-content overflow-x-auto always-show-scrollbar">
@@ -216,7 +218,7 @@ function CreateFusen({handleAddFusen}) {
             </div>
           </div>
         </div>
-        <div className="h-[15vh] bg-base-300 text-base-content mx-4 flex items-center justify-center border-t-2">
+        <div className="h-[15vh] bg-base-300 text-base-content flex items-center justify-center border-t">
           <button className="btn btn-primary  w-[80%] shadow-sm" onClick={addFusen}>
             登録する
             <span className="material-icons-outlined">

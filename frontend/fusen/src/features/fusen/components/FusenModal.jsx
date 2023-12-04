@@ -1,5 +1,5 @@
 // useStateを使う
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import LabelCheckbox from "../../../components/LabelCheckbox";
 import { generateNanoId } from "../../../utils/generateId";
 import putFusen from "../api/putFusen";
@@ -10,6 +10,14 @@ function FusenModal({ modalId, selectedFusen, onFusenChange }) {
   useEffect(() => {
     setFusen({ ...selectedFusen });
   }, [selectedFusen]);
+
+  const inputRef = useRef();
+  const modalIsOpen = document.getElementById(modalId)?.open;
+  useEffect(() => {
+    if (modalIsOpen) {
+      inputRef.current.blur();
+    }
+  }, [modalIsOpen]);
 
   const handleClose = () => {
     setFusen({ ...selectedFusen });
@@ -108,6 +116,7 @@ function FusenModal({ modalId, selectedFusen, onFusenChange }) {
           <span className="label-text">タスク名（必須）</span>
         </label>
         <input
+          ref={inputRef}
           type="text"
           className={`input input-bordered w-full mb-4 mt-4 lg:mt-0 `}
           placeholder="タスク名（必須）"
@@ -131,7 +140,6 @@ function FusenModal({ modalId, selectedFusen, onFusenChange }) {
         </div>
 
         <div className="form-control w-full flex mb-4">
-          {fusen && fusen.isImportant ? fusen.isImportant : "undef"}
           <LabelCheckbox
             key={fusen ? `${fusen.id}-important` : "important-default-key"}
             label="重要"
@@ -140,7 +148,6 @@ function FusenModal({ modalId, selectedFusen, onFusenChange }) {
               handleInputChange(e, fusen.id, "isImportant");
             }}
           />
-          {fusen && fusen.isUrgent ? fusen.isUrgent : "undef"}
           <LabelCheckbox
             key={fusen ? `${fusen.id}-urgent` : "urgent-default-key"}
             label="緊急"

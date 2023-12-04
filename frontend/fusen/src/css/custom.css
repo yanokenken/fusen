@@ -38,3 +38,6 @@
 	box-shadow: 1px 5px 1rem rgba(0, 0, 0, 0.25);
 }
 
+.input-no-focus {
+  pointer-events: none;
+}

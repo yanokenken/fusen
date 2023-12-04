@@ -26,12 +26,46 @@ function Fusen(props) {
   return (
     <>
       <div
-        className={`card fusen h-52 shadow-sm cursor-pointer ${fusen.fusenColor}`}
+        className={`card fusen shadow-sm my-2 cursor-pointer ${fusen.fusenColor}`}
         onClick={(e) => props.onClick(e)}
       >
         <div className="card-body relative">
           <h2 className="card-title">{fusen.fusenTitle}</h2>
           <p className="break-words whitespace-pre-wrap">{fusen.fusenMemo}</p>
+
+          <div className="collapse collapse-open bg-base-200 w-full mb-4 p-2">
+            {fusen && fusen.checkpoints && fusen.checkpoints.length > 0 ? 
+            <div className=" text-md">
+              チェックポイント
+            </div>
+            : ""}
+            <div className="collapse-content p-0">
+              <div className="max-h-[35vh] overflow-auto">
+                <table className="table table-xs">
+                  <tbody>
+                    {fusen &&
+                      fusen.checkpoints &&
+                      fusen.checkpoints.map((checkpoint) => (
+                        <tr key={checkpoint.id} id={checkpoint.id} className="">
+                          <td className="text-center">
+                            <input
+                              type="checkbox"
+                              className="checkbox checkbox-sm"
+                              checked={checkpoint.isChecked}
+                              disabled={true}
+                            />
+                          </td>
+                          <td className="text-left">
+                            {checkpoint.body}
+                          </td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
           <div className="card-actions flex flex-nowrap overflow-auto gap-1">
             {/* fusen.statusによってbadgeを表示を切り替える */}
             {fusen.status === 0 ? (
