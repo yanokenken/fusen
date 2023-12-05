@@ -1,0 +1,7 @@
+[psql]
+dbname = "db_name"
+host = "container_name"
+port = "5432"
+user = "user_name"
+pass = "password"
+sslmode = "disable"

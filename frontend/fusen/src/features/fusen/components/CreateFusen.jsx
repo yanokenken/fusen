@@ -3,23 +3,22 @@ import LabelCheckbox from "../../../components/LabelCheckbox";
 import { generateNanoId } from "../../../utils/generateId";
 import postFusen from "../api/postFusen";
 
-function CreateFusen({handleAddFusen, closeDrawer}) {
+function CreateFusen({ handleAddFusen, closeDrawer }) {
   let emptyFusen = {
-      id:'',
-      fusenTitle:"",
-      fusenMemo:"",
-      isUrgent:false,
-      isImportant:false,
-      status:0,
-      checkpoints:[],
-    };
-  
+    id: "",
+    fusenTitle: "",
+    fusenMemo: "",
+    isUrgent: false,
+    isImportant: false,
+    status: 0,
+    checkpoints: [],
+  };
+
   const [fusen, setFusen] = useState(emptyFusen); // 付箋の情報
 
   useEffect(() => {
     setFusen(emptyFusen);
   }, []);
-
 
   const addCheckPoint = () => {
     const id = generateNanoId(5);
@@ -45,7 +44,6 @@ function CreateFusen({handleAddFusen, closeDrawer}) {
     const { value } = e.target;
     switch (type) {
       case "title": // タイトルの変更
-
         setFusen((prevFusen) => ({
           ...prevFusen,
           fusenTitle: value,
@@ -61,7 +59,9 @@ function CreateFusen({handleAddFusen, closeDrawer}) {
         setFusen((prevFusen) => ({
           ...prevFusen,
           checkpoints: prevFusen.checkpoints.map((checkpoint) =>
-            checkpoint.id === id ? { ...checkpoint, isChecked: e.target.checked } : checkpoint
+            checkpoint.id === id
+              ? { ...checkpoint, isChecked: e.target.checked }
+              : checkpoint
           ),
         }));
         break;
@@ -72,7 +72,7 @@ function CreateFusen({handleAddFusen, closeDrawer}) {
             checkpoint.id === id ? { ...checkpoint, body: value } : checkpoint
           ),
         }));
-        break; 
+        break;
       case "isImportant": // 重要の変更
         setFusen((prevFusen) => ({
           ...prevFusen,
@@ -82,7 +82,7 @@ function CreateFusen({handleAddFusen, closeDrawer}) {
       case "isUrgent": // 緊急の変更
         setFusen((prevFusen) => ({
           ...prevFusen,
-          isUrgent: e.target.checked
+          isUrgent: e.target.checked,
         }));
         break;
       case "status": // ステータスの変更
@@ -93,18 +93,17 @@ function CreateFusen({handleAddFusen, closeDrawer}) {
         break;
       default:
         break;
-      }
+    }
   };
   const addFusen = () => {
-    postFusen(fusen)
-      .then((res) => {
-        // 付箋を追加する
-        handleAddFusen(res);
-        setFusen(emptyFusen);
-        closeDrawer();
-        // fusens一覧を更新する
-      }
-  )};
+    postFusen(fusen).then((res) => {
+      // 付箋を追加する
+      handleAddFusen(res);
+      setFusen(emptyFusen);
+      closeDrawer();
+      // fusens一覧を更新する
+    });
+  };
 
   return (
     <>
@@ -119,31 +118,32 @@ function CreateFusen({handleAddFusen, closeDrawer}) {
           <p className="accent-title m-auto w-full text-center hidden lg:block">
             FUSEEN
           </p>
-
           <input
             type="text"
             className="input input-bordered w-full mb-4 mt-4 lg:mt-0"
             placeholder="タスク名（必須）"
             onChange={(e) => handleInputChange(e, fusen.id, "title")}
           />
-
           <textarea
             className="textarea textarea-bordered h-[8rem] w-full mb-4"
             placeholder="メモ（任意）"
             onChange={(e) => handleInputChange(e, fusen.id, "memo")}
           ></textarea>
-
           <div className="form-control w-full flex mb-4">
-          <LabelCheckbox
-            label="重要"
-            value={fusen ? fusen.isImportant : false }
-            onChange={(e)=>{handleInputChange(e, fusen.id, "isImportant")}}
-          />
-          <LabelCheckbox
-            label="緊急"
-            value={fusen ? fusen.isUrgent : false}
-            onChange={(e)=>{handleInputChange(e, fusen.id, "isUrgent")}}
-          />
+            <LabelCheckbox
+              label="重要"
+              value={fusen ? fusen.isImportant : false}
+              onChange={(e) => {
+                handleInputChange(e, fusen.id, "isImportant");
+              }}
+            />
+            <LabelCheckbox
+              label="緊急"
+              value={fusen ? fusen.isUrgent : false}
+              onChange={(e) => {
+                handleInputChange(e, fusen.id, "isUrgent");
+              }}
+            />
           </div>
           <div className="w-full mb-4">
             <input
@@ -170,37 +170,42 @@ function CreateFusen({handleAddFusen, closeDrawer}) {
                 <table className="table table-xs">
                   <thead></thead>
                   <tbody>
-                  {fusen && fusen.checkpoints &&
-                    fusen.checkpoints.map((checkpoint) => (
-                      <tr key={checkpoint.id} id={checkpoint.id}>
-                        <td>
-                          <input
-                            type="text"
-                            className="input input-sm input-bordered w-full max-w-xs"
-                            placeholder="チェックポイント"
-                            defaultValue={checkpoint.text}
-                            onChange={(e) =>
-                              handleInputChange(e, checkpoint.id, "checkpointBody")
-                            }
-                          />
-                        </td>
-                        <td className="whitespace-nowrap px-0">
-                          <div className="dropdown dropdown-end">
-                            <label
-                              tabIndex={0}
-                              className="btn btn-sm btn-ghost m-1 ms-0"
-                            >
-                              <span
-                                className="material-icons-outlined"
-                                onClick={deleteCP}
+                    {fusen &&
+                      fusen.checkpoints &&
+                      fusen.checkpoints.map((checkpoint) => (
+                        <tr key={checkpoint.id} id={checkpoint.id}>
+                          <td>
+                            <input
+                              type="text"
+                              className="input input-sm input-bordered w-full max-w-xs"
+                              placeholder="チェックポイント"
+                              defaultValue={checkpoint.text}
+                              onChange={(e) =>
+                                handleInputChange(
+                                  e,
+                                  checkpoint.id,
+                                  "checkpointBody"
+                                )
+                              }
+                            />
+                          </td>
+                          <td className="whitespace-nowrap px-0">
+                            <div className="dropdown dropdown-end">
+                              <label
+                                tabIndex={0}
+                                className="btn btn-sm btn-ghost m-1 ms-0"
                               >
-                                delete
-                              </span>
-                            </label>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
+                                <span
+                                  className="material-icons-outlined"
+                                  onClick={deleteCP}
+                                >
+                                  delete
+                                </span>
+                              </label>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
                   </tbody>
                 </table>
               </div>
@@ -219,11 +224,12 @@ function CreateFusen({handleAddFusen, closeDrawer}) {
           </div>
         </div>
         <div className="h-[15vh] bg-base-300 text-base-content flex items-center justify-center border-t">
-          <button className="btn btn-primary  w-[80%] shadow-sm" onClick={addFusen}>
+          <button
+            className="btn btn-primary  w-[80%] shadow-sm"
+            onClick={addFusen}
+          >
             登録する
-            <span className="material-icons-outlined">
-              sticky_note_2
-            </span>
+            <span className="material-icons-outlined">sticky_note_2</span>
           </button>
         </div>
       </div>
