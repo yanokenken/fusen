@@ -30,7 +30,7 @@ function Tab({fusens, setFusens}) {
           </div>
           <div className="avatar">
             <div className="w-10 h-10 rounded-full m-1">
-              <img src="https://api.biz-axis.tk/img/5/image.jpg" />
+              <span className="material-icons-outlined">person</span>
             </div>
           </div>
         </div>

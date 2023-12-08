@@ -1,16 +1,12 @@
 import { useRoutes } from "react-router-dom";
-import FusenBoard from "../features/fusen/routes/FusenBoard";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { protectedRoutes } from "./protected";
+import { publicRoutes } from "./public";
 
-const App = () => {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<FusenBoard />} />
-        {/* 他のルートもここに追加 */}
-      </Routes>
-    </BrowserRouter>
-  );
+export const AppRoutes = () => {
+
+  const authed = true; // todo 実際のチェック処理に置き換える
+  const routes = authed ? protectedRoutes : publicRoutes;
+  const element = useRoutes(routes);
+
+  return <>{element}</>
 };
-
-export default App;

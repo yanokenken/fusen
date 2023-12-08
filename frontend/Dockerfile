@@ -3,7 +3,7 @@ FROM node:18
 
 WORKDIR /app/fusen
 
-CMD ["npm", "start"]
+# CMD ["npm", "start"]
 
 
 
