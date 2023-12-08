@@ -22,6 +22,6 @@ const fusenMocks = Promise.resolve([
 
 export const getFusens = async () => {
 	// todo 最終的にはAPI化する
-	const fusens = await fusenMocks;
-	return fusens;
+		return await fusenMocks;
+
 }

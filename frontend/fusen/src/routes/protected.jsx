@@ -15,7 +15,7 @@ export const protectedRoutes = [{
 	path: "/",
 	element: <App />,
 	children: [
-		{path: "/board", element: <FusenBoard />},
+		{path: "/board", element: <FusenBoard isDemo={false} />},
 		{path: "/", element: <Landing />},
 		{path: "*", element: <Navigate to="/" />}
 	]

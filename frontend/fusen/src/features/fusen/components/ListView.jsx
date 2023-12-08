@@ -36,7 +36,7 @@ function MatrixView({ fusens, onFusenClick }) {
           ))}
         </div>
         <div className="overflow-auto">
-          <div className="badge w-full ">進行中</div>
+          <div className="badge w-full">進行中</div>
           {fusens_2.map((fusen) => (
             <DetailedFusen
               key={fusen.id}

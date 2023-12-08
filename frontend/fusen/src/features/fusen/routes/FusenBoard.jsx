@@ -3,7 +3,7 @@ import Tab from '../components/Tab';
 import CreateFusen from '../components/CreateFusen';
 import { getFusens } from '../api/getFusens';
 
-function FusenBoard() {
+function FusenBoard(isDemo) {
 
 	const [fusens, setFusens] = useState([]);
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false); // サイドコンテンツエリアの表示状態
@@ -11,7 +11,7 @@ function FusenBoard() {
 	const closeDrawer = () => setIsDrawerOpen(false);
 
   useEffect(() => {
-    getFusens().then((res) => {
+    getFusens(isDemo).then((res) => {
       setFusens(res);
     });
   }, [fusens]);
@@ -35,7 +35,7 @@ function FusenBoard() {
 		<Tab fusens={fusens} setFusens={setFusens} />
   </div> 
 	{/* サイドコンテンツエリア（常時新規登録用の内容を表示） */}
-  <div className="drawer-side min-h-screen h-fill-available">
+  <div className="drawer-side min-h-screen h-fill-available z-20">
     <CreateFusen handleAddFusen={handleAddFusen} closeDrawer={closeDrawer} />
   </div>
 </div>

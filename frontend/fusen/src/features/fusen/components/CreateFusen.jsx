@@ -113,11 +113,18 @@ function CreateFusen({ handleAddFusen, closeDrawer }) {
         className="drawer-overlay"
         onClick={closeDrawer}
       ></label>
-      <div className="w-80 ">
+      <div className="w-100 lg:w-80">
         <div className="px-4 pb-4 h-[85vh] bg-base-300 text-base-content overflow-x-auto always-show-scrollbar">
           <p className="accent-title m-auto w-full text-center hidden lg:block">
-            FUSEEN
+            fuseen
           </p>
+          <div className="block lg:hidden lg:h-[15vh] bg-base-300 text-base-content flex items-center justify-center border-t">
+            <div className="flex justify-between w-full mt-10">
+              <div className="badge badge-outline badge-xl h-[2rem] cursor-pointer" onClick={closeDrawer}>✕</div>
+              <div className="badge badge-primary badge-xl h-[2rem] cursor-pointer" onClick={addFusen}>登録する</div>
+            </div>
+          </div>
+
           <input
             type="text"
             className="input input-bordered w-full mb-4 mt-4 lg:mt-0"
@@ -225,10 +232,10 @@ function CreateFusen({ handleAddFusen, closeDrawer }) {
         </div>
         <div className="h-[15vh] bg-base-300 text-base-content flex items-center justify-center border-t">
           <button
-            className="btn btn-primary  w-[80%] shadow-sm"
-            onClick={addFusen}
+            className="btn btn-primary  w-[80%] shadow-sm hidden lg:flex" 
+            onClick={addFusen} 
           >
-            登録する
+            <span>登録する</span>
             <span className="material-icons-outlined">sticky_note_2</span>
           </button>
         </div>

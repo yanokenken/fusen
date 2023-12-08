@@ -131,7 +131,7 @@ function FusenModal({ modalId, selectedFusen, onFusenChange }) {
           </label>
           <textarea
             className={`textarea textarea-bordered h-24`}
-            placeholder="Bio"
+            placeholder="メモ（任意）"
             value={fusen ? fusen.fusenMemo : ""}
             onChange={(e) => {
               handleInputChange(e, fusen.id, "memo");
