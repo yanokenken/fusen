@@ -42,8 +42,8 @@ function RegisterModal(modalId) {
           alert(error.message);
         }
         setIsLoading(false);
-      });
-  };
+      })
+    };
 
   // バリデーション
   const validate = () => {

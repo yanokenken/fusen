@@ -21,34 +21,9 @@ func CompareHashAndPassword(hashedPwd, plainPwd string) bool {
 	err := bcrypt.CompareHashAndPassword([]byte(hashedPwd), []byte(plainPwd))
 
 	if err != nil {
-		log.Println("パスワードが一致しませんでした。")
-		log.Println(err)
+		log.Println("パスワードが一致しませんでした。", err)
 		return false
 	}
 
 	return true
-}
-
-
-func sampleComp() {
-	password := "test1234"
-
-	hashed, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
-	if err != nil {
-			panic(err)
-	}
-	log.Printf("sample-------hashed: %s\n", hashed)
-
-	// invalid pass
-	err = bcrypt.CompareHashAndPassword(hashed, []byte("foobar"))
-	if err != nil {
-			log.Println("sample-------",err)
-	}
-
-	// correct pass
-	err = bcrypt.CompareHashAndPassword(hashed, []byte(password))
-	if err != nil {
-			panic(err)
-	}
-	log.Println("sample-------correct")
 }

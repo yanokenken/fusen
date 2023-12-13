@@ -20,7 +20,7 @@ import (
 // Register は、ユーザー登録を行う。
 func Register(c echo.Context) error {
 	// 実行時ログを出力する
-	log.Println("ユーザー登録を開始します。")
+	log.Println("ユーザー登録 開始")
 	
 	token := make([]byte, 32)
 	_, err := rand.Read(token)
@@ -30,14 +30,12 @@ func Register(c echo.Context) error {
 
 
 	tokenStr := hex.EncodeToString(token)
-	log.Println(tokenStr)	
 
 	user := new(models.User)
 	if err := c.Bind(&user); err != nil {
 		return err
 	}
 
-	log.Println("入力パスワード------------:",user.Password)
 	hashedPW, err := HashAndSalt(user.Password)
 	if err != nil {
 		// パスワードが不正でした
@@ -45,7 +43,6 @@ func Register(c echo.Context) error {
 		return err
 	}
 
-	log.Println("test------------1")
 	user.Password = hashedPW
 
 	// ユーザー登録
@@ -55,7 +52,6 @@ func Register(c echo.Context) error {
 	}
 	defer db.Close()
 
-	log.Println("test------------2")
 	// 登録日付を設定する
 	const layout = "2006-01-02 15:04:05"
 	now := time.Now()
@@ -93,7 +89,6 @@ func Register(c echo.Context) error {
 		CreatedAt: user.CreatedAt,
 		UpdatedAt: user.CreatedAt,
 	}
-	log.Println(newUser)
 	ctx := context.Background()
 	ctx = boil.WithDebug(ctx, true)
 	err = newUser.Insert(ctx, db, boil.Infer())

@@ -26,19 +26,12 @@ func Login(c echo.Context) error {
 	}
 
 	if loginUser.Email == "" {
-		return echo.ErrUnauthorized
+		return c.JSON(http.StatusUnauthorized, "メールアドレス、またはパスワードが間違っています")
 	}
-
-
-	sampleComp()
 
 	if !CompareHashAndPassword(loginUser.Password, user.Password) {
 		return c.JSON(http.StatusUnauthorized, "メールアドレス、またはパスワードが間違っています")
 	}
 	return c.JSON(http.StatusOK, loginUser)
-
-
-
-
 
 }
