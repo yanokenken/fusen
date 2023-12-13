@@ -24,7 +24,7 @@ function MatrixView({ fusens, onFusenClick }) {
 
   return (
     <>
-      <div className="grid grid-rows-1 grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-4 py-2 px-4 md:h-tab-sp lg:h-tab-pc">
+      <div className="grid grid-rows-1 grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-6 py-2 px-4 md:h-tab-sp lg:h-tab-pc">
         <div className="overflow-auto">
           <div className="badge w-full">未着手</div>
           {fusens_1.map((fusen) => (

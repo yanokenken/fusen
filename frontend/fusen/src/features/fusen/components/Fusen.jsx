@@ -18,7 +18,7 @@ function Fusen(props) {
       isUrgent: props.fusen.isUrgent,
       isImportant: props.fusen.isImportant,
       status: props.fusen.status,
-      fusenColor: "fusen3",
+      fusenColor: "bg-base-100",
       checkpoints: props.fusen.checkpoints,
     });
   }, [props]);
@@ -35,22 +35,32 @@ function Fusen(props) {
           <div className="card-actions flex flex-nowrap overflow-auto gap-1">
             {/* fusen.statusによってbadgeを表示を切り替える */}
             {fusen.status === 0 ? (
-              <div className="badge badge-zantei">未着手</div>
+              <div className="badge badge-zantei text-xs whitespace-nowrap">未着手</div>
             ) : (
               ""
             )}
             {fusen.status === 1 ? (
-              <div className="badge badge-primary">進行中</div>
+              <div className="badge badge-primary text-xs whitespace-nowrap">進行中</div>
             ) : (
               ""
             )}
             {fusen.status === 2 ? (
-              <div className="badge badge-accent">今日やる!</div>
+              <div className="badge badge-accent text-xs whitespace-nowrap">今日やる!</div>
             ) : (
               ""
             )}
             {fusen.status === 3 ? (
-              <div className="badge badge-success">完了</div>
+              <div className="badge badge-success text-xs whitespace-nowrap">完了</div>
+            ) : (
+              ""
+            )}
+            {fusen.isUrgent ? (
+              <div className="badge badge-error text-xs whitespace-nowrap">緊急</div>
+            ) : (
+              ""
+            )}
+            {fusen.isImportant ? (
+              <div className="badge badge-warning text-xs whitespace-nowrap">重要</div>
             ) : (
               ""
             )}

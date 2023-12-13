@@ -1,15 +1,27 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import { login } from "../../auth/api/login"; 
 function LoginModal(modalId) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
 
-  const login = () => {
-    console.log("login");
-    // /boardに遷移
-    navigate("/board");
+  const _login = () => {
+    login(email, password)
+      .then((res) => {
+        console.log(res);
+        navigate("/board");
+      }).catch((error) => {
+        if (error.response) {
+          console.log(error.response.data);
+          alert(error.response.data);
+        } else {
+          console.log("Error", error.message);
+          alert(error.message);
+        }
+      }
+    );
 
   }
 
@@ -35,7 +47,7 @@ function LoginModal(modalId) {
             onChange={(e) => setPassword(e.target.value)}
             className="input input-bordered w-full mt-4"
           />
-          <button type="submit" className="btn btn-primary w-full mt-4 " onClick={login}>
+          <button type="submit" className="btn btn-primary w-full mt-4 " onClick={_login}>
             メールアドレスでログイン
           </button>
           <button className="btn w-full mt-4 ">

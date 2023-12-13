@@ -3,23 +3,30 @@
 }
 
 .accent-title {
-	/* font-family: 'Audiowide', cursive; */
-	/* font-family: 'Press Start 2P', cursive; */
-	/* font-family: 'Titan One', cursive; */
-	font-family: 'Bungee Shade', cursive;
-	color: #10de70;
-	-webkit-text-stroke: 1px #181b26;
-	text-stroke: 1px #181b26;
-	/* font-size: 2.65rem; */
+	font-family: 'Rubik Bubbles', sans-serif;
+	/* font-family: 'Modak', sans-serif; */
+	/* font-family: 'Bowlby One SC', sans-serif; */
+	/* font-family: 'Titan One', sans-serif; */
+	/* font-family: 'Fugaz One', sans-serif; */
+	/* font-family: 'Knewave', sans-serif; */
+
+
+	-webkit-text-stroke: 1.5px #181b26;
+	text-stroke: 1.5px #393939;
+	text-shadow: 5px 5px 0px #393939;
+	/* -webkit-text-stroke: 1.5px blue; */
+	/* text-shadow: 5px 5px 0px red; */
 	font-size: 3.5rem;
 	font-weight: 1;
+	/* transform: skew(-17deg); */
 }
+
 .bg-yellow {
 	/* background-color: yellow; */
 }
 
 .bg-gray {
-	background-color: #a8a8a8;
+	/* background-color: #e2e2e2; */
 }
 
 .fusen1 {
@@ -30,8 +37,7 @@
 	background-color: #88b0cd;
 }
 .fusen3 {
-	/* background-color: #aad087; */
-	background-color: #e8e8e8;
+	/* background-color: #e8e8e8; */
 }
 .fusen4 {
 	/* background-color: #d0af87; */
@@ -42,7 +48,7 @@
 	border-color: #bdbdbd;
 }
 .shadow-center {
-	box-shadow: 1px 5px 1rem rgba(0, 0, 0, 0.25);
+	box-shadow: 2px 2px 1rem rgba(0, 0, 0, 0.7);
 }
 
 .input-no-focus {

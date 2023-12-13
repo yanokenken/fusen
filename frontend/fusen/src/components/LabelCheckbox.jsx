@@ -1,13 +1,15 @@
-function LabelCheckbox({ label, value, onChange }) {
+import { useState } from "react";
+function LabelCheckbox({ label, checked, onChange, colorSuffix }) {
+
   return (
-    <label className="cursor-pointer label">
-      <span className="badge badge-lg badge-ghost w-full mx-2">{label}</span>
+    <label className={`cursor-pointer label`}>
       <input
         type="checkbox"
-        className="toggle toggle-primary toggle-lg"
-        checked={value}
+        className={`checkbox me-4 `} // ここでclassNameを受け取る
+        checked={checked}
         onChange={onChange}
       />
+      <span className={`badge badge-lg w-full mx-2`}>{label}</span>
     </label>
   );
 }

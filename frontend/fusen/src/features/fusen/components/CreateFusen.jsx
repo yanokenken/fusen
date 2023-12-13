@@ -114,9 +114,9 @@ function CreateFusen({ handleAddFusen, closeDrawer }) {
         onClick={closeDrawer}
       ></label>
       <div className="w-100 lg:w-80">
-        <div className="px-4 pb-4 h-[85vh] bg-base-300 text-base-content overflow-x-auto always-show-scrollbar">
-          <p className="accent-title m-auto w-full text-center hidden lg:block">
-            fuseen
+        <div className="px-4 pb-4 h-[85vh] bg-base-300 overflow-x-auto always-show-scrollbar">
+          <p className="accent-title text-accent m-auto w-full text-center hidden lg:block">
+            FUSEEN
           </p>
           <div className="block lg:hidden lg:h-[15vh] bg-base-300 text-base-content flex items-center justify-center border-t">
             <div className="flex justify-between w-full mt-10">
@@ -127,29 +127,31 @@ function CreateFusen({ handleAddFusen, closeDrawer }) {
 
           <input
             type="text"
-            className="input input-bordered w-full mb-4 mt-4 lg:mt-0"
+            className="input w-full mb-4 mt-4 lg:mt-0 raunded-xl"
             placeholder="タスク名（必須）"
             onChange={(e) => handleInputChange(e, fusen.id, "title")}
           />
           <textarea
-            className="textarea textarea-bordered h-[8rem] w-full mb-4"
+            className="textarea h-[8rem] w-full mb-4 raunded-xl"
             placeholder="メモ（任意）"
             onChange={(e) => handleInputChange(e, fusen.id, "memo")}
           ></textarea>
           <div className="form-control w-full flex mb-4">
             <LabelCheckbox
               label="重要"
-              value={fusen ? fusen.isImportant : false}
+              checked={fusen ? fusen.isImportant : false}
               onChange={(e) => {
                 handleInputChange(e, fusen.id, "isImportant");
               }}
+              colorSuffix="warning"
             />
             <LabelCheckbox
               label="緊急"
-              value={fusen ? fusen.isUrgent : false}
+              checked={fusen ? fusen.isUrgent : false}
               onChange={(e) => {
                 handleInputChange(e, fusen.id, "isUrgent");
               }}
+              colorSuffix="error"
             />
           </div>
           <div className="w-full mb-4">
@@ -157,7 +159,7 @@ function CreateFusen({ handleAddFusen, closeDrawer }) {
               type="range"
               min={0}
               max="3"
-              value={fusen ? fusen.status : 0}
+              checked={fusen ? fusen.status : 0}
               className="range range-primary"
               onChange={(e) => handleInputChange(e, fusen.id, "status")}
             />
@@ -216,15 +218,15 @@ function CreateFusen({ handleAddFusen, closeDrawer }) {
                   </tbody>
                 </table>
               </div>
-              <div className="flex justify-center m-4">
+              <div className="flex justify-center my-4">
                 <button
                   className="btn btn-outline w-[90%]"
                   onClick={addCheckPoint}
                 >
+                  <span>チェックポイントを追加</span>
                   <span className="material-icons-outlined">
                     add_circle_outline
                   </span>
-                  <span>チェックポイントを追加</span>
                 </button>
               </div>
             </div>

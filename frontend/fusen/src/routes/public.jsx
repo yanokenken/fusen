@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
 import Landing from "../features/misc/routes/Landing";
-import Register from "../features/auth/routes/Register";
+import Confirm from "../features/auth/routes/Confirm";
 import FusenBoard from "../features/fusen/routes/FusenBoard";
 
 const App = () => {
@@ -17,7 +17,7 @@ export const publicRoutes = [{
 	children: [
 		{path: "/board", element: <FusenBoard isDemo={true} />},
 		{path: "/", element: <Landing />},
-		{path: "/register", element: <Register />},
+		{path: "/confirm", element: <Confirm />},
 		{path: "*", element: <Navigate to="/" />}
 	]
 }];

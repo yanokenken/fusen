@@ -120,7 +120,7 @@ function FusenModal({ modalId, selectedFusen, onFusenChange }) {
           type="text"
           className={`input input-bordered w-full mb-4 mt-4 lg:mt-0 `}
           placeholder="タスク名（必須）"
-          value={fusen ? fusen.fusenTitle : ""}
+          checked={fusen ? fusen.fusenTitle : ""}
           onChange={(e) => {
             handleInputChange(e, fusen.id, "title");
           }}
@@ -130,9 +130,9 @@ function FusenModal({ modalId, selectedFusen, onFusenChange }) {
             <span className="label-text">メモ（任意）</span>
           </label>
           <textarea
-            className={`textarea textarea-bordered h-24`}
+            className={`textarea textarea-bordered min-h-[10rem]`}
             placeholder="メモ（任意）"
-            value={fusen ? fusen.fusenMemo : ""}
+            checked={fusen ? fusen.fusenMemo : ""}
             onChange={(e) => {
               handleInputChange(e, fusen.id, "memo");
             }}
@@ -143,18 +143,20 @@ function FusenModal({ modalId, selectedFusen, onFusenChange }) {
           <LabelCheckbox
             key={fusen ? `${fusen.id}-important` : "important-default-key"}
             label="重要"
-            value={fusen ? fusen.isImportant : false}
+            checked={fusen ? fusen.isImportant : false}
             onChange={(e) => {
               handleInputChange(e, fusen.id, "isImportant");
             }}
+            colorSuffix="warning"
           />
           <LabelCheckbox
             key={fusen ? `${fusen.id}-urgent` : "urgent-default-key"}
             label="緊急"
-            value={fusen ? fusen.isUrgent : false}
+            checked={fusen ? fusen.isUrgent : false}
             onChange={(e) => {
               handleInputChange(e, fusen.id, "isUrgent");
             }}
+            colorSuffix="error"
           />
         </div>
 
@@ -163,7 +165,7 @@ function FusenModal({ modalId, selectedFusen, onFusenChange }) {
             type="range"
             min={0}
             max="3"
-            value={fusen ? fusen.status : 0}
+            checked={fusen ? fusen.status : 0}
             className="range range-primary"
             onChange={(e) => handleInputChange(e, fusen.id, "status")}
           />
@@ -175,7 +177,7 @@ function FusenModal({ modalId, selectedFusen, onFusenChange }) {
           </div>
         </div>
 
-        <div className="collapse collapse-open bg-base-200 w-full mb-4">
+        <div className="collapse collapse-open w-full mb-4 border border-base-300 shadow-xl">
           <div className="collapse-title text-md font-medium">
             チェックポイント（任意）
           </div>
@@ -238,16 +240,16 @@ function FusenModal({ modalId, selectedFusen, onFusenChange }) {
                 </tbody>
               </table>
             </div>
-            <div className={`flex justify-center m-4`}>
+            <div className={`flex justify-center my-4`}>
               {/* ボタンクリックでcheckpoint追加 */}
               <button
                 className="btn btn-outline w-[90%]"
                 onClick={addCheckPoint}
               >
+                <span>チェックポイントを追加</span>
                 <span className="material-icons-outlined">
                   add_circle_outline
                 </span>
-                <span>チェックポイントを追加</span>
               </button>
             </div>
           </div>

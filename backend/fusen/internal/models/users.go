@@ -14,6 +14,7 @@ import (
 	"time"
 
 	"github.com/friendsofgo/errors"
+	"github.com/volatiletech/null/v8"
 	"github.com/volatiletech/sqlboiler/v4/boil"
 	"github.com/volatiletech/sqlboiler/v4/queries"
 	"github.com/volatiletech/sqlboiler/v4/queries/qm"
@@ -23,72 +24,86 @@ import (
 
 // User is an object representing the database table.
 type User struct {
-	ID          int       `boil:"id" json:"id" toml:"id" yaml:"id"`
-	Name        string    `boil:"name" json:"name" toml:"name" yaml:"name"`
-	Email       string    `boil:"email" json:"email" toml:"email" yaml:"email"`
-	Password    string    `boil:"password" json:"password" toml:"password" yaml:"password"`
-	AccountType string    `boil:"account_type" json:"account_type" toml:"account_type" yaml:"account_type"`
-	CreatedAt   time.Time `boil:"created_at" json:"created_at" toml:"created_at" yaml:"created_at"`
-	UpdatedAt   time.Time `boil:"updated_at" json:"updated_at" toml:"updated_at" yaml:"updated_at"`
+	ID                int         `boil:"id" json:"id" toml:"id" yaml:"id"`
+	Name              string      `boil:"name" json:"name" toml:"name" yaml:"name"`
+	Email             string      `boil:"email" json:"email" toml:"email" yaml:"email"`
+	Password          string      `boil:"password" json:"password" toml:"password" yaml:"password"`
+	AccountType       string      `boil:"account_type" json:"account_type" toml:"account_type" yaml:"account_type"`
+	CreatedAt         time.Time   `boil:"created_at" json:"created_at" toml:"created_at" yaml:"created_at"`
+	UpdatedAt         time.Time   `boil:"updated_at" json:"updated_at" toml:"updated_at" yaml:"updated_at"`
+	ConfirmationToken null.String `boil:"confirmation_token" json:"confirmation_token,omitempty" toml:"confirmation_token" yaml:"confirmation_token,omitempty"`
+	Slug              null.String `boil:"slug" json:"slug,omitempty" toml:"slug" yaml:"slug,omitempty"`
 
 	R *userR `boil:"-" json:"-" toml:"-" yaml:"-"`
 	L userL  `boil:"-" json:"-" toml:"-" yaml:"-"`
 }
 
 var UserColumns = struct {
-	ID          string
-	Name        string
-	Email       string
-	Password    string
-	AccountType string
-	CreatedAt   string
-	UpdatedAt   string
+	ID                string
+	Name              string
+	Email             string
+	Password          string
+	AccountType       string
+	CreatedAt         string
+	UpdatedAt         string
+	ConfirmationToken string
+	Slug              string
 }{
-	ID:          "id",
-	Name:        "name",
-	Email:       "email",
-	Password:    "password",
-	AccountType: "account_type",
-	CreatedAt:   "created_at",
-	UpdatedAt:   "updated_at",
+	ID:                "id",
+	Name:              "name",
+	Email:             "email",
+	Password:          "password",
+	AccountType:       "account_type",
+	CreatedAt:         "created_at",
+	UpdatedAt:         "updated_at",
+	ConfirmationToken: "confirmation_token",
+	Slug:              "slug",
 }
 
 var UserTableColumns = struct {
-	ID          string
-	Name        string
-	Email       string
-	Password    string
-	AccountType string
-	CreatedAt   string
-	UpdatedAt   string
+	ID                string
+	Name              string
+	Email             string
+	Password          string
+	AccountType       string
+	CreatedAt         string
+	UpdatedAt         string
+	ConfirmationToken string
+	Slug              string
 }{
-	ID:          "users.id",
-	Name:        "users.name",
-	Email:       "users.email",
-	Password:    "users.password",
-	AccountType: "users.account_type",
-	CreatedAt:   "users.created_at",
-	UpdatedAt:   "users.updated_at",
+	ID:                "users.id",
+	Name:              "users.name",
+	Email:             "users.email",
+	Password:          "users.password",
+	AccountType:       "users.account_type",
+	CreatedAt:         "users.created_at",
+	UpdatedAt:         "users.updated_at",
+	ConfirmationToken: "users.confirmation_token",
+	Slug:              "users.slug",
 }
 
 // Generated where
 
 var UserWhere = struct {
-	ID          whereHelperint
-	Name        whereHelperstring
-	Email       whereHelperstring
-	Password    whereHelperstring
-	AccountType whereHelperstring
-	CreatedAt   whereHelpertime_Time
-	UpdatedAt   whereHelpertime_Time
+	ID                whereHelperint
+	Name              whereHelperstring
+	Email             whereHelperstring
+	Password          whereHelperstring
+	AccountType       whereHelperstring
+	CreatedAt         whereHelpertime_Time
+	UpdatedAt         whereHelpertime_Time
+	ConfirmationToken whereHelpernull_String
+	Slug              whereHelpernull_String
 }{
-	ID:          whereHelperint{field: "\"users\".\"id\""},
-	Name:        whereHelperstring{field: "\"users\".\"name\""},
-	Email:       whereHelperstring{field: "\"users\".\"email\""},
-	Password:    whereHelperstring{field: "\"users\".\"password\""},
-	AccountType: whereHelperstring{field: "\"users\".\"account_type\""},
-	CreatedAt:   whereHelpertime_Time{field: "\"users\".\"created_at\""},
-	UpdatedAt:   whereHelpertime_Time{field: "\"users\".\"updated_at\""},
+	ID:                whereHelperint{field: "\"users\".\"id\""},
+	Name:              whereHelperstring{field: "\"users\".\"name\""},
+	Email:             whereHelperstring{field: "\"users\".\"email\""},
+	Password:          whereHelperstring{field: "\"users\".\"password\""},
+	AccountType:       whereHelperstring{field: "\"users\".\"account_type\""},
+	CreatedAt:         whereHelpertime_Time{field: "\"users\".\"created_at\""},
+	UpdatedAt:         whereHelpertime_Time{field: "\"users\".\"updated_at\""},
+	ConfirmationToken: whereHelpernull_String{field: "\"users\".\"confirmation_token\""},
+	Slug:              whereHelpernull_String{field: "\"users\".\"slug\""},
 }
 
 // UserRels is where relationship names are stored.
@@ -149,9 +164,9 @@ func (r *userR) GetTags() TagSlice {
 type userL struct{}
 
 var (
-	userAllColumns            = []string{"id", "name", "email", "password", "account_type", "created_at", "updated_at"}
+	userAllColumns            = []string{"id", "name", "email", "password", "account_type", "created_at", "updated_at", "confirmation_token", "slug"}
 	userColumnsWithoutDefault = []string{"name", "email", "password"}
-	userColumnsWithDefault    = []string{"id", "account_type", "created_at", "updated_at"}
+	userColumnsWithDefault    = []string{"id", "account_type", "created_at", "updated_at", "confirmation_token", "slug"}
 	userPrimaryKeyColumns     = []string{"id"}
 	userGeneratedColumns      = []string{}
 )
