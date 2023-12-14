@@ -155,6 +155,7 @@ function CreateFusen({ handleAddFusen, closeDrawer }) {
             />
           </div>
           <div className="w-full mb-4">
+            {fusen ? fusen.status:"test"}
             <input
               type="range"
               min={0}

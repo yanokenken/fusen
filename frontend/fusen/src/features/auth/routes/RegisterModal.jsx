@@ -75,7 +75,7 @@ function RegisterModal(modalId) {
 
   return (
     <>
-      <input type="checkbox" id="register_modal" className="modal-toggle" />
+      <input type="checkbox" id="register_modal" className="modal-toggle" onChange={()=>{}}/>
       <div className="modal">
         <div className="modal-box">
           <h1 className="text-center">

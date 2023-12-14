@@ -56,6 +56,7 @@ function Fusen(props) {
                                 className="checkbox checkbox-sm"
                                 checked={checkpoint.isChecked}
                                 disabled={true}
+                                readOnly={true}
                               />
                             </td>
                             <td className="text-left text-xs">
