@@ -5,6 +5,7 @@ function Confirm() {
 
 
 	const [message, setMessage] = useState("メールアドレスの確認中です...");
+	const [isSuccess, setIsSuccess] = useState(false);
 
 	useEffect(() => {
 		emailConfirm();
@@ -20,16 +21,15 @@ function Confirm() {
 		putConfirm(token)
 			.then((res) => {
 				console.log(res);
-				setMessage("メールアドレスの確認が完了しました。ログインしてください");
+				setIsSuccess(true)
 			}).catch((error) => {
+				setIsSuccess(false)
 				if (error.response) {
-					console.log(error.response.data);
-					alert(error.response.data);
+					console.error(error.response.data);
 				} else {
-					console.log("Error", error.message);
-					alert(error.message);
+					console.error("Error", error.message);
 				}
-				setMessage("メールアドレスの確認に失敗しました。メールに記載されたURLを再度クリックしてください");
+				setMessage("メールアドレスの確認に失敗しました。 ");
 			});
 		};
 
@@ -39,10 +39,29 @@ function Confirm() {
     <>
 			<div className="hero min-h-screen bg-base-200">
 				<div className="hero-content text-center">
-					<div className="max-w-md">
-						<h1 className="text-5xl font-bold">登録ありがとうございます！</h1>
-						<p className="py-6">{message}</p>
-						<label htmlFor="login_modal" className="btn btn-outline btn-primary w-[10rem]">ログイン</label>
+					<div className="">
+					<p className="accent-title text-accent m-auto w-full text-center  pb-12">
+			      FUSEEN
+					</p>
+
+						{isSuccess ?
+						<>
+							<h1 className="text-3xl font-bold">登録ありがとうございます。</h1>
+							<p className="py-6 break-words whitespace-pre-wrap">
+								メールアドレスの確認が完了しました。
+								<br />
+								そのままログインしてください
+							</p>
+							<label htmlFor="login_modal" className="btn btn-outline btn-primary w-[10rem]">ログイン</label>
+						</>
+						:
+						<>
+							<h1 className="text-3xl font-bold">メールアドレスの確認に失敗しました😢</h1>
+							<p className="py-6 break-words whitespace-pre-wrap">
+								メールに記載されたURLから再度アクセスしてください。
+							</p>
+						</>
+						}
 					</div>
 				</div>
 			</div>

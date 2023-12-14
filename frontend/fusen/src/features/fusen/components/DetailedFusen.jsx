@@ -26,7 +26,7 @@ function Fusen(props) {
   return (
     <>
       <div
-        className={`card fusen bg-base-200 text-base-content shadow-lg my-2 cursor-pointer ${fusen.fusenColor}`}
+        className={`card fusen bg-base-200 text-base-content shadow-lg my-2 cursor-pointer ${fusen.fusenColor}  hover:bg-red transition-all duration-200 hover:-translate-y-5" `}
         onClick={(e) => props.onClick(e)}
       >
         <div className="card-body relative">

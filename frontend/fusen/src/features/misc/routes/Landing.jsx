@@ -60,7 +60,7 @@ function Landing() {
                 className=" block lg:hidden max-w-[90%] rounded-lg"
               />
 
-            <Link className="btn btn-ghost btn-outline btn-primary  mt-10" to="/board">
+            <Link className="btn btn-ghost btn-outline btn-primary  mt-10" to="/demo">
               ちょっと触ってみる
               <span className="material-icons-outlined">rocket_launch</span>
             </Link>
