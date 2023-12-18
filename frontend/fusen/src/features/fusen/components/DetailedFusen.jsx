@@ -26,7 +26,7 @@ function Fusen(props) {
   return (
     <>
       <div
-        className={`card fusen bg-base-200 text-base-content shadow-lg my-2 cursor-pointer ${fusen.fusenColor}`}
+        className={`card fusen bg-base-200 text-base-content shadow-lg my-2 cursor-pointer ${fusen.fusenColor}  hover:bg-red transition-all duration-200 hover:-translate-y-5" `}
         onClick={(e) => props.onClick(e)}
       >
         <div className="card-body relative">
@@ -56,6 +56,7 @@ function Fusen(props) {
                                 className="checkbox checkbox-sm"
                                 checked={checkpoint.isChecked}
                                 disabled={true}
+                                readOnly={true}
                               />
                             </td>
                             <td className="text-left text-xs">
@@ -92,12 +93,12 @@ function Fusen(props) {
               ""
             )}
             {fusen.isImportant ? (
-              <div className="badge badge-warning text-xs whitespace-nowrap">重要</div>
+              <div className="badge badge-base text-xs whitespace-nowrap">重要</div>
             ) : (
               ""
             )}
             {fusen.isUrgent ? (
-              <div className="badge badge-error text-xs whitespace-nowrap">緊急</div>
+              <div className="badge badge-base text-xs whitespace-nowrap">緊急</div>
             ) : (
               ""
             )}

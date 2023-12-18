@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import LabelCheckbox from "../../../components/LabelCheckbox";
 import { generateNanoId } from "../../../utils/generateId";
 import postFusen from "../api/postFusen";
+import {　useRecoilValue } from "recoil";
+import { settingsState } from "../../../state/atoms";
 
 function CreateFusen({ handleAddFusen, closeDrawer }) {
   let emptyFusen = {
@@ -13,6 +15,7 @@ function CreateFusen({ handleAddFusen, closeDrawer }) {
     status: 0,
     checkpoints: [],
   };
+  const settings = useRecoilValue(settingsState);
 
   const [fusen, setFusen] = useState(emptyFusen); // 付箋の情報
 
@@ -116,7 +119,8 @@ function CreateFusen({ handleAddFusen, closeDrawer }) {
       <div className="w-100 lg:w-80">
         <div className="px-4 pb-4 h-[85vh] bg-base-300 overflow-x-auto always-show-scrollbar">
           <p className="accent-title text-accent m-auto w-full text-center hidden lg:block">
-            FUSEEN
+            {settings.title}
+            
           </p>
           <div className="block lg:hidden lg:h-[15vh] bg-base-300 text-base-content flex items-center justify-center border-t">
             <div className="flex justify-between w-full mt-10">
@@ -129,11 +133,13 @@ function CreateFusen({ handleAddFusen, closeDrawer }) {
             type="text"
             className="input w-full mb-4 mt-4 lg:mt-0 raunded-xl"
             placeholder="タスク名（必須）"
+            value={fusen ? fusen.fusenTitle : ""}
             onChange={(e) => handleInputChange(e, fusen.id, "title")}
           />
           <textarea
             className="textarea h-[8rem] w-full mb-4 raunded-xl"
             placeholder="メモ（任意）"
+            value={fusen ? fusen.fusenMemo : ""}
             onChange={(e) => handleInputChange(e, fusen.id, "memo")}
           ></textarea>
           <div className="form-control w-full flex mb-4">
@@ -158,8 +164,8 @@ function CreateFusen({ handleAddFusen, closeDrawer }) {
             <input
               type="range"
               min={0}
-              max="3"
-              checked={fusen ? fusen.status : 0}
+              max={3}
+              value={fusen ? fusen.status : 0}
               className="range range-primary"
               onChange={(e) => handleInputChange(e, fusen.id, "status")}
             />
@@ -220,7 +226,7 @@ function CreateFusen({ handleAddFusen, closeDrawer }) {
               </div>
               <div className="flex justify-center my-4">
                 <button
-                  className="btn btn-outline w-[90%]"
+                  className="btn btn-outline w-[90%] hover:btn-neutral"
                   onClick={addCheckPoint}
                 >
                   <span>チェックポイントを追加</span>

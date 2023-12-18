@@ -21,7 +21,7 @@ function FusenBoard(isDemo) {
 	}
   return (
 <div className="drawer lg:drawer-open">
-  <input id="my-drawer-2" type="checkbox" className="drawer-toggle" checked={isDrawerOpen} />
+  <input id="my-drawer-2" type="checkbox" className="drawer-toggle" defaultChecked={isDrawerOpen} />
   <div className="drawer-content flex flex-col items-center justify-center">
     {/* メインコンテンツエリア */}
 		{/* sp表示時の付箋追加ボタン start */}

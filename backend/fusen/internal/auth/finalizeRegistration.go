@@ -4,7 +4,6 @@ import (
 	"context"
 	"fusen/db"
 	"fusen/internal/models"
-	"log"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
@@ -28,8 +27,6 @@ func FinalizeRegistration (c echo.Context) error {
 	if err := c.Bind(&user); err != nil {
 		return err
 	}
-	log.Println("confirm------------1")
-	log.Println(user.ConfirmationToken)
 	// tokenに一致するユーザーを取得する
 	user, err = models.Users(models.UserWhere.ConfirmationToken.EQ(user.ConfirmationToken)).One(context.Background(), db)	
 	if err != nil {
@@ -45,7 +42,6 @@ func FinalizeRegistration (c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	log.Println(id)
 	
 	return c.JSON(http.StatusOK, id)
 }

@@ -15,7 +15,7 @@ export const publicRoutes = [{
 	path: "/",
 	element: <App />,
 	children: [
-		{path: "/board", element: <FusenBoard isDemo={true} />},
+		{path: "/demo", element: <FusenBoard />},
 		{path: "/", element: <Landing />},
 		{path: "/confirm", element: <Confirm />},
 		{path: "*", element: <Navigate to="/" />}

@@ -13,7 +13,7 @@ services:
     tty: true
     
   go:
-    container_name: fusen_go
+    container_name: fusen_god
     build: ./backend
     volumes:
       - ./backend:/app
@@ -33,6 +33,7 @@ services:
       - SMTP_PORT=${SMTP_PORT}
       - SMTP_USER=${SMTP_USER}
       - SMTP_PASSWORD=${SMTP_PASSWORD}
+      - JWT_KEY=${JWT_KEY}
 
     depends_on:
       - postgres

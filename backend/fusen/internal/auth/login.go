@@ -32,6 +32,8 @@ func Login(c echo.Context) error {
 	if !CompareHashAndPassword(loginUser.Password, user.Password) {
 		return c.JSON(http.StatusUnauthorized, "メールアドレス、またはパスワードが間違っています")
 	}
-	return c.JSON(http.StatusOK, loginUser)
+
+	jwt := CreateJwt(c, loginUser)
+	return c.JSON(http.StatusOK, jwt)
 
 }

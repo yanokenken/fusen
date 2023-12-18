@@ -24,7 +24,6 @@ function RegisterModal(modalId) {
 
     postRegister(userInfo)
       .then((res) => {
-        console.log(res);
         // SimpleModalを開く
         alert(
           "登録に成功しました。届いた確認メールからメール認証を行ってください"
@@ -75,7 +74,7 @@ function RegisterModal(modalId) {
 
   return (
     <>
-      <input type="checkbox" id="register_modal" className="modal-toggle" />
+      <input type="checkbox" id="register_modal" className="modal-toggle" onChange={()=>{}}/>
       <div className="modal">
         <div className="modal-box">
           <h1 className="text-center">
