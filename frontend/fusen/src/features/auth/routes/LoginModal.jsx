@@ -1,9 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import { login } from "../../auth/api/login"; 
+import Cookies from "js-cookie";
+import { login } from "../api/login"; 
+import { getUser } from "../api/getUser";
+import { useRecoilState } from "recoil";
+import { settingsState, userState } from "../../../state/atoms";
+
+
 function LoginModal(modalId) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [settings, setSettings] = useRecoilState(settingsState);
+  const [user, setUser] = useRecoilState(userState);  
 
   const navigate = useNavigate();
 
@@ -11,6 +19,17 @@ function LoginModal(modalId) {
     login(email, password)
       .then((res) => {
         console.log(res);
+        setSettings({...settings, mode: "normal", title: "FUSEEN" });
+        // jwtをcookieに保存
+        Cookies.set("auth", res.data, { path: "/", expires: 1 });
+        // user情報を取得・state管理
+        getUser().then((res) => {
+          console.log('user: ',res);
+          setUser(res.data);
+        });
+
+
+
         navigate("/board");
       }).catch((error) => {
         if (error.response) {

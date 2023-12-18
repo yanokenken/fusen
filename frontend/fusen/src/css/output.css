@@ -3619,10 +3619,6 @@ details.collapse summary::-webkit-details-marker {
   max-width: 90%;
 }
 
-.max-w-md {
-  max-width: 28rem;
-}
-
 .max-w-xs {
   max-width: 20rem;
 }
@@ -3986,6 +3982,32 @@ details.collapse summary::-webkit-details-marker {
 
 .duration-200 {
   transition-duration: 200ms;
+}
+
+@media (hover: hover) {
+  .hover\:btn-neutral:hover:hover {
+    --tw-border-opacity: 1;
+    border-color: hsl(var(--nf) / var(--tw-border-opacity));
+    --tw-bg-opacity: 1;
+    background-color: hsl(var(--nf) / var(--tw-bg-opacity));
+  }
+}
+
+.hover\:btn-neutral:hover {
+  --tw-border-opacity: 1;
+  border-color: hsl(var(--n) / var(--tw-border-opacity));
+  --tw-bg-opacity: 1;
+  background-color: hsl(var(--n) / var(--tw-bg-opacity));
+  --tw-text-opacity: 1;
+  color: hsl(var(--nc) / var(--tw-text-opacity));
+  outline-color: hsl(var(--n) / 1);
+}
+
+.hover\:btn-neutral:hover.btn-active {
+  --tw-border-opacity: 1;
+  border-color: hsl(var(--nf) / var(--tw-border-opacity));
+  --tw-bg-opacity: 1;
+  background-color: hsl(var(--nf) / var(--tw-bg-opacity));
 }
 
 @media (min-width: 1024px) {

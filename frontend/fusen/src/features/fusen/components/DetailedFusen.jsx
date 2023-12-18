@@ -93,12 +93,12 @@ function Fusen(props) {
               ""
             )}
             {fusen.isImportant ? (
-              <div className="badge badge-warning text-xs whitespace-nowrap">重要</div>
+              <div className="badge badge-base text-xs whitespace-nowrap">重要</div>
             ) : (
               ""
             )}
             {fusen.isUrgent ? (
-              <div className="badge badge-error text-xs whitespace-nowrap">緊急</div>
+              <div className="badge badge-base text-xs whitespace-nowrap">緊急</div>
             ) : (
               ""
             )}

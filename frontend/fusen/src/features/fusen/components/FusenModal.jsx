@@ -120,7 +120,7 @@ function FusenModal({ modalId, selectedFusen, onFusenChange }) {
           type="text"
           className={`input input-bordered w-full mb-4 mt-4 lg:mt-0 `}
           placeholder="タスク名（必須）"
-          checked={fusen ? fusen.fusenTitle : ""}
+          value={fusen ? fusen.fusenTitle : ""}
           onChange={(e) => {
             handleInputChange(e, fusen.id, "title");
           }}
@@ -132,7 +132,7 @@ function FusenModal({ modalId, selectedFusen, onFusenChange }) {
           <textarea
             className={`textarea textarea-bordered min-h-[10rem]`}
             placeholder="メモ（任意）"
-            checked={fusen ? fusen.fusenMemo : ""}
+            value={fusen ? fusen.fusenMemo : ""}
             onChange={(e) => {
               handleInputChange(e, fusen.id, "memo");
             }}
@@ -165,7 +165,7 @@ function FusenModal({ modalId, selectedFusen, onFusenChange }) {
             type="range"
             min={0}
             max="3"
-            checked={fusen ? fusen.status : 0}
+            value={fusen ? fusen.status : 0}
             className="range range-primary"
             onChange={(e) => handleInputChange(e, fusen.id, "status")}
           />
@@ -193,7 +193,7 @@ function FusenModal({ modalId, selectedFusen, onFusenChange }) {
                           <label className={`label cursor-pointer block`}>
                             <input
                               type="checkbox"
-                              className="checkbox"
+                              className="checkbox hover:checkbox-neutral"
                               checked={checkpoint.isChecked}
                               onChange={(e) =>
                                 handleInputChange(
@@ -243,7 +243,7 @@ function FusenModal({ modalId, selectedFusen, onFusenChange }) {
             <div className={`flex justify-center my-4`}>
               {/* ボタンクリックでcheckpoint追加 */}
               <button
-                className="btn btn-outline w-[90%]"
+                className="btn btn-outline w-[90%] hover:btn-neutral"
                 onClick={addCheckPoint}
               >
                 <span>チェックポイントを追加</span>

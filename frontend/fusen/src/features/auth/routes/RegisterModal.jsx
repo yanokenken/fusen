@@ -24,7 +24,6 @@ function RegisterModal(modalId) {
 
     postRegister(userInfo)
       .then((res) => {
-        console.log(res);
         // SimpleModalを開く
         alert(
           "登録に成功しました。届いた確認メールからメール認証を行ってください"

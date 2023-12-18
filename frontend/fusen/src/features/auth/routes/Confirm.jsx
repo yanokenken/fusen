@@ -4,7 +4,6 @@ import { putConfirm } from "../api/putConfirm";
 function Confirm() {
 
 
-	const [message, setMessage] = useState("メールアドレスの確認中です...");
 	const [isSuccess, setIsSuccess] = useState(false);
 
 	useEffect(() => {
@@ -16,11 +15,9 @@ function Confirm() {
 		// urlからtokenを取得
 		const url = new URL(window.location.href);
 		const token = url.searchParams.get("token");
-		console.log(token);
 
 		putConfirm(token)
 			.then((res) => {
-				console.log(res);
 				setIsSuccess(true)
 			}).catch((error) => {
 				setIsSuccess(false)
@@ -29,7 +26,6 @@ function Confirm() {
 				} else {
 					console.error("Error", error.message);
 				}
-				setMessage("メールアドレスの確認に失敗しました。 ");
 			});
 		};
 

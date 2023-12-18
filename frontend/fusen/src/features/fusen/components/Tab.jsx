@@ -1,12 +1,20 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import FusenModal from "./FusenModal";
 import MatrixView from "./MatrixView";
 import ListView from "./ListView";
+import Cookies from 'js-cookie';
+import { useRecoilState } from "recoil";
+import { settingsState, userState } from "../../../state/atoms";
+
 
 function Tab({fusens, setFusens}) {
   const [selectetedFusen, setSelectedFusen] = useState(null);
   const [activeTab, setActiveTab] = useState("list"); 
+  const [settings, setSettings] = useRecoilState(settingsState);
+  const [user, setUser] = useRecoilState(userState);  
+
+  const navigate = useNavigate();
 
   const handleFusenClick = (fusen) => {
     setSelectedFusen(fusen);
@@ -16,12 +24,19 @@ function Tab({fusens, setFusens}) {
   const handleFusenChange = (updatedFusen) => {
     setFusens(prevFusens => prevFusens.map(fusen => fusen.id === updatedFusen.id ? updatedFusen : fusen));
   };
+  const _logout = () => {
+    Cookies.remove('auth');
+    setUser({...user, name:"お試し太郎", });
+    setSettings({...settings, mode: "mock", title: "preview" });
+    navigate("/");
+  };
+
 
   return (
     <>
       <div className="min-h-screen h-fill-available w-full p-4  flex flex-col">
         <p className="accent-title text-accent mt-[-16px] w-full text-center lg:hidden">
-          FUSEEN
+          {settings.title}
         </p>
         <div className="flex justify-between mb-2">
           <div className="tabs tabs-boxed bg-base-300">
@@ -37,19 +52,17 @@ function Tab({fusens, setFusens}) {
             <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
               <li>
                 <a className="justify-between">
-                  プロフィール
+                  {user && user.name}
 
                   <div className="avatar">
                     <div className="rounded-full m-1 bg-white">
                       <span className="material-icons-outlined">person</span>
                     </div>
                   </div>
-
-
                 </a>
               </li>
               <li><a>個人設定</a></li>
-              <li><Link to="/">ログアウト</Link></li>
+              <li><label onClick={_logout}>ログアウト</label></li>
             </ul>
           </div>
 

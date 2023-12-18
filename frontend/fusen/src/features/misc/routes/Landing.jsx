@@ -1,7 +1,21 @@
-import { Link } from "react-router-dom";
 import LoginModal from "../../auth/routes/LoginModal";
 import RegisterModal from "../../auth/routes/RegisterModal";
+import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { settingsState, userState } from "../../../state/atoms";
+
+
 function Landing() {
+  const [settings, setSettings] = useRecoilState(settingsState);
+  const [user, setUser] = useRecoilState(userState);  
+
+  const navigate = useNavigate();
+
+  const playMock = () => {
+    setUser({...user, name:"お試し太郎", });
+    setSettings({...settings, mode: "mock", title: "PREVIEW" });
+    navigate("/demo");
+  };
   return (
     <>
       <div className="min-h-screen bg-base-200 overflow-hidden">
@@ -60,10 +74,10 @@ function Landing() {
                 className=" block lg:hidden max-w-[90%] rounded-lg"
               />
 
-            <Link className="btn btn-ghost btn-outline btn-primary  mt-10" to="/demo">
+            <label className="btn btn-ghost btn-outline btn-primary  mt-10" onClick={playMock}>
               ちょっと触ってみる
               <span className="material-icons-outlined">rocket_launch</span>
-            </Link>
+            </label>
           </div>
         </div>
       </div>

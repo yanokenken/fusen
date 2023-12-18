@@ -5,7 +5,7 @@ function LabelCheckbox({ label, checked, onChange, colorSuffix }) {
     <label className={`cursor-pointer label`}>
       <input
         type="checkbox"
-        className={`checkbox me-4 `} // ここでclassNameを受け取る
+        className={`checkbox me-4 checkbox-neutral`} // ここでclassNameを受け取る
         checked={checked}
         onChange={onChange}
       />
