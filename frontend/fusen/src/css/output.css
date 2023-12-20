@@ -436,18 +436,22 @@ html {
 }
 
 :root {
-  color-scheme: dark;
+  --p: 262 80% 50%;
   --pf: 262 80% 43%;
-  --sf: 316 70% 43%;
+  --sf: 316 53% 44%;
   --af: 175 70% 34%;
-  --in: 198 93% 60%;
-  --su: 158 64% 52%;
-  --wa: 43 96% 56%;
-  --er: 0 91% 71%;
-  --inc: 198 100% 12%;
-  --suc: 158 100% 10%;
-  --wac: 43 100% 11%;
-  --erc: 0 100% 14%;
+  --nf: 213 18% 13%;
+  --b2: 212 18% 7%;
+  --b3: 0 0% 0%;
+  --bc: 214 3% 81%;
+  --pc: 268 87% 91%;
+  --sc: 322 61% 91%;
+  --ac: 173 30% 11%;
+  --nc: 215 5% 82%;
+  --inc: 202 34% 14%;
+  --suc: 152 31% 13%;
+  --wac: 39 47% 13%;
+  --erc: 3 29% 15%;
   --rounded-box: 1rem;
   --rounded-btn: 0.5rem;
   --rounded-badge: 1.9rem;
@@ -458,34 +462,33 @@ html {
   --border-btn: 1px;
   --tab-border: 1px;
   --tab-radius: 0.5rem;
-  --p: 262 80% 50%;
-  --pc: 0 0% 100%;
-  --s: 316 70% 50%;
-  --sc: 0 0% 100%;
+  --s: 316 53% 51%;
   --a: 175 70% 41%;
-  --ac: 0 0% 100%;
   --n: 213 18% 20%;
-  --nf: 212 17% 17%;
-  --nc: 220 13% 69%;
   --b1: 212 18% 14%;
-  --b2: 213 18% 12%;
-  --b3: 213 18% 10%;
-  --bc: 220 13% 69%;
+  --in: 198 93% 60%;
+  --su: 158 64% 52%;
+  --wa: 43 96% 56%;
+  --er: 0 91% 71%;
 }
 
 [data-theme=dark] {
-  color-scheme: dark;
+  --p: 262 80% 50%;
   --pf: 262 80% 43%;
-  --sf: 316 70% 43%;
+  --sf: 316 53% 44%;
   --af: 175 70% 34%;
-  --in: 198 93% 60%;
-  --su: 158 64% 52%;
-  --wa: 43 96% 56%;
-  --er: 0 91% 71%;
-  --inc: 198 100% 12%;
-  --suc: 158 100% 10%;
-  --wac: 43 100% 11%;
-  --erc: 0 100% 14%;
+  --nf: 213 18% 13%;
+  --b2: 212 18% 7%;
+  --b3: 0 0% 0%;
+  --bc: 214 3% 81%;
+  --pc: 268 87% 91%;
+  --sc: 322 61% 91%;
+  --ac: 173 30% 11%;
+  --nc: 215 5% 82%;
+  --inc: 202 34% 14%;
+  --suc: 152 31% 13%;
+  --wac: 39 47% 13%;
+  --erc: 3 29% 15%;
   --rounded-box: 1rem;
   --rounded-btn: 0.5rem;
   --rounded-badge: 1.9rem;
@@ -496,32 +499,27 @@ html {
   --border-btn: 1px;
   --tab-border: 1px;
   --tab-radius: 0.5rem;
-  --p: 262 80% 50%;
-  --pc: 0 0% 100%;
-  --s: 316 70% 50%;
-  --sc: 0 0% 100%;
+  --s: 316 53% 51%;
   --a: 175 70% 41%;
-  --ac: 0 0% 100%;
   --n: 213 18% 20%;
-  --nf: 212 17% 17%;
-  --nc: 220 13% 69%;
   --b1: 212 18% 14%;
-  --b2: 213 18% 12%;
-  --b3: 213 18% 10%;
-  --bc: 220 13% 69%;
+  --in: 198 93% 60%;
+  --su: 158 64% 52%;
+  --wa: 43 96% 56%;
+  --er: 0 91% 71%;
 }
 
 [data-theme=light] {
   --p: 259 94% 51%;
   --pf: 259 94% 44%;
-  --sf: 314 100% 40%;
+  --sf: 44 100% 45%;
   --af: 148 100% 39%;
   --nf: 215 17% 18%;
   --b2: 205 33% 86%;
   --b3: 205 33% 79%;
   --bc: 205 2% 18%;
   --pc: 267 100% 91%;
-  --sc: 323 100% 93%;
+  --sc: 39 50% 13%;
   --ac: 132 36% 13%;
   --nc: 217 6% 84%;
   --inc: 213 100% 93%;
@@ -538,7 +536,7 @@ html {
   --border-btn: 1px;
   --tab-border: 1px;
   --tab-radius: 0.5rem;
-  --s: 314 100% 47%;
+  --s: 44 100% 52%;
   --a: 148 100% 46%;
   --n: 215 17% 25%;
   --b1: 205 33% 93%;
@@ -665,14 +663,14 @@ html {
 [data-theme=light2] {
   --p: 231 60% 55%;
   --pf: 231 60% 48%;
-  --sf: 224 66% 59%;
+  --sf: 44 100% 45%;
   --af: 83 98% 43%;
   --nf: 215 13% 26%;
   --b2: 231 23% 87%;
   --b3: 231 23% 80%;
   --bc: 232 1% 18%;
   --pc: 244 62% 91%;
-  --sc: 228 23% 14%;
+  --sc: 39 50% 13%;
   --ac: 86 45% 13%;
   --nc: 217 7% 86%;
   --inc: 226 68% 92%;
@@ -689,7 +687,7 @@ html {
   --border-btn: 1px;
   --tab-border: 1px;
   --tab-radius: 0.5rem;
-  --s: 224 66% 66%;
+  --s: 44 100% 52%;
   --a: 83 98% 50%;
   --n: 215 13% 33%;
   --b1: 231 23% 94%;
@@ -700,22 +698,22 @@ html {
 }
 
 [data-theme=light3] {
-  --p: 4 60% 70%;
-  --pf: 4 60% 63%;
-  --sf: 303 79% 46%;
-  --af: 16 100% 59%;
-  --nf: 0 0% 37%;
-  --b2: 240 7% 90%;
-  --b3: 240 7% 83%;
-  --bc: 240 0% 18%;
-  --pc: 5 20% 14%;
-  --sc: 310 95% 93%;
-  --ac: 17 39% 14%;
-  --nc: 145 0% 88%;
-  --inc: 190 16% 15%;
-  --suc: 174 21% 15%;
-  --wac: 44 44% 13%;
-  --erc: 11 44% 13%;
+  --p: 5 62% 70%;
+  --pf: 5 62% 63%;
+  --sf: 47 82% 50%;
+  --af: 5 87% 69%;
+  --nf: 330 8% 68%;
+  --b2: 210 20% 89%;
+  --b3: 210 20% 82%;
+  --bc: 210 1% 18%;
+  --pc: 6 20% 15%;
+  --sc: 44 40% 13%;
+  --ac: 6 21% 15%;
+  --nc: 330 2% 15%;
+  --inc: 218 31% 13%;
+  --suc: 156 31% 13%;
+  --wac: 46 47% 11%;
+  --erc: 10 100% 91%;
   --rounded-box: 1rem;
   --rounded-btn: 0.5rem;
   --rounded-badge: 1.9rem;
@@ -726,29 +724,29 @@ html {
   --border-btn: 1px;
   --tab-border: 1px;
   --tab-radius: 0.5rem;
-  --s: 303 79% 53%;
-  --a: 16 100% 66%;
-  --n: 0 0% 44%;
-  --b1: 240 7% 97%;
-  --in: 190 64% 73%;
-  --su: 175 73% 69%;
-  --wa: 47 89% 55%;
-  --er: 7 86% 60%;
+  --s: 47 82% 57%;
+  --a: 5 87% 76%;
+  --n: 330 8% 75%;
+  --b1: 210 20% 96%;
+  --in: 213 72% 58%;
+  --su: 161 73% 56%;
+  --wa: 50 88% 41%;
+  --er: 359 74% 52%;
 }
 
 [data-theme=light4] {
-  --p: 153 60% 55%;
-  --pf: 153 60% 48%;
-  --sf: 36 93% 50%;
+  --p: 36 93% 57%;
+  --pf: 36 93% 50%;
+  --sf: 153 60% 48%;
   --af: 83 98% 43%;
-  --nf: 240 3% 86%;
+  --nf: 240 1% 68%;
   --b2: 240 3% 86%;
   --b3: 240 3% 79%;
   --bc: 240 0% 18%;
-  --pc: 147 28% 13%;
-  --sc: 33 47% 13%;
+  --pc: 33 47% 13%;
+  --sc: 147 28% 13%;
   --ac: 86 45% 13%;
-  --nc: 240 0% 18%;
+  --nc: 240 0% 15%;
   --inc: 201 20% 15%;
   --suc: 145 40% 89%;
   --wac: 27 58% 12%;
@@ -763,9 +761,9 @@ html {
   --border-btn: 1px;
   --tab-border: 1px;
   --tab-radius: 0.5rem;
-  --s: 36 93% 57%;
+  --s: 153 60% 55%;
   --a: 83 98% 50%;
-  --n: 240 3% 93%;
+  --n: 240 1% 75%;
   --b1: 240 3% 93%;
   --in: 200 77% 72%;
   --su: 157 78% 37%;
@@ -813,14 +811,14 @@ html {
 [data-theme=dark3] {
   --p: 296 90% 88%;
   --pf: 296 90% 81%;
-  --sf: 299 62% 48%;
+  --sf: 175 70% 34%;
   --af: 333 100% 62%;
   --nf: 243 28% 10%;
   --b2: 230 35% 23%;
   --b3: 230 35% 16%;
   --bc: 237 15% 85%;
   --pc: 297 10% 17%;
-  --sc: 305 71% 92%;
+  --sc: 173 30% 11%;
   --ac: 337 31% 15%;
   --nc: 248 7% 82%;
   --inc: 223 33% 14%;
@@ -837,7 +835,7 @@ html {
   --border-btn: 1px;
   --tab-border: 1px;
   --tab-radius: 0.5rem;
-  --s: 299 62% 55%;
+  --s: 175 70% 41%;
   --a: 333 100% 69%;
   --n: 243 28% 17%;
   --b1: 230 35% 30%;
@@ -1941,6 +1939,15 @@ html {
   background-color: hsl(var(--p) / var(--tw-bg-opacity));
   --tw-text-opacity: 1;
   color: hsl(var(--pc) / var(--tw-text-opacity));
+}
+
+.badge-secondary {
+  --tw-border-opacity: 1;
+  border-color: hsl(var(--s) / var(--tw-border-opacity));
+  --tw-bg-opacity: 1;
+  background-color: hsl(var(--s) / var(--tw-bg-opacity));
+  --tw-text-opacity: 1;
+  color: hsl(var(--sc) / var(--tw-text-opacity));
 }
 
 .badge-accent {
@@ -3750,17 +3757,44 @@ details.collapse summary::-webkit-details-marker {
   border-radius: 0.75rem;
 }
 
+.rounded-tl-xl {
+  border-top-left-radius: 0.75rem;
+}
+
 .border {
   border-width: 1px;
+}
+
+.border-l-2 {
+  border-left-width: 2px;
 }
 
 .border-t {
   border-top-width: 1px;
 }
 
+.border-t-2 {
+  border-top-width: 2px;
+}
+
+.border-accent {
+  --tw-border-opacity: 1;
+  border-color: hsl(var(--a) / var(--tw-border-opacity));
+}
+
 .border-base-300 {
   --tw-border-opacity: 1;
   border-color: hsl(var(--b3) / var(--tw-border-opacity));
+}
+
+.border-primary {
+  --tw-border-opacity: 1;
+  border-color: hsl(var(--p) / var(--tw-border-opacity));
+}
+
+.border-secondary {
+  --tw-border-opacity: 1;
+  border-color: hsl(var(--s) / var(--tw-border-opacity));
 }
 
 .bg-base-100 {
@@ -3850,6 +3884,10 @@ details.collapse summary::-webkit-details-marker {
 
 .pb-4 {
   padding-bottom: 1rem;
+}
+
+.ps-1 {
+  padding-inline-start: 0.25rem;
 }
 
 .ps-10 {
@@ -4010,12 +4048,12 @@ details.collapse summary::-webkit-details-marker {
   background-color: hsl(var(--nf) / var(--tw-bg-opacity));
 }
 
-@media (min-width: 1024px) {
-  .lg\:drawer-open > .drawer-toggle {
+@media (min-width: 1280px) {
+  .xl\:drawer-open > .drawer-toggle {
     display: none;
   }
 
-  .lg\:drawer-open > .drawer-toggle ~ .drawer-side {
+  .xl\:drawer-open > .drawer-toggle ~ .drawer-side {
     pointer-events: auto;
     visibility: visible;
     position: sticky;
@@ -4024,20 +4062,20 @@ details.collapse summary::-webkit-details-marker {
     overscroll-behavior: auto;
   }
 
-  .lg\:drawer-open > .drawer-toggle ~ .drawer-side > *:not(.drawer-overlay) {
+  .xl\:drawer-open > .drawer-toggle ~ .drawer-side > *:not(.drawer-overlay) {
     transform: translateX(0%);
   }
 
-  [dir="rtl"] .lg\:drawer-open > .drawer-toggle ~ .drawer-side > *:not(.drawer-overlay) {
+  [dir="rtl"] .xl\:drawer-open > .drawer-toggle ~ .drawer-side > *:not(.drawer-overlay) {
     transform: translateX(0%);
   }
 
-  .lg\:drawer-open > .drawer-toggle:checked ~ .drawer-side {
+  .xl\:drawer-open > .drawer-toggle:checked ~ .drawer-side {
     pointer-events: auto;
     visibility: visible;
   }
 
-  .lg\:drawer-open > .drawer-toggle ~ .drawer-side > .drawer-overlay {
+  .xl\:drawer-open > .drawer-toggle ~ .drawer-side > .drawer-overlay {
     cursor: default;
     background-color: transparent;
   }
@@ -4064,16 +4102,8 @@ details.collapse summary::-webkit-details-marker {
     display: inline-block;
   }
 
-  .md\:h-tab-sp {
-    height: calc(100vh - 146px);
-  }
-
   .md\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .md\:grid-cols-4 {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
   .md\:grid-rows-2 {
@@ -4102,24 +4132,12 @@ details.collapse summary::-webkit-details-marker {
     display: block;
   }
 
-  .lg\:flex {
-    display: flex;
-  }
-
   .lg\:hidden {
     display: none;
   }
 
-  .lg\:h-\[15vh\] {
-    height: 15vh;
-  }
-
-  .lg\:h-tab-pc {
-    height: calc(100vh - 90px);
-  }
-
-  .lg\:w-80 {
-    width: 20rem;
+  .lg\:h-tab-sp {
+    height: calc(100vh - 158px);
   }
 
   .lg\:max-w-\[60vw\] {
@@ -4139,13 +4157,49 @@ details.collapse summary::-webkit-details-marker {
     flex-direction: row;
   }
 
+  .lg\:border-0 {
+    border-width: 0px;
+  }
+
   .lg\:py-20 {
     padding-top: 5rem;
     padding-bottom: 5rem;
   }
+
+  .lg\:ps-0 {
+    padding-inline-start: 0px;
+  }
 }
 
 @media (min-width: 1280px) {
+  .xl\:mt-0 {
+    margin-top: 0px;
+  }
+
+  .xl\:block {
+    display: block;
+  }
+
+  .xl\:flex {
+    display: flex;
+  }
+
+  .xl\:hidden {
+    display: none;
+  }
+
+  .xl\:h-\[15vh\] {
+    height: 15vh;
+  }
+
+  .xl\:h-tab-pc {
+    height: calc(100vh - 90px);
+  }
+
+  .xl\:w-80 {
+    width: 20rem;
+  }
+
   .xl\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }

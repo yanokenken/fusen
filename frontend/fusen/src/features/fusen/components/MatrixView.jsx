@@ -38,8 +38,8 @@ function MatrixView({fusens, onFusenClick}) {
     <>
       <div
         className="
-						md:h-tab-sp 
-						lg:h-tab-pc 
+						lg:h-tab-sp 
+						xl:h-tab-pc 
 						w-full grid 
 						md:grid-rows-2 
 						md:grid-cols-2 

@@ -24,8 +24,8 @@ function MatrixView({ fusens, onFusenClick }) {
 
   return (
     <>
-      <div className="grid grid-rows-1 grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-6 py-2 px-4 md:h-tab-sp lg:h-tab-pc">
-        <div className="overflow-auto">
+      <div className="grid grid-rows-1 grid-cols-1 lg:grid-cols-4 gap-6 py-2 px-4 lg:h-tab-sp xl:h-tab-pc">
+        <div className="overflow-auto border-l-2 border-t-2 ps-1 rounded-tl-xl border-secondary lg:border-0 lg:ps-0">
           <div className="badge w-full">未着手</div>
           {fusens_1.map((fusen) => (
             <DetailedFusen
@@ -35,7 +35,7 @@ function MatrixView({ fusens, onFusenClick }) {
             />
           ))}
         </div>
-        <div className="overflow-auto">
+        <div className="overflow-auto border-l-2 border-t-2 ps-1 rounded-tl-xl border-primary lg:border-0 lg:ps-0">
           <div className="badge w-full">進行中</div>
           {fusens_2.map((fusen) => (
             <DetailedFusen
@@ -45,7 +45,7 @@ function MatrixView({ fusens, onFusenClick }) {
             />
           ))}
         </div>
-        <div className="overflow-auto">
+        <div className="overflow-auto border-l-2 border-t-2 ps-1 rounded-tl-xl border-accent lg:border-0 lg:ps-0">
           <div className="badge w-full ">今日やる！</div>
           {fusens_3.map((fusen) => (
             <DetailedFusen
@@ -55,7 +55,7 @@ function MatrixView({ fusens, onFusenClick }) {
             />
           ))}
         </div>
-        <div className="overflow-auto">
+        <div className="overflow-auto border-l-2 border-t-2 ps-1 rounded-tl-xl lg:border-0 lg:ps-0">
           <div className="badge w-full ">完了</div>
           {fusens_4.map((fusen) => (
             <DetailedFusen

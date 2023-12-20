@@ -73,7 +73,7 @@ function Fusen(props) {
           <div className="card-actions flex flex-nowrap overflow-auto gap-1">
             {/* fusen.statusによってbadgeを表示を切り替える */}
             {fusen.status === 0 ? (
-              <div className="badge badge-zantei text-xs whitespace-nowrap">未着手</div>
+              <div className="badge badge-secondary text-xs whitespace-nowrap">未着手</div>
             ) : (
               ""
             )}

@@ -35,7 +35,7 @@ function Tab({fusens, setFusens}) {
   return (
     <>
       <div className="min-h-screen h-fill-available w-full p-4  flex flex-col">
-        <p className="accent-title text-accent mt-[-16px] w-full text-center lg:hidden">
+        <p className="accent-title text-accent mt-[-16px] w-full text-center xl:hidden">
           {settings.title}
         </p>
         <div className="flex justify-between mb-2">

@@ -116,13 +116,13 @@ function CreateFusen({ handleAddFusen, closeDrawer }) {
         className="drawer-overlay"
         onClick={closeDrawer}
       ></label>
-      <div className="w-100 lg:w-80">
+      <div className="w-100 xl:w-80">
         <div className="px-4 pb-4 h-[85vh] bg-base-300 overflow-x-auto always-show-scrollbar">
-          <p className="accent-title text-accent m-auto w-full text-center hidden lg:block">
+          <p className="accent-title text-accent m-auto w-full text-center hidden xl:block">
             {settings.title}
             
           </p>
-          <div className="block lg:hidden lg:h-[15vh] bg-base-300 text-base-content flex items-center justify-center border-t">
+          <div className="block xl:hidden xl:h-[15vh] bg-base-300 text-base-content flex items-center justify-center border-t">
             <div className="flex justify-between w-full mt-10">
               <div className="badge badge-outline badge-xl h-[2rem] cursor-pointer" onClick={closeDrawer}>✕</div>
               <div className="badge badge-primary badge-xl h-[2rem] cursor-pointer" onClick={addFusen}>登録する</div>
@@ -131,7 +131,7 @@ function CreateFusen({ handleAddFusen, closeDrawer }) {
 
           <input
             type="text"
-            className="input w-full mb-4 mt-4 lg:mt-0 raunded-xl"
+            className="input w-full mb-4 mt-4 xl:mt-0 raunded-xl"
             placeholder="タスク名（必須）"
             value={fusen ? fusen.fusenTitle : ""}
             onChange={(e) => handleInputChange(e, fusen.id, "title")}
@@ -240,7 +240,7 @@ function CreateFusen({ handleAddFusen, closeDrawer }) {
         </div>
         <div className="h-[15vh] bg-base-300 text-base-content flex items-center justify-center border-t">
           <button
-            className="btn btn-primary  w-[80%] shadow-sm hidden lg:flex" 
+            className="btn btn-primary  w-[80%] shadow-sm hidden xl:flex" 
             onClick={addFusen} 
           >
             <span>登録する</span>

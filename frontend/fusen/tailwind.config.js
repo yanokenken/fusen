@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       height: {
-        'tab-sp': 'calc(100vh - 146px)', // h-tab-sp
+        'tab-sp': 'calc(100vh - 158px)', // h-tab-sp
         'tab-pc': 'calc(100vh - 90px)', // h-tab-pc
         'fill-available': '-webkit-fill-available',
       },
@@ -21,7 +21,7 @@ module.exports = {
       {
         light: { // 既存の `light` テーマを指定して、オーバーライドする
           "primary": "#570df8", // 暫定
-          "secondary": "#f000b8", // 暫定
+          "secondary": "#ffbd09", // 暫定
           "accent": "#00e96c",
           "neutral": "#353E4B", // 暫定
           'base-100': '#e7eef3',// 青っぽい1
@@ -33,7 +33,7 @@ module.exports = {
         },
         light2: {          
           "primary": "#475bd1",                   
-          "secondary": "#718fe2",                   
+          "secondary": "#ffbd09",                   
           "accent": "#9dfc05",                   
           "neutral": "#49525F",                   
           "base-100": "#ecedf3",                   
@@ -43,28 +43,38 @@ module.exports = {
           "error": "#f52e4f",
         },
         light3: {
-          "primary": "#e08a84",                   
-          "secondary": "#e527db",                   
-          "accent": "#ff8050",                   
-          "neutral": "#717171",                   
-          "base-100": "#f7f7f8",                   
-          "info": "#8ed8e6",                   
-          "success": "#76eae0",                   
-          "warning": "#f2c626",                   
-          "error": "#f15641",
+          "primary": "#e28c85",
+          "secondary": "#ebc437",
+          "accent": "#f7968d",
+          "neutral": "#c4babf",
+          "base-100": "#f3f5f7",
+          "info": "#478ce1",
+          "success": "#3de1ad",
+          "warning": "#c5a60d",
+          "error": "#df2a2d",
         },
         light4: {
-          "primary": "#47d192",                   
-          "secondary": "#f7a52a",
+          "primary": "#f7a52a",
+          "secondary": "#47d192",
           "accent": "#9dfc05",
-          "neutral": "#ededee",                   
-          "base-100": "#ededee",                   
-          "info": "#81caef",                   
-          "success": "#15a870",                   
-          "warning": "#fb8209",                   
+          "neutral": "#c0c0c1",
+          "base-100": "#ededee",
+          "info": "#81caef",
+          "success": "#15a870",
+          "warning": "#fb8209",
           "error": "#db3e33",
         },
-
+        dark: {
+          "primary": "#641ae6",
+          "secondary": "#c441a1",
+          "accent": "#1fb2a6",
+          "neutral": "#2a323c",
+          "base-100": "#1d232a",
+          "info": "#3abff8",
+          "success": "#36d399",
+          "warning": "#fbbd23",
+          "error": "#f87272",
+        },
         dark2: {
           "primary": "#714db5",
           "secondary": "#29f470",
@@ -78,7 +88,7 @@ module.exports = {
         },
         dark3: {
           "primary": "#f8c4fc",
-          "secondary": "#d143d3",
+          "secondary": "#1fb2a6",
           "accent": "#ff60a8",                   
           "neutral": "#201f37",
           "base-100": "#323b67",                   
