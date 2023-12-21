@@ -1,6 +1,15 @@
 version: '3.8'
-
 services:
+  nginx:
+    image: nginx
+    container_name: nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./frontend/fusen/build:/var/www
+      - ./nginx/:/etc/nginx/conf.d/
+    depends_on:
+      - react
   react:
     container_name: fusen_react
     build: ./frontend

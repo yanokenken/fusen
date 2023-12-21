@@ -1,5 +1,6 @@
 // import { AppProvider } from '@/providers/app';
 import {BrowserRouter as Router} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { AppRoutes } from './routes';
 import { RecoilRoot } from 'recoil';
 import React, { useEffect } from 'react';
@@ -21,6 +22,11 @@ function InnerApp() {
       getUser().then((res) => {
         setUser(res.data);
         setSettings({...settings, mode: "normal", title: "FUSEEN" });
+      }).catch((err) => {
+        alert("認証情報が無効です。再度ログインしてください。");
+        Cookies.remove("auth");
+        setUser(null);
+        setSettings({...settings, mode: "mock", title: "PREVIEW" });
       });
     }
   }, []);
