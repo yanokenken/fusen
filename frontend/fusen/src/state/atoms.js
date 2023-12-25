@@ -20,3 +20,8 @@ export const userState = atom({
 
 	}
 })
+
+export const fusensState = atom({
+	key: 'fusensState',
+	default: []
+})

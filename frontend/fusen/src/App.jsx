@@ -1,34 +1,45 @@
 // import { AppProvider } from '@/providers/app';
-import {BrowserRouter as Router} from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import { AppRoutes } from './routes';
-import { RecoilRoot } from 'recoil';
+
 import React, { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
-import { settingsState, userState } from "./state/atoms";
-import { getUser } from "./features/auth/api/getUser";
+import {BrowserRouter as Router} from 'react-router-dom';
+import { AppRoutes } from './routes';
 import Cookies from "js-cookie";
+import { RecoilRoot } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+
+import { settingsState, userState, fusensState } from "./state/atoms";
+
+import { getUser } from "./features/auth/api/getUser";
+import { getFusens} from "./features/fusen/api/getFusens"
+
 
 function InnerApp() {
-
-  const [user, setUser] = useRecoilState(userState);  
+  const setUser = useSetRecoilState(userState);  
   const [settings, setSettings] = useRecoilState(settingsState);
+  const setFusens = useSetRecoilState(fusensState);
 
   useEffect(() => {
     // リロード時、ログインしている場合はuser情報を再取得
     const jwt = Cookies.get("auth");
 
     if (jwt) {
-      getUser().then((res) => {
-        setUser(res.data);
-        setSettings({...settings, mode: "normal", title: "FUSEEN" });
-      }).catch((err) => {
-        alert("認証情報が無効です。再度ログインしてください。");
-        Cookies.remove("auth");
-        setUser(null);
-        setSettings({...settings, mode: "mock", title: "PREVIEW" });
-      });
+      (async () => {
+        try {
+          const user = await getUser();
+          setUser(user.data);
+          setSettings({...settings, mode: "normal", title: "FUSEEN" });
+          const fusens = await getFusens();
+          setFusens(fusens);
+        } catch (err) {
+          alert("認証情報が無効です。再度ログインしてください。");
+          Cookies.remove("auth");
+          setUser(null);
+          setSettings({...settings, mode: "mock", title: "PREVIEW" });
+          setFusens([]);
+        }
+      })();
     }
+
   }, []);
 
 

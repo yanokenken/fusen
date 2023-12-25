@@ -5,25 +5,25 @@ import MatrixView from "./MatrixView";
 import ListView from "./ListView";
 import Cookies from 'js-cookie';
 import { useRecoilState } from "recoil";
-import { settingsState, userState } from "../../../state/atoms";
+import { settingsState, userState, fusensState } from "../../../state/atoms";
 
 
-function Tab({fusens, setFusens}) {
+
+function Tab() {
   const [selectetedFusen, setSelectedFusen] = useState(null);
   const [activeTab, setActiveTab] = useState("list"); 
   const [settings, setSettings] = useRecoilState(settingsState);
-  const [user, setUser] = useRecoilState(userState);  
+  const [user, setUser] = useRecoilState(userState);
+  const [fusens, setFusens] = useRecoilState(fusensState);
 
   const navigate = useNavigate();
 
+  // 選択された付箋を拾ってモーダルに渡す
   const handleFusenClick = (fusen) => {
     setSelectedFusen(fusen);
     document.getElementById("shosai_modal")?.showModal();
   };
 
-  const handleFusenChange = (updatedFusen) => {
-    setFusens(prevFusens => prevFusens.map(fusen => fusen.id === updatedFusen.id ? updatedFusen : fusen));
-  };
   const _logout = () => {
     Cookies.remove('auth');
     setUser({...user, name:"お試し太郎", });
@@ -74,7 +74,7 @@ function Tab({fusens, setFusens}) {
           {activeTab === 'complete' && <MatrixView fusens={fusens} onFusenClick={handleFusenClick} />}
         </div>
       </div>
-      <FusenModal modalId="shosai_modal" selectedFusen={selectetedFusen} onFusenChange={handleFusenChange} />
+      <FusenModal modalId="shosai_modal" selectedFusen={selectetedFusen} />
     </>
   );
 }

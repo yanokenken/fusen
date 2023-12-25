@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 
 function Fusen(props) {
   const [fusen, setFusen] = useState({
-    fusenTitle: props.fusen.fusenTitle, // タスク名
-    fusenMemo: props.fusen.fusenMemo, // メモ
-    isUrgent: props.fusen.isUrgent, // 急ぎ
-    isImportant: props.fusen.isImportant, // 重要
+    fusenTitle: props.fusen.title, // タスク名
+    fusenMemo: props.fusen.memo, // メモ
+    isUrgent: props.fusen.is_urgent, // 急ぎ
+    isImportant: props.fusen.is_important, // 重要
     status: props.fusen.status, // 進行ステータス（未着手/進行中/今日やる/完了）
     fusenColor: "fusen3", // 付箋の色
     checkpoints: props.fusen.checkpoints, // チェックポイント
@@ -13,10 +13,10 @@ function Fusen(props) {
 
   useEffect(() => {
     setFusen({
-      fusenTitle: props.fusen.fusenTitle,
-      fusenMemo: props.fusen.fusenMemo,
-      isUrgent: props.fusen.isUrgent,
-      isImportant: props.fusen.isImportant,
+      fusenTitle: props.fusen.title,
+      fusenMemo: props.fusen.memo,
+      isUrgent: props.fusen.is_urgent,
+      isImportant: props.fusen.is_important,
       status: props.fusen.status,
       fusenColor: "bg-base-100",
       checkpoints: props.fusen.checkpoints,
@@ -54,7 +54,7 @@ function Fusen(props) {
                               <input
                                 type="checkbox"
                                 className="checkbox checkbox-sm"
-                                checked={checkpoint.isChecked}
+                                checked={checkpoint.is_checked}
                                 disabled={true}
                                 readOnly={true}
                               />

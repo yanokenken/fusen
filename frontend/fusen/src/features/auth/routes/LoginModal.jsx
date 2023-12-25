@@ -18,13 +18,11 @@ function LoginModal(modalId) {
   const _login = () => {
     login(email, password)
       .then((res) => {
-        console.log(res);
         setSettings({...settings, mode: "normal", title: "FUSEEN" });
         // jwtをcookieに保存
         Cookies.set("auth", res.data, { path: "/", expires: 1 });
         // user情報を取得・state管理
         getUser().then((res) => {
-          console.log('user: ',res);
           setUser(res.data);
         });
 
@@ -33,10 +31,10 @@ function LoginModal(modalId) {
         navigate("/board");
       }).catch((error) => {
         if (error.response) {
-          console.log(error.response.data);
+          console.error(error.response.data);
           alert(error.response.data);
         } else {
-          console.log("Error", error.message);
+          console.error("Error", error.message);
           alert(error.message);
         }
       }

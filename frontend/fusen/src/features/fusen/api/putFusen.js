@@ -1,11 +1,22 @@
+import axios from "axios";
+import Cookies from 'js-cookie'
 
-import { getFusens } from "./getFusens";
-const putFusen =  (fusen) => {
-	// todo 最終的にはAPI化する
-	return getFusens().then((fusens) => {
-		const index = fusens.findIndex((f) => f.id === fusen.id);
-		fusens[index] = fusen;
-		return fusen;
-	});
+/**
+ * fusenを更新する
+ * @param {*} fusen 
+ * @returns 
+ */
+export const putFusen =  async (fusen) => {
+	return await axios.put('http://localhost:1323/api/secure/fusen', fusen, {
+			headers: {
+				'Authorization': 'Bearer ' + Cookies.get('auth')
+			}
+		})
+		.then((res) => {
+			return res.data;
+		})
+		.catch((error) => {
+			console.error(error);
+			return error;
+		});
 };
-export default putFusen;

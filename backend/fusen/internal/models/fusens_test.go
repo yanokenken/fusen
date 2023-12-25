@@ -840,7 +840,7 @@ func testFusensSelect(t *testing.T) {
 }
 
 var (
-	fusenDBTypes = map[string]string{`ID`: `integer`, `UserID`: `integer`, `BoardID`: `uuid`, `Title`: `character varying`, `Memo`: `character varying`, `IsUrgent`: `boolean`, `IsImportant`: `boolean`, `Status`: `integer`, `CreatedAt`: `timestamp without time zone`, `UpdatedAt`: `timestamp without time zone`}
+	fusenDBTypes = map[string]string{`ID`: `integer`, `UserID`: `integer`, `BoardID`: `character varying`, `Title`: `character varying`, `Memo`: `character varying`, `IsUrgent`: `boolean`, `IsImportant`: `boolean`, `Status`: `integer`, `CreatedAt`: `timestamp without time zone`, `UpdatedAt`: `timestamp without time zone`}
 	_            = bytes.MinRead
 )
 

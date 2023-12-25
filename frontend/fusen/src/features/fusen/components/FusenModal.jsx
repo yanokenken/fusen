@@ -2,15 +2,25 @@
 import React, { useEffect, useState, useRef } from "react";
 import LabelCheckbox from "../../../components/LabelCheckbox";
 import { generateNanoId } from "../../../utils/generateId";
-import putFusen from "../api/putFusen";
+import { putFusen } from "../api/putFusen";
+import { getFusens } from "../api/getFusens";
+import { useSetRecoilState } from "recoil";
+import { fusensState } from "../../../state/atoms";
 
-function FusenModal({ modalId, selectedFusen, onFusenChange }) {
-  // onFuseChange: Fusenが更新された時、元のfusensに反映する
+
+
+function FusenModal({ modalId, selectedFusen }) {
+
+  // 選択された付箋の情報
   const [fusen, setFusen] = useState({ ...selectedFusen });
+  // 付箋を更新したときに付箋一覧を更新するためのstate
+  const setFusens = useSetRecoilState(fusensState);
+
   useEffect(() => {
     setFusen({ ...selectedFusen });
   }, [selectedFusen]);
 
+  // モーダルを開いたときにフォーカスを外す
   const inputRef = useRef();
   const modalIsOpen = document.getElementById(modalId)?.open;
   useEffect(() => {
@@ -19,20 +29,31 @@ function FusenModal({ modalId, selectedFusen, onFusenChange }) {
     }
   }, [modalIsOpen]);
 
+  // モーダルを閉じる
   const handleClose = () => {
     setFusen({ ...selectedFusen });
     document.getElementById(modalId).close();
   };
 
+  // チェックポイントを追加
   const addCheckPoint = () => {
-    const id = generateNanoId(5);
-    const item = { id: id, body: "", isChecked: false };
-    setFusen((prevFusen) => ({
-      ...prevFusen,
-      checkpoints: [...prevFusen.checkpoints, item],
-    }));
+    const id = generateNanoId(selectedFusen.id, 5);
+    const item = { id: id, body: "", is_checked: false };
+    if (Array.isArray(fusen.checkpoints) === false) {
+      setFusen((prevFusen) => ({
+        ...prevFusen,
+        checkpoints: [item],
+      }));
+      return;
+    }else{
+      setFusen((prevFusen) => ({
+        ...prevFusen,
+        checkpoints: [...prevFusen.checkpoints, item],
+      }));
+    }
   };
 
+  // チェックポイントを削除
   const deleteCP = (e) => {
     const id = e.target.closest("tr").id;
     setFusen((prevFusen) => ({
@@ -43,19 +64,20 @@ function FusenModal({ modalId, selectedFusen, onFusenChange }) {
     }));
   };
 
+  // 新規登録用付箋の更新ハンドラ
   const handleInputChange = (e, id, type) => {
     const { value } = e.target;
     switch (type) {
       case "title": // タイトルの変更
         setFusen((prevFusen) => ({
           ...prevFusen,
-          fusenTitle: value,
+          title: value,
         }));
         break;
       case "memo": // メモの変更
         setFusen((prevFusen) => ({
           ...prevFusen,
-          fusenMemo: value,
+          memo: value,
         }));
         break;
       case "checkpointStatus": // チェックポイント(checkbox)の変更
@@ -63,7 +85,7 @@ function FusenModal({ modalId, selectedFusen, onFusenChange }) {
           ...prevFusen,
           checkpoints: prevFusen.checkpoints.map((checkpoint) =>
             checkpoint.id === id
-              ? { ...checkpoint, isChecked: e.target.checked }
+              ? { ...checkpoint, is_checked: e.target.checked }
               : checkpoint
           ),
         }));
@@ -79,13 +101,13 @@ function FusenModal({ modalId, selectedFusen, onFusenChange }) {
       case "isImportant": // 重要の変更
         setFusen((prevFusen) => ({
           ...prevFusen,
-          isImportant: e.target.checked,
+          is_important: e.target.checked,
         }));
         break;
       case "isUrgent": // 緊急の変更
         setFusen((prevFusen) => ({
           ...prevFusen,
-          isUrgent: e.target.checked,
+          is_urgent: e.target.checked,
         }));
         break;
       case "status": // ステータスの変更
@@ -99,10 +121,18 @@ function FusenModal({ modalId, selectedFusen, onFusenChange }) {
     }
   };
 
+  // 付箋を更新する
   const handleUpdateClick = () => {
     putFusen(fusen)
       .then((updatedFusen) => {
-        onFusenChange(updatedFusen);
+        // 付箋一覧を更新する
+        getFusens()
+          .then((res) => {
+            setFusens(res);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
       })
       .catch((err) => {
         console.error(err);
@@ -120,7 +150,7 @@ function FusenModal({ modalId, selectedFusen, onFusenChange }) {
           type="text"
           className={`input input-bordered w-full mb-4 mt-4 lg:mt-0 `}
           placeholder="タスク名（必須）"
-          value={fusen ? fusen.fusenTitle : ""}
+          value={fusen ? fusen.title : ""}
           onChange={(e) => {
             handleInputChange(e, fusen.id, "title");
           }}
@@ -132,7 +162,7 @@ function FusenModal({ modalId, selectedFusen, onFusenChange }) {
           <textarea
             className={`textarea textarea-bordered min-h-[10rem]`}
             placeholder="メモ（任意）"
-            value={fusen ? fusen.fusenMemo : ""}
+            value={fusen ? fusen.memo : ""}
             onChange={(e) => {
               handleInputChange(e, fusen.id, "memo");
             }}
@@ -143,7 +173,7 @@ function FusenModal({ modalId, selectedFusen, onFusenChange }) {
           <LabelCheckbox
             key={fusen ? `${fusen.id}-important` : "important-default-key"}
             label="重要"
-            checked={fusen ? fusen.isImportant : false}
+            checked={fusen ? fusen.is_important : false}
             onChange={(e) => {
               handleInputChange(e, fusen.id, "isImportant");
             }}
@@ -152,7 +182,7 @@ function FusenModal({ modalId, selectedFusen, onFusenChange }) {
           <LabelCheckbox
             key={fusen ? `${fusen.id}-urgent` : "urgent-default-key"}
             label="緊急"
-            checked={fusen ? fusen.isUrgent : false}
+            checked={fusen ? fusen.is_urgent : false}
             onChange={(e) => {
               handleInputChange(e, fusen.id, "isUrgent");
             }}
@@ -194,13 +224,9 @@ function FusenModal({ modalId, selectedFusen, onFusenChange }) {
                             <input
                               type="checkbox"
                               className="checkbox hover:checkbox-neutral"
-                              checked={checkpoint.isChecked}
+                              checked={checkpoint.is_checked}
                               onChange={(e) =>
-                                handleInputChange(
-                                  e,
-                                  checkpoint.id,
-                                  "checkpointStatus"
-                                )
+                                handleInputChange(e, checkpoint.id, "checkpointStatus")
                               }
                             />
                           </label>

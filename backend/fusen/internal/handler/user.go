@@ -18,8 +18,6 @@ func GetUser(c echo.Context) error {
 	}
 	defer db.Close()
 
-
-
 	//jwtからユーザーIDを取得
 	userID, err := auth.GetUserID(c)
 	if err != nil {

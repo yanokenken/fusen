@@ -1,22 +1,26 @@
 import React, { useEffect, useState } from "react";
 import LabelCheckbox from "../../../components/LabelCheckbox";
 import { generateNanoId } from "../../../utils/generateId";
-import postFusen from "../api/postFusen";
-import {　useRecoilValue } from "recoil";
-import { settingsState } from "../../../state/atoms";
 
-function CreateFusen({ handleAddFusen, closeDrawer }) {
+
+import { postFusen } from "../api/postFusen";
+import { getFusens } from "../api/getFusens";
+import {　useSetRecoilState, useRecoilValue } from "recoil";
+import { settingsState } from "../../../state/atoms";
+import { fusensState } from "../../../state/atoms";
+
+function CreateFusen({ closeDrawer }) {
   let emptyFusen = {
-    id: "",
-    fusenTitle: "",
-    fusenMemo: "",
-    isUrgent: false,
-    isImportant: false,
+    title: "",
+    memo: "",
+    is_urgent: false,
+    is_important: false,
     status: 0,
     checkpoints: [],
   };
-  const settings = useRecoilValue(settingsState);
 
+  const settings = useRecoilValue(settingsState);
+  const setFusens = useSetRecoilState(fusensState);
   const [fusen, setFusen] = useState(emptyFusen); // 付箋の情報
 
   useEffect(() => {
@@ -24,8 +28,8 @@ function CreateFusen({ handleAddFusen, closeDrawer }) {
   }, []);
 
   const addCheckPoint = () => {
-    const id = generateNanoId(5);
-    const item = { id: id, body: "", isChecked: false };
+    const id = generateNanoId('new', 5);
+    const item = { id: id, body: "", is_checked: false };
     setFusen((prevFusen) => ({
       ...prevFusen,
       checkpoints: [...prevFusen.checkpoints, item],
@@ -49,13 +53,13 @@ function CreateFusen({ handleAddFusen, closeDrawer }) {
       case "title": // タイトルの変更
         setFusen((prevFusen) => ({
           ...prevFusen,
-          fusenTitle: value,
+          title: value,
         }));
         break;
       case "memo": // メモの変更
         setFusen((prevFusen) => ({
           ...prevFusen,
-          fusenMemo: value,
+          memo: value,
         }));
         break;
       case "checkpointStatus": // チェックポイント(checkbox)の変更
@@ -63,7 +67,7 @@ function CreateFusen({ handleAddFusen, closeDrawer }) {
           ...prevFusen,
           checkpoints: prevFusen.checkpoints.map((checkpoint) =>
             checkpoint.id === id
-              ? { ...checkpoint, isChecked: e.target.checked }
+              ? { ...checkpoint, is_checked: e.target.checked }
               : checkpoint
           ),
         }));
@@ -79,13 +83,13 @@ function CreateFusen({ handleAddFusen, closeDrawer }) {
       case "isImportant": // 重要の変更
         setFusen((prevFusen) => ({
           ...prevFusen,
-          isImportant: e.target.checked,
+          is_important: e.target.checked,
         }));
         break;
       case "isUrgent": // 緊急の変更
         setFusen((prevFusen) => ({
           ...prevFusen,
-          isUrgent: e.target.checked,
+          is_urgent: e.target.checked,
         }));
         break;
       case "status": // ステータスの変更
@@ -98,11 +102,18 @@ function CreateFusen({ handleAddFusen, closeDrawer }) {
         break;
     }
   };
+
   const addFusen = () => {
     postFusen(fusen).then((res) => {
-      // 付箋を追加する
-      handleAddFusen(res);
-      setFusen(emptyFusen);
+      // 付箋一覧を更新
+      getFusens()
+      .then((res) => {
+        setFusens(res);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  setFusen(emptyFusen);
       closeDrawer();
       // fusens一覧を更新する
     });
@@ -133,19 +144,19 @@ function CreateFusen({ handleAddFusen, closeDrawer }) {
             type="text"
             className="input w-full mb-4 mt-4 xl:mt-0 raunded-xl"
             placeholder="タスク名（必須）"
-            value={fusen ? fusen.fusenTitle : ""}
+            value={fusen ? fusen.title : ""}
             onChange={(e) => handleInputChange(e, fusen.id, "title")}
           />
           <textarea
             className="textarea h-[8rem] w-full mb-4 raunded-xl"
             placeholder="メモ（任意）"
-            value={fusen ? fusen.fusenMemo : ""}
+            value={fusen ? fusen.memo : ""}
             onChange={(e) => handleInputChange(e, fusen.id, "memo")}
           ></textarea>
           <div className="form-control w-full flex mb-4">
             <LabelCheckbox
               label="重要"
-              checked={fusen ? fusen.isImportant : false}
+              checked={fusen ? fusen.is_important : false}
               onChange={(e) => {
                 handleInputChange(e, fusen.id, "isImportant");
               }}
@@ -153,7 +164,7 @@ function CreateFusen({ handleAddFusen, closeDrawer }) {
             />
             <LabelCheckbox
               label="緊急"
-              checked={fusen ? fusen.isUrgent : false}
+              checked={fusen ? fusen.is_urgent : false}
               onChange={(e) => {
                 handleInputChange(e, fusen.id, "isUrgent");
               }}
@@ -194,7 +205,7 @@ function CreateFusen({ handleAddFusen, closeDrawer }) {
                               type="text"
                               className="input input-sm input-bordered w-full max-w-xs"
                               placeholder="チェックポイント"
-                              defaultValue={checkpoint.text}
+                              defaultValue={checkpoint.body}
                               onChange={(e) =>
                                 handleInputChange(
                                   e,

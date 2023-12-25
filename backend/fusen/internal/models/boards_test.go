@@ -687,7 +687,7 @@ func testBoardsSelect(t *testing.T) {
 }
 
 var (
-	boardDBTypes = map[string]string{`ID`: `uuid`, `UserID`: `integer`, `Name`: `character varying`, `IsPublic`: `boolean`, `CreatedAt`: `timestamp without time zone`, `UpdatedAt`: `timestamp without time zone`}
+	boardDBTypes = map[string]string{`ID`: `character varying`, `UserID`: `integer`, `Name`: `character varying`, `IsPublic`: `boolean`, `CreatedAt`: `timestamp without time zone`, `UpdatedAt`: `timestamp without time zone`}
 	_            = bytes.MinRead
 )
 

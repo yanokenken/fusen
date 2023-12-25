@@ -34,7 +34,9 @@ func main() {
 	api.POST("/login", auth.Login)
 
 	secure.GET("/user", handler.GetUser)
-	
+	secure.GET("/fusens", handler.GetFusens)
+	secure.PUT("/fusen", handler.UpdateFusen)
+	secure.POST("/fusen", handler.CreateFusen)
 
 	e.Logger.Fatal(e.Start(":1323"))
 

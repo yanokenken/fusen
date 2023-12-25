@@ -34,10 +34,10 @@ function RegisterModal(modalId) {
       })
       .catch((error) => {
         if (error.response) {
-          console.log(error.response.data);
+          console.error(error.response.data);
           alert(error.response.data);
         } else {
-          console.log("Error", error.message);
+          console.error("Error", error.message);
           alert(error.message);
         }
         setIsLoading(false);

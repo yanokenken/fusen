@@ -45,7 +45,6 @@ function MatrixView({fusens, onFusenClick}) {
 						md:grid-cols-2 
 						sm:grid-cols-1
 						xs:grid-cols-1
-
 						"
       >
         <div className="overflow-auto h-[calc((100vh - 50px) / 2 - 1rem)] md:border-b md:border-r border-color-gray p-2">
