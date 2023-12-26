@@ -23,7 +23,7 @@ function Landing() {
 
           <div className="flex-1 px-8 py-10 flex flex-col justify-center items-center">
             <h1 className="mb-5 text-5xl sm:text-4xl font-bold">
-              <span className="md:inline-block inline-block md:whitespace-nowrap whitespace-normal">こんにちは,</span>
+              <span className="md:inline-block inline-block md:whitespace-nowrap whitespace-normal">こんにちは, </span>
               <span className="accent-title text-accent bg-white p-2 md:inline-block inline-block md:whitespace-nowrap whitespace-normal">FUSEEN</span>
               <span className="md:inline-block inline-block md:whitespace-nowrap whitespace-normal">です</span>
             </h1>
@@ -37,20 +37,20 @@ function Landing() {
             </p>
             <ul className="list-disc ps-10 leading-loose">
               <li>
-                個人タスクを管理しているメモ帳データが増えすぎてつらい
+                個人タスクを管理しているメモ帳データが増えすぎてつらい…
               </li>
               <li>
-                notionはハイテクすぎて挫折してしまう
+                n◯tion, Trell◯はハイテクすぎて使いこなせない…
               </li>
               <li>
-                複数プロジェクトを縦割りせずに状態を把握したい
+                複数プロジェクトを縦割りせずに状態を把握したい…
               </li>
-              <li>趣味のプロジェクトもちょっと管理したい</li>
-              <li></li>
+              <li>趣味のプロジェクトもちょっと管理したい…</li>
+
             </ul>
             <p className="mt-6">
               <span className="text-md ">
-                よかったら使ってみてください
+                現在はβ版として公開しています
               </span>
               <span className="text-xl">🐕🐢🐓</span>
             </p>

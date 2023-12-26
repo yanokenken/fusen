@@ -156,7 +156,7 @@ function CreateFusen({ closeDrawer }) {
           </label>
           <textarea
             className="textarea h-[8rem] w-full mb-4 raunded-xl"
-            placeholder="メモ（任意）"
+            placeholder="メモ"
             value={fusen ? fusen.memo : ""}
             onChange={(e) => handleInputChange(e, fusen.id, "memo")}
           ></textarea>
@@ -196,7 +196,7 @@ function CreateFusen({ closeDrawer }) {
           </div>
           <div className="collapse collapse-open bg-base-200 w-full mb-4">
             <div className="collapse-title text-md font-medium">
-              チェックポイント（任意）
+              チェックポイント
             </div>
             <div className="collapse-content p-0">
               <div className="ps-2">
