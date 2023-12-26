@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import Cookies from "js-cookie";
-import { login } from "../api/login"; 
+import { authenticateUser } from "../api/login"; 
 import { getUser } from "../api/getUser";
+import { getFusens } from "../../fusen/api/getFusens";
 import { useRecoilState } from "recoil";
-import { settingsState, userState } from "../../../state/atoms";
+import { settingsState, userState, fusensState } from "../../../state/atoms";
+
 
 
 function LoginModal(modalId) {
@@ -12,18 +14,23 @@ function LoginModal(modalId) {
   const [password, setPassword] = useState("");
   const [settings, setSettings] = useRecoilState(settingsState);
   const [user, setUser] = useRecoilState(userState);  
+  const [fusens, setFusens] = useRecoilState(fusensState);
 
   const navigate = useNavigate();
 
-  const _login = () => {
-    login(email, password)
+  const login = () => {
+    authenticateUser(email, password)
       .then((res) => {
         setSettings({...settings, mode: "normal", title: "FUSEEN" });
         // jwtをcookieに保存
         Cookies.set("auth", res.data, { path: "/", expires: 1 });
         // user情報を取得・state管理
         getUser().then((res) => {
-          setUser(res.data);
+          setUser(res.data);          
+        });
+        // fusen一覧を取得・state管理
+        getFusens().then((res) => {
+          setFusens(res);
         });
 
 
@@ -64,7 +71,7 @@ function LoginModal(modalId) {
             onChange={(e) => setPassword(e.target.value)}
             className="input input-bordered w-full mt-4"
           />
-          <button type="submit" className="btn btn-primary w-full mt-4 " onClick={_login}>
+          <button type="submit" className="btn btn-primary w-full mt-4 " onClick={login}>
             メールアドレスでログイン
           </button>
           <button className="btn w-full mt-4 " disabled="true">
@@ -72,7 +79,8 @@ function LoginModal(modalId) {
             Googleアカウントでログイン（準備中）
           </button>
         </div>
-        <label className="modal-backdrop" htmlFor="login_modal">Close</label>
+        <label className="modal-backdrop" htmlFor="login_modal"
+        >Close</label>
       </div>
     </>
   );

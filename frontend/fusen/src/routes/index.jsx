@@ -5,7 +5,7 @@ import {isLoggedIn} from "../lib/auth"
 
 export const AppRoutes = () => {
   console.log("isLoggedIn", isLoggedIn());
-  const authed = isLoggedIn(); // todo 実際のチェック処理に置き換える
+  const authed = isLoggedIn();
   const routes = authed ? protectedRoutes : publicRoutes;
   const element = useRoutes(routes);
 

@@ -131,7 +131,7 @@ function CreateFusen({ closeDrawer }) {
         <div className="px-4 pb-4 h-[85vh] bg-base-300 overflow-x-auto always-show-scrollbar">
           <p className="accent-title text-accent m-auto w-full text-center hidden xl:block">
             {settings.title}
-            
+            <span className="text-[1.5rem] text-white"> Beta</span>
           </p>
           <div className="block xl:hidden xl:h-[15vh] bg-base-300 text-base-content flex items-center justify-center border-t">
             <div className="flex justify-between w-full mt-10">
@@ -139,14 +139,21 @@ function CreateFusen({ closeDrawer }) {
               <div className="badge badge-primary badge-xl h-[2rem] cursor-pointer" onClick={addFusen}>登録する</div>
             </div>
           </div>
-
-          <input
-            type="text"
-            className="input w-full mb-4 mt-4 xl:mt-0 raunded-xl"
-            placeholder="タスク名（必須）"
-            value={fusen ? fusen.title : ""}
-            onChange={(e) => handleInputChange(e, fusen.id, "title")}
-          />
+          <div className="form-control ">
+            <label className="label">
+              <span className="label-text">タスク名</span>
+            </label>
+            <input
+              type="text"
+              className="input w-full mb-4 xl:mt-0 raunded-xl"
+              placeholder="タスク名"
+              value={fusen ? fusen.title : ""}
+              onChange={(e) => handleInputChange(e, fusen.id, "title")}
+            />
+          </div>
+          <label className="label">
+            <span className="label-text text-sm">メモ</span>
+          </label>
           <textarea
             className="textarea h-[8rem] w-full mb-4 raunded-xl"
             placeholder="メモ（任意）"

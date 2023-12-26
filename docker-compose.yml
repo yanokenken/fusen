@@ -3,6 +3,8 @@ services:
   nginx:
     image: nginx
     container_name: nginx
+    env_file:
+      - .env
     ports:
       - 80:80
     volumes:
@@ -13,6 +15,8 @@ services:
   react:
     container_name: fusen_react
     build: ./frontend
+    env_file:
+      - .env
     volumes:
       - ./frontend:/app
     ports:

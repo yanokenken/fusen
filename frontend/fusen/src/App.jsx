@@ -31,8 +31,6 @@ function InnerApp() {
           const fusens = await getFusens();
           setFusens(fusens);
         } catch (err) {
-          alert("認証情報が無効です。再度ログインしてください。");
-          Cookies.remove("auth");
           setUser(null);
           setSettings({...settings, mode: "mock", title: "PREVIEW" });
           setFusens([]);

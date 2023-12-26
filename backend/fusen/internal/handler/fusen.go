@@ -97,7 +97,7 @@ func GetFusens(c echo.Context) error {
 	return c.JSONBlob(200, jsonBytes)
 }
 
-// 付箋作成
+// CreateFusen 付箋作成
 func CreateFusen (c echo.Context) error {
 	log.Println("付箋作成 開始")
 	db, err := db.Connect()
@@ -129,7 +129,6 @@ func CreateFusen (c echo.Context) error {
 		UpdatedAt:  now,
 	}
 
-	// 付箋作成
 	err = fusen.Insert(c.Request().Context(), db, boil.Infer())
 	if err != nil {
 		return err

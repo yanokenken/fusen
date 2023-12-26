@@ -1,5 +1,4 @@
-import axios from "axios";
-import Cookies from 'js-cookie'
+import api from '../../../middleware/axios'
 import { getFusens } from "./getFusens";
 
 /**
@@ -8,13 +7,8 @@ import { getFusens } from "./getFusens";
  * @returns 
  */
 export const postFusen =  async (fusen) => {
-
 	fusen.ID = 0;// 新規は一旦0を設定（go側のstructの都合）
-	return await axios.post('http://localhost:1323/api/secure/fusen', fusen, {
-			headers: {
-				'Authorization': 'Bearer ' + Cookies.get('auth')
-			}
-		})
+	return await api.post('/api/secure/fusen', fusen)
 		.then((res) => {
 			return res.data;
 		})

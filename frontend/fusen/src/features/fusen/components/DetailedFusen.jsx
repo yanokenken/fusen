@@ -37,13 +37,8 @@ function Fusen(props) {
           }
           {fusen && fusen.checkpoints && fusen.checkpoints.length > 0 ? 
             <div className="collapse collapse-open bg-base-100 w-full p-2 shadow-md rounded-xl">
-
-              <div className=" text-sm">
-                チェックポイント
-              </div>
-
               <div className="collapse-content p-0">
-                <div className="max-h-[6rem] overflow-auto">
+                <div className="max-h-[7rem] overflow-auto">
                   <table className="table table-xs table-fixed w-full">
                     <tbody>
                       {fusen &&

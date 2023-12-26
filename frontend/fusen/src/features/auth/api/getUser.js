@@ -1,11 +1,5 @@
-import axios from 'axios'
-import Cookies from 'js-cookie'
+import api from '../../../middleware/axios'
 
 export const getUser = async () => {
-	const res = await axios.get('http://localhost:1323/api/secure/user', {
-		headers: {
-			'Authorization': 'Bearer ' + Cookies.get('auth')
-		}
-	})
-	return res;
+	return await api.get('/api/secure/user')
 }

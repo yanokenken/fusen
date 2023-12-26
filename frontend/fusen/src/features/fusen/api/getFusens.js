@@ -1,5 +1,4 @@
-import axios from "axios";
-import Cookies from 'js-cookie'
+import api from '../../../middleware/axios'
 
 const fusenMocks = Promise.resolve([
 	{
@@ -18,11 +17,6 @@ const fusenMocks = Promise.resolve([
 ]);
 
 export const getFusens = async () => {
-	const res = await axios.get('http://localhost:1323/api/secure/fusens',{
-		headers: {
-			'Authorization': 'Bearer ' + Cookies.get('auth')
-		}
-	})
+	const res = await api.get('/api/secure/fusens')
 	return res.data;
-
 }
