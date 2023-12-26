@@ -4,6 +4,7 @@ import LabelCheckbox from "../../../components/LabelCheckbox";
 import { generateNanoId } from "../../../utils/generateId";
 import { putFusen } from "../api/putFusen";
 import { getFusens } from "../api/getFusens";
+import { deleteFusen } from "../api/deleteFusen";
 import { useSetRecoilState } from "recoil";
 import { fusensState } from "../../../state/atoms";
 
@@ -52,6 +53,29 @@ function FusenModal({ modalId, selectedFusen }) {
       }));
     }
   };
+  // 付箋削除確認
+  const beforeDeleteFusen = () => {
+    document.getElementById('delete_modal').showModal();
+  }
+  // 付箋削除処理
+  const remove = () => {
+    deleteFusen(fusen.id).then((res) => {
+      // 付箋一覧を更新する
+      document.getElementById('delete_modal').close();
+      document.getElementById(modalId).close();
+      getFusens()
+        .then((res) => {
+          setFusens(res);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+  }  
+  
 
   // チェックポイントを削除
   const deleteCP = (e) => {
@@ -140,6 +164,7 @@ function FusenModal({ modalId, selectedFusen }) {
   };
 
   return (
+    <>
     <dialog id={modalId ? modalId : ""} className="modal">
       <div className="modal-box">
         <label className="label">
@@ -281,33 +306,55 @@ function FusenModal({ modalId, selectedFusen }) {
           </div>
         </div>
 
+        <div className="modal-action flex justify-between">
+
+            <a className="link link-error block my-auto" onClick={beforeDeleteFusen}>削除する</a>
+            
+            <div>
+              <button
+                className={`btn btn-primary`}
+                onClick={(event) => {
+                  event.preventDefault();
+                  // fusenを更新する
+                  handleUpdateClick(fusen);
+                  document.getElementById(modalId).close();
+                }}
+              >
+                更新する
+              </button>
+              {/* 閉じるボタンでモーダルを閉じる */}
+              <button
+                className="btn ms-2"
+                onClick={(event) => {
+                  event.preventDefault();
+                  handleClose();
+                }}
+              >
+                閉じる
+              </button>
+            </div>
+
+        </div>
+      </div>
+    </dialog>
+
+
+
+    <dialog id="delete_modal" className="modal">
+      <div className="modal-box">
+        <h3 className="font-bold text-lg">確認</h3>
+        <p className="py-4">この付箋を削除します。よろしいですか？</p>
         <div className="modal-action">
           <form method="dialog">
-            <button
-              className={`btn btn-primary`}
-              onClick={(event) => {
-                event.preventDefault();
-                // fusenを更新する
-                handleUpdateClick(fusen);
-                document.getElementById(modalId).close();
-              }}
-            >
-              更新する
-            </button>
-            {/* 閉じるボタンでモーダルを閉じる */}
-            <button
-              className="btn ms-2"
-              onClick={(event) => {
-                event.preventDefault();
-                handleClose();
-              }}
-            >
-              閉じる
-            </button>
+            {/* if there is a button in form, it will close the modal */}
+            <button className="btn btn-error" onClick={remove}>削除</button>
+            <button className="btn ms-2">キャンセル</button>
           </form>
         </div>
       </div>
     </dialog>
+
+  </>
   );
 }
 export default FusenModal;

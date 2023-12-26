@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Tab from '../components/Tab';
 import CreateFusen from '../components/CreateFusen';
 
-function FusenBoard(isDemo) {
+function Board(isDemo) {
 
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false); // サイドコンテンツエリアの表示状態
 	const openDrawer = () => setIsDrawerOpen(true);
@@ -30,4 +30,4 @@ function FusenBoard(isDemo) {
 	);
 }
 
-export default FusenBoard
+export default Board

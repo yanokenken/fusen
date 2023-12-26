@@ -6,6 +6,7 @@ import (
 	"fusen/internal/auth"
 	"fusen/internal/models"
 	"log"
+	"strconv"
 	"time"
 
 	"github.com/labstack/echo/v4"
@@ -223,4 +224,42 @@ func UpdateFusen (c echo.Context) error {
 	}
 
 	return c.JSON(200, customFusen)
+}
+
+// 付箋削除
+func DeleteFusen (c echo.Context) error {	
+	log.Println("付箋削除 開始")
+	db, err := db.Connect()
+	if err != nil {
+		return err
+	}
+	defer db.Close()
+
+	// urlの:idを取得
+	deleteFusenIdInt, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		return err
+	}
+	if deleteFusenIdInt == 0 {
+		return c.JSON(400, "付箋IDが指定されていません")
+	}
+
+
+	// リクエストユーザー
+	userID, err := auth.GetUserID(c)
+	if err != nil {
+		return err
+	}
+	// checkpoints 削除
+	_, err = models.Checkpoints(models.CheckpointWhere.FusenID.EQ(deleteFusenIdInt)).DeleteAll(c.Request().Context(), db)
+	if err != nil {
+		return err
+	}
+	// fusen 削除
+	_, err = models.Fusens(models.FusenWhere.ID.EQ(deleteFusenIdInt), models.FusenWhere.UserID.EQ(userID)).DeleteAll(c.Request().Context(), db)
+	if err != nil {
+		return err
+	}
+
+	return c.JSON(200,"削除しました")
 }

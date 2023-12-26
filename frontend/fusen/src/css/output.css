@@ -1031,6 +1031,11 @@ html {
     color: hsl(var(--bc) / var(--tw-text-opacity));
   }
 
+  .link-error:hover {
+    --tw-text-opacity: 1;
+    color: hsl(var(--er) / var(--tw-text-opacity));
+  }
+
   .menu li > *:not(ul):not(.menu-title):not(details):active,
 .menu li > *:not(ul):not(.menu-title):not(details).active,
 .menu li > details > summary:active {
@@ -1480,6 +1485,13 @@ html {
     background-color: hsl(var(--pf) / var(--tw-bg-opacity));
   }
 
+  .btn-error:hover {
+    --tw-border-opacity: 1;
+    border-color: hsl(var(--er) / var(--tw-border-opacity));
+    --tw-bg-opacity: 1;
+    background-color: hsl(var(--er) / var(--tw-bg-opacity));
+  }
+
   .btn.glass:hover {
     --glass-opacity: 25%;
     --glass-border-opacity: 15%;
@@ -1678,6 +1690,11 @@ html {
   .join *:first-child:not(:last-child) .dropdown .join-item {
   border-start-end-radius: inherit;
   border-end-end-radius: inherit;
+}
+
+.link {
+  cursor: pointer;
+  text-decoration-line: underline;
 }
 
 .menu {
@@ -2072,6 +2089,23 @@ html {
   border-color: hsl(var(--pf) / var(--tw-border-opacity));
   --tw-bg-opacity: 1;
   background-color: hsl(var(--pf) / var(--tw-bg-opacity));
+}
+
+.btn-error {
+  --tw-border-opacity: 1;
+  border-color: hsl(var(--er) / var(--tw-border-opacity));
+  --tw-bg-opacity: 1;
+  background-color: hsl(var(--er) / var(--tw-bg-opacity));
+  --tw-text-opacity: 1;
+  color: hsl(var(--erc) / var(--tw-text-opacity));
+  outline-color: hsl(var(--er) / 1);
+}
+
+.btn-error.btn-active {
+  --tw-border-opacity: 1;
+  border-color: hsl(var(--er) / var(--tw-border-opacity));
+  --tw-bg-opacity: 1;
+  background-color: hsl(var(--er) / var(--tw-bg-opacity));
 }
 
 .btn.glass {
@@ -2609,6 +2643,21 @@ details.collapse summary::-webkit-details-marker {
   .input[disabled]::placeholder {
   color: hsl(var(--bc) / var(--tw-placeholder-opacity));
   --tw-placeholder-opacity: 0.2;
+}
+
+.link-error {
+  --tw-text-opacity: 1;
+  color: hsl(var(--er) / var(--tw-text-opacity));
+}
+
+.link:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.link:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
 }
 
 .loading {
@@ -3464,6 +3513,11 @@ details.collapse summary::-webkit-details-marker {
 .my-\[-16px\] {
   margin-top: -16px;
   margin-bottom: -16px;
+}
+
+.my-auto {
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .mb-2 {

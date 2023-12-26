@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from "react-router-dom";
-import FusenBoard from "../features/fusen/routes/FusenBoard";
+import Board from "../features/fusen/routes/Board";
 import Landing from "../features/misc/routes/Landing";
 
 const App = () => {
@@ -15,7 +15,7 @@ export const protectedRoutes = [{
 	path: "/",
 	element: <App />,
 	children: [
-		{path: "/board", element: <FusenBoard />},
+		{path: "/board", element: <Board />},
 		{path: "/", element: <Navigate to="/board" />},
 		{path: "*", element: <Navigate to="/board" />}
 	]

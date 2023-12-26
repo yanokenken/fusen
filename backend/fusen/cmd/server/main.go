@@ -37,6 +37,7 @@ func main() {
 	secure.GET("/fusens", handler.GetFusens)
 	secure.PUT("/fusen", handler.UpdateFusen)
 	secure.POST("/fusen", handler.CreateFusen)
+	secure.DELETE("/fusen/:id", handler.DeleteFusen)
 
 	e.Logger.Fatal(e.Start(":1323"))
 
