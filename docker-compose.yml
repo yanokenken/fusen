@@ -3,15 +3,32 @@ services:
   nginx:
     image: nginx
     container_name: nginx
+    environment:
+      - DOMAIN=${DOMAIN}
     env_file:
       - .env
     ports:
       - 80:80
+      - 443:443
     volumes:
       - ./frontend/fusen/build:/var/www
       - ./nginx/:/etc/nginx/conf.d/
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    command: /bin/bash -c "envsubst '$$DOMAIN' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"
     depends_on:
       - react
+      - certbot
+
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    depends_on:
+      - nginx
+    
   react:
     container_name: fusen_react
     build: ./frontend
