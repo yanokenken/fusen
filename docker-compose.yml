@@ -40,7 +40,7 @@ services:
     tty: true
     
   go:
-    container_name: fusen_god
+    container_name: fusen_go
     build: ./backend
     volumes:
       - ./backend:/app
