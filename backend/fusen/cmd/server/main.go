@@ -16,7 +16,7 @@ func main() {
 	
 	e.Use(middleware.Logger())
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins: []string{"http://localhost:3000", "http://localhost"},
+		AllowOrigins: []string{"http://localhost:3000", "http://localhost", os.Getenv(("ROOT_URL"))},
 		AllowMethods: []string{http.MethodGet, http.MethodPut, http.MethodPost, http.MethodDelete, http.MethodOptions},
 	}))
 
