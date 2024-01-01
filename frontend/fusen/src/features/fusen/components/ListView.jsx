@@ -47,7 +47,7 @@ function MatrixView({ fusens, onFusenClick }) {
           ))}
         </div>
         <div className="overflow-auto border-l-4 border-t-4 ps-1 rounded-tl-xl border-accent lg:border-0 lg:ps-0">
-          <div className="badge w-full ">今日やる！</div>
+          <div className="badge w-full">今日やる！</div>
           {fusens_3.map((fusen) => (
             <DetailedFusen
               key={fusen.id}
@@ -57,7 +57,7 @@ function MatrixView({ fusens, onFusenClick }) {
           ))}
         </div>
         <div className="overflow-auto border-l-4 border-t-4 ps-1 rounded-tl-xl lg:border-0 lg:ps-0">
-          <div className="badge w-full ">完了</div>
+          <div className="badge w-full">完了</div>
           {fusens_4.map((fusen) => (
             <DetailedFusen
               key={fusen.id}

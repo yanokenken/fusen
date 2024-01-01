@@ -168,13 +168,14 @@ function FusenModal({ modalId, selectedFusen }) {
     <dialog id={modalId ? modalId : ""} className="modal">
       <div className="modal-box">
         <label className="label">
-          <span className="label-text">タスク名（必須）</span>
+          <span className="label-text">タスク名</span>
         </label>
         <input
           ref={inputRef}
           type="text"
+          maxLength={100}
           className={`input input-bordered w-full mb-4 mt-4 lg:mt-0 `}
-          placeholder="タスク名（必須）"
+          placeholder="タスク名"
           value={fusen ? fusen.title : ""}
           onChange={(e) => {
             handleInputChange(e, fusen.id, "title");
@@ -182,11 +183,12 @@ function FusenModal({ modalId, selectedFusen }) {
         />
         <div className="form-control">
           <label className="label">
-            <span className="label-text">メモ（任意）</span>
+            <span className="label-text">メモ</span>
           </label>
           <textarea
             className={`textarea textarea-bordered min-h-[10rem]`}
-            placeholder="メモ（任意）"
+            maxLength={1000}
+            placeholder="メモ"
             value={fusen ? fusen.memo : ""}
             onChange={(e) => {
               handleInputChange(e, fusen.id, "memo");
@@ -234,7 +236,7 @@ function FusenModal({ modalId, selectedFusen }) {
 
         <div className="collapse collapse-open w-full mb-4 border border-base-300 shadow-xl">
           <div className="collapse-title text-md font-medium">
-            チェックポイント（任意）
+            チェックポイント
           </div>
           <div className="collapse-content p-0">
             <div className="px-2 max-h-[35vh] overflow-auto">
@@ -259,6 +261,7 @@ function FusenModal({ modalId, selectedFusen }) {
                         <td className="text-center">
                           <input
                             type="text"
+                            maxLength={100}
                             className="input input-sm input-bordered w-full max-w-xs"
                             placeholder="チェックポイント"
                             value={checkpoint.body}

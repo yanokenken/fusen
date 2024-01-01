@@ -145,6 +145,7 @@ function CreateFusen({ closeDrawer }) {
             </label>
             <input
               type="text"
+              maxLength={200}
               className="input w-full mb-4 xl:mt-0 raunded-xl"
               placeholder="タスク名"
               value={fusen ? fusen.title : ""}
@@ -156,6 +157,7 @@ function CreateFusen({ closeDrawer }) {
           </label>
           <textarea
             className="textarea h-[8rem] w-full mb-4 raunded-xl"
+            maxLength={1000}
             placeholder="メモ"
             value={fusen ? fusen.memo : ""}
             onChange={(e) => handleInputChange(e, fusen.id, "memo")}
@@ -210,6 +212,7 @@ function CreateFusen({ closeDrawer }) {
                           <td>
                             <input
                               type="text"
+                              maxLength={200}
                               className="input input-sm input-bordered w-full max-w-xs"
                               placeholder="チェックポイント"
                               defaultValue={checkpoint.body}
