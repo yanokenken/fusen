@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Fusen from "./Fusen";
 import DetailedFusen from "./DetailedFusen";
 
 function MatrixView({fusens, onFusenClick}) {
@@ -13,22 +12,27 @@ function MatrixView({fusens, onFusenClick}) {
 
   // fusensをstatusでフィルタリング
   useEffect(() => {
+    console.log('ボックスのfusens：',fusens);
     if (fusens) {
+      console.log("isImportant: ", fusens[0].is_important);
+      console.log(typeof fusens[0].is_important);
+
       // fusensが定義されていることを確認
       const fusens_1 = fusens.filter(
-        (fusen) => fusen.isImportant === true && fusen.isUrgent === true && fusen.status !== 3
+
+        (fusen) => fusen.is_important === true && fusen.is_urgent === true && fusen.status !== 3
       );
       setFusens_1(fusens_1);
       const fusens_2 = fusens.filter(
-        (fusen) => fusen.isImportant === true && fusen.isUrgent === false && fusen.status !== 3
+        (fusen) => fusen.is_important === true && fusen.is_urgent === false && fusen.status !== 3
       );
       setFusens_2(fusens_2);
       const fusens_3 = fusens.filter(
-        (fusen) => fusen.isImportant === false && fusen.isUrgent === true && fusen.status !== 3
+        (fusen) => fusen.is_important === false && fusen.is_urgent === true && fusen.status !== 3
       );
       setFusens_3(fusens_3);
       const fusens_4 = fusens.filter(
-        (fusen) => fusen.isImportant === false && fusen.isUrgent === false && fusen.status !== 3
+        (fusen) => fusen.is_important === false && fusen.is_urgent === false && fusen.status !== 3
       );
       setFusens_4(fusens_4);
     }
