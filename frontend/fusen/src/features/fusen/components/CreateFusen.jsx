@@ -127,13 +127,13 @@ function CreateFusen({ closeDrawer }) {
         className="drawer-overlay"
         onClick={closeDrawer}
       ></label>
-      <div className="w-100 xl:w-80">
-        <div className="px-4 pb-4 h-[85vh] bg-base-300 overflow-x-auto always-show-scrollbar">
-          <p className="accent-title text-accent m-auto w-full text-center hidden xl:block">
+      <div className="w-96 lg:w-64 xl:w-80">
+        <div className="px-4 pb-4  h-[100vh] lg:h-[85vh] bg-base-300 overflow-x-auto always-show-scrollbar">
+          <p className="accent-title text-accent m-auto w-full text-center hidden lg:block relative">
             {settings.title}
-            <span className="text-[1.5rem] text-white"> Beta</span>
+            <span className="text-[1.5rem] text-white absolute bottom-2 right-0 flex items-center justify-center"> Alpha</span>
           </p>
-          <div className="block xl:hidden xl:h-[15vh] bg-base-300 text-base-content flex items-center justify-center border-t">
+          <div className="lg:hidden xl:h-[15vh] bg-base-300 text-base-content flex items-center justify-center border-t">
             <div className="flex justify-between w-full mt-10">
               <div className="badge badge-outline badge-xl h-[2rem] cursor-pointer" onClick={closeDrawer}>✕</div>
               <div className="badge badge-primary badge-xl h-[2rem] cursor-pointer" onClick={addFusen}>登録する</div>
@@ -259,9 +259,9 @@ function CreateFusen({ closeDrawer }) {
             </div>
           </div>
         </div>
-        <div className="h-[15vh] bg-base-300 text-base-content flex items-center justify-center border-t">
+        <div className="h-[15vh] bg-base-300 text-base-content hidden lg:flex items-center justify-center border-t">
           <button
-            className="btn btn-primary  w-[80%] shadow-sm hidden xl:flex" 
+            className="btn btn-primary  w-[80%] shadow-sm hidden lg:flex" 
             onClick={addFusen} 
           >
             <span>登録する</span>

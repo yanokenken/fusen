@@ -23,7 +23,7 @@ function Landing() {
 
           <div className="flex-1 px-8 py-10 flex flex-col justify-center items-center">
             <h1 className="mb-5 text-5xl sm:text-4xl font-bold">
-              <span className="md:inline-block inline-block md:whitespace-nowrap whitespace-normal">こんにちは, </span>
+              <span className="md:inline-block inline-block md:whitespace-nowrap whitespace-normal">こんにちは,　</span>
               <span className="accent-title text-accent bg-white p-2 md:inline-block inline-block md:whitespace-nowrap whitespace-normal">FUSEEN</span>
               <span className="md:inline-block inline-block md:whitespace-nowrap whitespace-normal">です</span>
             </h1>
@@ -33,7 +33,7 @@ function Landing() {
               </span>
             </p>
             <p className="mb-5 text-md">
-              制作者が以下の自己課題を解決するために作りました
+              以下の課題を解決するために作りました
             </p>
             <ul className="list-disc ps-10 leading-loose">
               <li>
@@ -49,11 +49,16 @@ function Landing() {
 
             </ul>
             <p className="mt-6">
-              <span className="text-md ">
-                現在はβ版として公開しています
+            <span className="text-md ">
+                よかったら使ってみてください
               </span>
               <span className="text-xl">🐕🐢🐓</span>
             </p>
+            <div className="flex justify-center mt-8">
+                <span className="badge badge-warning text-lg p-4 whitespace-nowrap">
+                  ※現在はアルファ版（開発初期段階）として公開しています。
+                </span>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12 mx-auto">
 							<label htmlFor="login_modal" className="btn btn-outline btn-primary w-[10rem]">ログイン</label>
 							<label htmlFor="register_modal" className="btn btn-primary w-[10rem]">新規登録はこちら</label>
@@ -74,10 +79,10 @@ function Landing() {
                 className=" block lg:hidden max-w-[90%] rounded-lg"
               />
 
-            <label className="btn btn-ghost btn-outline btn-primary  mt-10" onClick={playMock}>
+            {/* <label className="btn btn-ghost btn-outline btn-primary  mt-10" onClick={playMock}>
               ちょっと触ってみる
               <span className="material-icons-outlined">rocket_launch</span>
-            </label>
+            </label> */}
           </div>
         </div>
       </div>

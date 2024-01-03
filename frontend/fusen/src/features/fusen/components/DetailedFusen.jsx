@@ -32,13 +32,13 @@ function Fusen(props) {
         <div className="card-body relative">
           <h2 className="card-title">{fusen.fusenTitle}</h2>
           {fusen && fusen.fusenMemo!=='' ?
-            <p className="bg-base-100 shadow-md rounded-xl p-1 text-sm break-words whitespace-pre-wrap max-h-[8.5rem] overflow-auto">{fusen.fusenMemo}</p>
+            <p className="bg-base-100 shadow-md rounded-xl p-1 text-sm break-words whitespace-pre-wrap max-h-[18rem] overflow-auto">{fusen.fusenMemo}</p>
           : ""
           }
           {fusen && fusen.checkpoints && fusen.checkpoints.length > 0 ? 
             <div className="collapse collapse-open bg-base-100 w-full p-2 shadow-md rounded-xl">
               <div className="collapse-content p-0">
-                <div className="max-h-[7rem] overflow-auto">
+                <div className="max-h-[18rem] overflow-auto">
                   <table className="table table-xs table-fixed w-full">
                     <tbody>
                       {fusen &&
@@ -54,7 +54,7 @@ function Fusen(props) {
                                 readOnly={true}
                               />
                             </td>
-                            <td className="text-left text-xs">
+                            <td className="text-left text-xs whitespace-pre-wrap">
                               {checkpoint.body}
                             </td>
                           </tr>

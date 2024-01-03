@@ -30,9 +30,9 @@ function Tab() {
   return (
     <>
       <div className="min-h-screen h-fill-available w-full p-4  flex flex-col">
-        <p className="accent-title text-accent my-[-16px] w-full text-center xl:hidden">
+        <p className="accent-title text-accent my-[-16px] w-full text-center lg:hidden">
           {settings.title}
-          <span className="text-[1.5rem] text-white"> beta</span>
+          <span className="text-[1.5rem] text-white"> Alpha</span>
         </p>
         <div className="flex justify-between mb-2">
           <div className="tabs tabs-boxed bg-base-300">

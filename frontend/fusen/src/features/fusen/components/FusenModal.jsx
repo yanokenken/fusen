@@ -259,8 +259,7 @@ function FusenModal({ modalId, selectedFusen }) {
                           </label>
                         </td>
                         <td className="text-center">
-                          <input
-                            type="text"
+                          <textarea
                             maxLength={100}
                             className="input input-sm input-bordered w-full max-w-xs"
                             placeholder="チェックポイント"

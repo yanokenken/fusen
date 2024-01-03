@@ -9,12 +9,12 @@ function Board(isDemo) {
 	const closeDrawer = () => setIsDrawerOpen(false);
 
   return (
-		<div className="drawer xl:drawer-open">
+		<div className="drawer lg:drawer-open">
 			<input id="my-drawer-2" type="checkbox" className="drawer-toggle" checked={isDrawerOpen} onChange={() => {}} />
 			<div className="drawer-content flex flex-col items-center justify-center">
 				{/* メインコンテンツエリア */}
 				{/* sp表示時の付箋追加ボタン start */}
-				<div className="fixed bottom-2 right-4 z-10 xl:hidden">
+				<div className="fixed bottom-2 right-4 z-10 lg:hidden">
 					<label htmlFor="my-drawer-2" className="btn btn-primary btn-circle btn-md" onClick={openDrawer}>
 						<span className="material-icons">add</span>
 					</label>

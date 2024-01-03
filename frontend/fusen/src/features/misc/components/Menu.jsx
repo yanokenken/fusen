@@ -25,7 +25,7 @@ function Menu () {
 			<span className="material-icons-outlined">menu</span>
 		</label>
 		<ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
-			<li>
+			<li  disabled={true}>
 				<a className="justify-between">
 					{user && user.name}
 
@@ -36,7 +36,7 @@ function Menu () {
 					</div>
 				</a>
 			</li>
-			<li><a>個人設定</a></li>
+			<li  disabled={true}><a>個人設定</a></li>
 			<li><label onClick={logout}>ログアウト</label></li>
 		</ul>
 	</div>
