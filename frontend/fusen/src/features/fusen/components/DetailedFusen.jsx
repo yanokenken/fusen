@@ -109,9 +109,9 @@ function Fusen(props) {
                 ""
               )}
             </div>
-            <div>
-            <span className="material-icons cursor-grab" {...listeners}>drag_indicator</span>
-            {/* <span class="material-symbols-outlined" {...listeners}>drag_pan</span> */}
+            <div className="hidden lg:block">
+              <span className="material-icons cursor-grab" {...listeners}>drag_indicator</span>
+              {/* <span class="material-symbols-outlined" {...listeners}>drag_pan</span> */}
             </div>
           </div>
         </div>
