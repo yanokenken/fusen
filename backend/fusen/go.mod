@@ -19,6 +19,7 @@ require (
 	github.com/Masterminds/semver/v3 v3.1.1 // indirect
 	github.com/Masterminds/sprig/v3 v3.2.2 // indirect
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
+	github.com/ericlagergren/decimal v0.0.0-20190420051523-6335edbaa640 // indirect
 	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
 	github.com/golang-jwt/jwt/v5 v5.0.0 // indirect
 	github.com/google/uuid v1.4.0 // indirect
@@ -30,6 +31,8 @@ require (
 	github.com/mitchellh/reflectwalk v1.0.2 // indirect
 	github.com/shopspring/decimal v1.3.1 // indirect
 	github.com/spf13/cobra v1.5.0 // indirect
+	github.com/volatiletech/null v8.0.0+incompatible // indirect
+	github.com/volatiletech/sqlboiler v3.7.1+incompatible // indirect
 	golang.org/x/time v0.5.0 // indirect
 )
 

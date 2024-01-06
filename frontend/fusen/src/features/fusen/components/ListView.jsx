@@ -1,74 +1,88 @@
 import { useEffect, useState } from "react";
-import DetailedFusen from "./DetailedFusen";
+import { putFusenSortNo } from "../api/putFusen";
+import {
+  DndContext, 
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  sortableKeyboardCoordinates,
+} from '@dnd-kit/sortable';
+
+import ListContainer from "./ListContainer";
+
 
 function MatrixView({ fusens, onFusenClick }) {
-  const [fusens_1, setFusens_1] = useState([]);
-  const [fusens_2, setFusens_2] = useState([]);
-  const [fusens_3, setFusens_3] = useState([]);
-  const [fusens_4, setFusens_4] = useState([]);
 
-  // fusensをstatusでフィルタリング
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+
+  const [allFusens, setAllFusens] = useState({
+    fusens_1: [],
+    fusens_2: [],
+    fusens_3: [],
+    fusens_4: [],      
+  });
+
   useEffect(() => {
     if (fusens) {
-
-      // fusensが定義されていることを確認
-      const fusens_1 = fusens.filter((fusen) => fusen.status === 0);
-      setFusens_1(fusens_1);
-      const fusens_2 = fusens.filter((fusen) => fusen.status === 1);
-      setFusens_2(fusens_2);
-      const fusens_3 = fusens.filter((fusen) => fusen.status === 2);
-      setFusens_3(fusens_3);
-      const fusens_4 = fusens.filter((fusen) => fusen.status === 3);
-      setFusens_4(fusens_4);
+      setAllFusens({
+        fusens_1 : fusens.filter((fusen) => fusen.status === 0),
+        fusens_2 : fusens.filter((fusen) => fusen.status === 1),
+        fusens_3 : fusens.filter((fusen) => fusen.status === 2),
+        fusens_4 : fusens.filter((fusen) => fusen.status === 3),
+      });
     }
   }, [fusens]);
+
 
   return (
     <>
       <div className="grid grid-rows-1 grid-cols-1 lg:grid-cols-4 gap-6 py-2 px-4 lg:h-tab-sp xl:h-tab-pc">
-        <div className="overflow-auto border-l-4 border-t-4 ps-1 rounded-tl-xl border-secondary lg:border-0 lg:ps-0">
-          <div className="badge w-full">未着手</div>
-          {fusens_1.map((fusen) => (
-            <DetailedFusen
-              key={fusen.id}
-              fusen={fusen}
-              onClick={() => onFusenClick(fusen)}
-            />
-          ))}
-        </div>
-        <div className="overflow-auto border-l-4 border-t-4 ps-1 rounded-tl-xl border-primary lg:border-0 lg:ps-0">
-          <div className="badge w-full">進行中</div>
-          {fusens_2.map((fusen) => (
-            <DetailedFusen
-              key={fusen.id}
-              fusen={fusen}
-              onClick={() => onFusenClick(fusen)}
-            />
-          ))}
-        </div>
-        <div className="overflow-auto border-l-4 border-t-4 ps-1 rounded-tl-xl border-accent lg:border-0 lg:ps-0">
-          <div className="badge w-full">今日やる！</div>
-          {fusens_3.map((fusen) => (
-            <DetailedFusen
-              key={fusen.id}
-              fusen={fusen}
-              onClick={() => onFusenClick(fusen)}
-            />
-          ))}
-        </div>
-        <div className="overflow-auto border-l-4 border-t-4 ps-1 rounded-tl-xl lg:border-0 lg:ps-0">
-          <div className="badge w-full">完了</div>
-          {fusens_4.map((fusen) => (
-            <DetailedFusen
-              key={fusen.id}
-              fusen={fusen}
-              onClick={() => onFusenClick(fusen)}
-            />
-          ))}
-        </div>
+        <DndContext 
+            sensors={sensors} 
+            collisionDetection={closestCenter} 
+            onDragEnd={handleDragEnd}
+        >
+            <ListContainer id="fusens_1" statusLabel="未着手" fusens={allFusens.fusens_1} onFusenClick={onFusenClick} />
+            <ListContainer id="fusens_2" statusLabel="進行中" fusens={allFusens.fusens_2} onFusenClick={onFusenClick} />
+            <ListContainer id="fusens_3" statusLabel="今日やる！" fusens={allFusens.fusens_3} onFusenClick={onFusenClick} />
+            <ListContainer id="fusens_4" statusLabel="完了" fusens={allFusens.fusens_4} onFusenClick={onFusenClick} />
+        </DndContext>
       </div>
     </>
   );
-}
 
+  function findContainerId(id) {
+    return Object.keys(allFusens).find((key) =>
+      allFusens[key].find((fusen) => fusen.id === id)
+    );
+  }
+
+  function handleDragEnd(event) {
+    const { active, over } = event;
+    // 処理対象のlistContainerでソートする
+    const activeContainerId = findContainerId(active.id);
+    
+    if (active.id !== over.id) {
+      setAllFusens((prevAllFusens) => {
+        const oldIndex = prevAllFusens[activeContainerId].findIndex((fusen) => fusen.id === active.id);
+        const newIndex = prevAllFusens[activeContainerId].findIndex((fusen) => fusen.id === over.id);
+        let newList =  arrayMove(prevAllFusens[activeContainerId], oldIndex, newIndex);
+        return {...prevAllFusens, [activeContainerId]: newList};
+      });
+      putFusenSortNo(active.id, over.id);
+    }
+
+  }
+
+}
 export default MatrixView;

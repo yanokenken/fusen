@@ -9,9 +9,12 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/ericlagergren/decimal"
 	"github.com/labstack/echo/v4"
 	"github.com/volatiletech/null/v8"
 	"github.com/volatiletech/sqlboiler/v4/boil"
+	"github.com/volatiletech/sqlboiler/v4/queries/qm"
+	"github.com/volatiletech/sqlboiler/v4/types"
 )
 
 // 返却用の構造体
@@ -36,7 +39,10 @@ type CustomFusen struct {
 	Checkpoints []CustomCheckpoint `json:"checkpoints"`
 	CreatedAt   time.Time `json:"created_at"`
 	UpdatedAt   time.Time `json:"updated_at"`
+	SortNo      types.Decimal `json:"sort_no"`
 }
+
+
 
 func GetFusens(c echo.Context) error {
 	log.Println("付箋情報取得 開始")
@@ -53,7 +59,10 @@ func GetFusens(c echo.Context) error {
 	}
 
 	// fusensテーブルにcheckpointsとしてfusen_idが一致するcheckpointsテーブルのリストを追加する
-	fusens, err := models.Fusens(models.FusenWhere.UserID.EQ(userID)).All(c.Request().Context(), db)
+	fusens, err := models.Fusens(
+		models.FusenWhere.UserID.EQ(userID),
+		qm.OrderBy("sort_no ASC"),
+	).All(c.Request().Context(), db)
 	if err != nil {
 		return err
 	}
@@ -77,6 +86,9 @@ func GetFusens(c echo.Context) error {
 					IsUrgent:    fusen.IsUrgent,
 					IsImportant: fusen.IsImportant,
 					Status:      int8(fusen.Status),
+					CreatedAt:   fusen.CreatedAt,
+					UpdatedAt:   fusen.UpdatedAt,
+					SortNo:			 fusen.SortNo,					
 			}
 			for _, checkpoint := range fusen.R.Checkpoints {
 					customCheckpoint := CustomCheckpoint{
@@ -117,7 +129,28 @@ func CreateFusen (c echo.Context) error {
 	if err := c.Bind(&customFusen); err != nil {
 		return err
 	}
+
 	now := time.Now()
+
+	// fusensのsort_no最大値を取得
+	maxSortRecord, err := models.Fusens(
+		models.FusenWhere.UserID.EQ(userID),
+		qm.OrderBy("sort_no DESC"),
+	).One(c.Request().Context(), db)
+	if err != nil {
+		return err
+	}
+
+	// sort_noを作成
+	if maxSortRecord == nil {
+		customFusen.SortNo = types.NewDecimal(decimal.New(1, 0))
+	} else {
+		maxSortNo :=	maxSortRecord.SortNo
+		decimalOne := types.NewDecimal(decimal.New(1, 0))
+		newSortNo := types.NewDecimal(maxSortNo.Add(maxSortNo.Big, decimalOne.Big))
+		customFusen.SortNo = newSortNo
+	}
+
 	fusen := models.Fusen{
 		UserID:      int(userID),
 		BoardID:     customFusen.BoardID,
@@ -126,9 +159,11 @@ func CreateFusen (c echo.Context) error {
 		IsUrgent:    customFusen.IsUrgent,
 		IsImportant: customFusen.IsImportant,
 		Status:      int(customFusen.Status),
-		CreatedAt:  now,
-		UpdatedAt:  now,
+		CreatedAt:   now,
+		UpdatedAt:   now,
+		SortNo:			 customFusen.SortNo,
 	}
+
 
 	err = fusen.Insert(c.Request().Context(), db, boil.Infer())
 	if err != nil {
@@ -263,3 +298,120 @@ func DeleteFusen (c echo.Context) error {
 
 	return c.JSON(200,"削除しました")
 }
+
+func UpdateFusenSortNo (c echo.Context) error {
+
+	type reqBody struct {
+		ActiveId int `json:"activeId"` // 移動中の付箋
+		OverId int `json:"overId"`		 // 移動先の付箋
+	}
+
+	log.Println("付箋ソート 開始")
+	db, err := db.Connect()
+	if err != nil {
+		return err
+	}
+	defer db.Close()
+
+	// リクエストユーザー
+	userID, err := auth.GetUserID(c)
+	if err != nil {
+		return err
+	}
+
+	req := new(reqBody)
+	if err := c.Bind(&req); err != nil {
+		return err
+	}
+	// sort_noを作成（prevIdのsort_no+nextIdのsort_no /2）
+
+	log.Println(req)
+	// 移動中の付箋番号
+	activeFusen, err := models.Fusens(
+		models.FusenWhere.ID.EQ(req.ActiveId),
+		models.FusenWhere.UserID.EQ(userID),
+	).One(c.Request().Context(), db)
+	if err != nil {
+		return err
+	}
+
+	// 移動先の付箋番号
+	overFusen, err := models.Fusens(
+		models.FusenWhere.ID.EQ(req.OverId),
+		models.FusenWhere.UserID.EQ(userID),
+	).One(c.Request().Context(), db)
+	if err != nil {
+		return err
+	}
+	// 移動先の付箋番号より１つ次
+	nextFusen, err := models.Fusens(
+		models.FusenWhere.SortNo.GT(overFusen.SortNo),
+		models.FusenWhere.UserID.EQ(userID),
+		qm.OrderBy("sort_no ASC"),
+	).One(c.Request().Context(), db)
+	if err != nil {
+		// 一番最後の付箋の場合
+		nextFusen, err = models.Fusens(
+			models.FusenWhere.UserID.EQ(userID),
+			qm.OrderBy("sort_no DESC"),
+		).One(c.Request().Context(), db)
+		if err != nil {
+			return err
+		}
+		nextFusen.SortNo = types.Decimal{Big: nextFusen.SortNo.Add(nextFusen.SortNo.Big, decimal.New(1, 0))}
+	}
+	// 移動先の付箋番号の一つ前
+	prevFusen, err := models.Fusens(
+		models.FusenWhere.SortNo.LT(overFusen.SortNo),
+		models.FusenWhere.UserID.EQ(userID),
+		qm.OrderBy("sort_no DESC"),
+	).One(c.Request().Context(), db)
+	if err != nil {
+		// 一番最初の付箋の場合
+		prevFusen, err = models.Fusens(
+			models.FusenWhere.UserID.EQ(userID),
+			qm.OrderBy("sort_no ASC"),
+		).One(c.Request().Context(), db)
+		if err != nil {
+			return err
+		}
+		prevFusen.SortNo = types.Decimal{Big: prevFusen.SortNo.Add(prevFusen.SortNo.Big, decimal.New(-1, 0))}
+	}
+
+	// var prevSortNo types.Decimal = prevFusen.SortNo
+	var activeFusenSortNo types.Decimal = activeFusen.SortNo
+	var calcTargetSortNo types.Decimal
+	log.Println("----------------------------------------0")
+	log.Println("active: ", activeFusenSortNo.Big)
+	log.Println("over: ", overFusen.SortNo.Big)
+	log.Println("next: ", nextFusen.SortNo.Big)
+	log.Println("prev: ", prevFusen.SortNo.Big)
+	log.Println(activeFusenSortNo.Big.Cmp(overFusen.SortNo.Big))
+	// 移動中の付箋が移動先の付箋よりも大きい場合
+	if overFusen != nil && activeFusenSortNo.Big.Cmp(overFusen.SortNo.Big) > 0 {
+		// 位置が上がる時
+		log.Println("--------------------------------------1")
+		calcTargetSortNo = prevFusen.SortNo
+	} else {
+		// 位置が下がる時
+		log.Println("--------------------------------------2")
+		calcTargetSortNo = nextFusen.SortNo
+
+	}
+
+	decimalTwo := types.NewDecimal(decimal.New(2, 0))
+	newSortNo  := overFusen.SortNo.Add(overFusen.SortNo.Big, calcTargetSortNo.Big).Quo(overFusen.SortNo.Big, decimalTwo.Big)
+	_, err = models.Fusens(
+		models.FusenWhere.ID.EQ(req.ActiveId),
+		models.FusenWhere.UserID.EQ(userID),
+	).UpdateAll(c.Request().Context(), db, models.M{
+		"sort_no": newSortNo.String(),
+	})
+
+	if err != nil {
+		return err
+	}
+
+	return c.JSON(200, "ソートしました")
+}
+// todo 付箋ソート番号の最適化

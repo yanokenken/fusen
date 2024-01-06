@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import {CSS} from "@dnd-kit/utilities"
+import { useSortable } from "@dnd-kit/sortable";
 
 function Fusen(props) {
   const [fusen, setFusen] = useState({
@@ -9,7 +11,14 @@ function Fusen(props) {
     status: props.fusen.status, // 進行ステータス（未着手/進行中/今日やる/完了）
     fusenColor: "fusen3", // 付箋の色
     checkpoints: props.fusen.checkpoints, // チェックポイント
+
   });
+
+  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({id: props.id});
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
 
   useEffect(() => {
     setFusen({
@@ -26,6 +35,7 @@ function Fusen(props) {
   return (
     <>
       <div
+        ref={setNodeRef} style={style} {...attributes} 
         className={`card fusen bg-base-200 text-base-content shadow-lg my-2 cursor-pointer ${fusen.fusenColor}  hover:bg-red transition-all duration-200 hover:-translate-y-5" `}
         onClick={(e) => props.onClick(e)}
       >
@@ -65,38 +75,44 @@ function Fusen(props) {
               </div>
             </div>
           : ""}
-          <div className="card-actions flex flex-nowrap overflow-auto gap-1">
-            {/* fusen.statusによってbadgeを表示を切り替える */}
-            {fusen.status === 0 ? (
-              <div className="badge badge-secondary text-xs whitespace-nowrap">未着手</div>
-            ) : (
-              ""
-            )}
-            {fusen.status === 1 ? (
-              <div className="badge badge-primary text-xs whitespace-nowrap">進行中</div>
-            ) : (
-              ""
-            )}
-            {fusen.status === 2 ? (
-              <div className="badge badge-accent text-xs whitespace-nowrap">今日やる!</div>
-            ) : (
-              ""
-            )}
-            {fusen.status === 3 ? (
-              <div className="badge bg-gray bg-base-300 text-xs whitespace-nowrap">完了</div>
-            ) : (
-              ""
-            )}
-            {fusen.isImportant ? (
-              <div className="badge badge-base text-xs whitespace-nowrap">重要</div>
-            ) : (
-              ""
-            )}
-            {fusen.isUrgent ? (
-              <div className="badge badge-base text-xs whitespace-nowrap">緊急</div>
-            ) : (
-              ""
-            )}
+          <div className="flex justify-between">
+            <div className="card-actions flex flex-nowrap overflow-auto gap-1">
+              {/* fusen.statusによってbadgeを表示を切り替える */}
+              {fusen.status === 0 ? (
+                <div className="badge badge-secondary text-xs whitespace-nowrap">未着手</div>
+              ) : (
+                ""
+              )}
+              {fusen.status === 1 ? (
+                <div className="badge badge-primary text-xs whitespace-nowrap">進行中</div>
+              ) : (
+                ""
+              )}
+              {fusen.status === 2 ? (
+                <div className="badge badge-accent text-xs whitespace-nowrap">今日やる!</div>
+              ) : (
+                ""
+              )}
+              {fusen.status === 3 ? (
+                <div className="badge bg-gray bg-base-300 text-xs whitespace-nowrap">完了</div>
+              ) : (
+                ""
+              )}
+              {fusen.isImportant ? (
+                <div className="badge badge-base text-xs whitespace-nowrap">重要</div>
+              ) : (
+                ""
+              )}
+              {fusen.isUrgent ? (
+                <div className="badge badge-base text-xs whitespace-nowrap">緊急</div>
+              ) : (
+                ""
+              )}
+            </div>
+            <div>
+            <span className="material-icons cursor-grab" {...listeners}>drag_indicator</span>
+            {/* <span class="material-symbols-outlined" {...listeners}>drag_pan</span> */}
+            </div>
           </div>
         </div>
       </div>

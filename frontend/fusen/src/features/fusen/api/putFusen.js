@@ -14,3 +14,14 @@ export const putFusen =  async (fusen) => {
 			return error;
 		});
 };
+
+export const putFusenSortNo =  async (activeId, overId) => {
+	return await api.put('/api/secure/fusen/sortno', {activeId, overId})
+		.then((res) => {
+			return res.data;
+		})
+		.catch((error) => {
+			console.error(error);
+			return error;
+		});
+}

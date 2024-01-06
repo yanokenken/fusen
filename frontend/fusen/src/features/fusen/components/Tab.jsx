@@ -14,10 +14,7 @@ function Tab() {
   const [selectetedFusen, setSelectedFusen] = useState(null);
   const [activeTab, setActiveTab] = useState("list"); 
   const [settings, setSettings] = useRecoilState(settingsState);
-  const [user, setUser] = useRecoilState(userState);
   const [fusens, setFusens] = useRecoilState(fusensState);
-
-  const navigate = useNavigate();
 
   // 選択された付箋を拾ってモーダルに渡す
   const handleFusenClick = (fusen) => {

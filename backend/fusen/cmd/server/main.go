@@ -36,6 +36,7 @@ func main() {
 	secure.GET("/user", handler.GetUser)
 	secure.GET("/fusens", handler.GetFusens)
 	secure.PUT("/fusen", handler.UpdateFusen)
+	secure.PUT("/fusen/sortno", handler.UpdateFusenSortNo)
 	secure.POST("/fusen", handler.CreateFusen)
 	secure.DELETE("/fusen/:id", handler.DeleteFusen)
 

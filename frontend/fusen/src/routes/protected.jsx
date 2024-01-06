@@ -1,6 +1,5 @@
 import { Navigate, Outlet } from "react-router-dom";
 import Board from "../features/fusen/routes/Board";
-import Landing from "../features/misc/routes/Landing";
 
 const App = () => {
   return (

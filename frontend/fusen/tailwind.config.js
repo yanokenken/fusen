@@ -17,7 +17,7 @@ module.exports = {
 
   daisyui: {
     styled: true,
-    themes: ["dark","light","dracula","business","night",
+    themes: ["dark","light","dracula","business","night","winter",
       {
         light: { // 既存の `light` テーマを指定して、オーバーライドする
           "primary": "#570df8", // 暫定
@@ -56,10 +56,21 @@ module.exports = {
         light4: {
           "primary": "#f7a52a",
           "secondary": "#47d192",
-          "accent": "#9dfc05",
-          "neutral": "#c0c0c1",
-          "base-100": "#ededee",
+          "accent": "#008fa8",
+          "neutral": "#515c82",
+          "base-100": "#f5f6fa",
           "info": "#81caef",
+          "success": "#15a870",
+          "warning": "#fb8209",
+          "error": "#db3e33",
+        },
+        light5: {
+          "primary": "#f5f6fa",
+          "secondary": "#f5f6fa",
+          "accent": "#f5f6fa",
+          "neutral": "#f7f6f9",
+          "base-100": "#ffffff",
+          "info": "#f5f6fa",
           "success": "#15a870",
           "warning": "#fb8209",
           "error": "#db3e33",
@@ -70,7 +81,7 @@ module.exports = {
           "accent": "#1fb2a6",
           "neutral": "#2a323c",
           // "base-100": "#1d232a",
-          "base-100": "#2e343e",
+          "base-100": "#3f454f",
           "info": "#3abff8",
           "success": "#36d399",
           "warning": "#fbbd23",

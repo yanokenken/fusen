@@ -19,21 +19,23 @@ import (
 	"github.com/volatiletech/sqlboiler/v4/queries"
 	"github.com/volatiletech/sqlboiler/v4/queries/qm"
 	"github.com/volatiletech/sqlboiler/v4/queries/qmhelper"
+	"github.com/volatiletech/sqlboiler/v4/types"
 	"github.com/volatiletech/strmangle"
 )
 
 // Fusen is an object representing the database table.
 type Fusen struct {
-	ID          int         `boil:"id" json:"id" toml:"id" yaml:"id"`
-	UserID      int         `boil:"user_id" json:"user_id" toml:"user_id" yaml:"user_id"`
-	BoardID     string      `boil:"board_id" json:"board_id" toml:"board_id" yaml:"board_id"`
-	Title       string      `boil:"title" json:"title" toml:"title" yaml:"title"`
-	Memo        null.String `boil:"memo" json:"memo,omitempty" toml:"memo" yaml:"memo,omitempty"`
-	IsUrgent    bool        `boil:"is_urgent" json:"is_urgent" toml:"is_urgent" yaml:"is_urgent"`
-	IsImportant bool        `boil:"is_important" json:"is_important" toml:"is_important" yaml:"is_important"`
-	Status      int         `boil:"status" json:"status" toml:"status" yaml:"status"`
-	CreatedAt   time.Time   `boil:"created_at" json:"created_at" toml:"created_at" yaml:"created_at"`
-	UpdatedAt   time.Time   `boil:"updated_at" json:"updated_at" toml:"updated_at" yaml:"updated_at"`
+	ID          int           `boil:"id" json:"id" toml:"id" yaml:"id"`
+	UserID      int           `boil:"user_id" json:"user_id" toml:"user_id" yaml:"user_id"`
+	BoardID     string        `boil:"board_id" json:"board_id" toml:"board_id" yaml:"board_id"`
+	Title       string        `boil:"title" json:"title" toml:"title" yaml:"title"`
+	Memo        null.String   `boil:"memo" json:"memo,omitempty" toml:"memo" yaml:"memo,omitempty"`
+	IsUrgent    bool          `boil:"is_urgent" json:"is_urgent" toml:"is_urgent" yaml:"is_urgent"`
+	IsImportant bool          `boil:"is_important" json:"is_important" toml:"is_important" yaml:"is_important"`
+	Status      int           `boil:"status" json:"status" toml:"status" yaml:"status"`
+	CreatedAt   time.Time     `boil:"created_at" json:"created_at" toml:"created_at" yaml:"created_at"`
+	UpdatedAt   time.Time     `boil:"updated_at" json:"updated_at" toml:"updated_at" yaml:"updated_at"`
+	SortNo      types.Decimal `boil:"sort_no" json:"sort_no" toml:"sort_no" yaml:"sort_no"`
 
 	R *fusenR `boil:"-" json:"-" toml:"-" yaml:"-"`
 	L fusenL  `boil:"-" json:"-" toml:"-" yaml:"-"`
@@ -50,6 +52,7 @@ var FusenColumns = struct {
 	Status      string
 	CreatedAt   string
 	UpdatedAt   string
+	SortNo      string
 }{
 	ID:          "id",
 	UserID:      "user_id",
@@ -61,6 +64,7 @@ var FusenColumns = struct {
 	Status:      "status",
 	CreatedAt:   "created_at",
 	UpdatedAt:   "updated_at",
+	SortNo:      "sort_no",
 }
 
 var FusenTableColumns = struct {
@@ -74,6 +78,7 @@ var FusenTableColumns = struct {
 	Status      string
 	CreatedAt   string
 	UpdatedAt   string
+	SortNo      string
 }{
 	ID:          "fusens.id",
 	UserID:      "fusens.user_id",
@@ -85,6 +90,7 @@ var FusenTableColumns = struct {
 	Status:      "fusens.status",
 	CreatedAt:   "fusens.created_at",
 	UpdatedAt:   "fusens.updated_at",
+	SortNo:      "fusens.sort_no",
 }
 
 // Generated where
@@ -139,6 +145,27 @@ func (w whereHelpernull_String) NIN(slice []string) qm.QueryMod {
 func (w whereHelpernull_String) IsNull() qm.QueryMod    { return qmhelper.WhereIsNull(w.field) }
 func (w whereHelpernull_String) IsNotNull() qm.QueryMod { return qmhelper.WhereIsNotNull(w.field) }
 
+type whereHelpertypes_Decimal struct{ field string }
+
+func (w whereHelpertypes_Decimal) EQ(x types.Decimal) qm.QueryMod {
+	return qmhelper.Where(w.field, qmhelper.EQ, x)
+}
+func (w whereHelpertypes_Decimal) NEQ(x types.Decimal) qm.QueryMod {
+	return qmhelper.Where(w.field, qmhelper.NEQ, x)
+}
+func (w whereHelpertypes_Decimal) LT(x types.Decimal) qm.QueryMod {
+	return qmhelper.Where(w.field, qmhelper.LT, x)
+}
+func (w whereHelpertypes_Decimal) LTE(x types.Decimal) qm.QueryMod {
+	return qmhelper.Where(w.field, qmhelper.LTE, x)
+}
+func (w whereHelpertypes_Decimal) GT(x types.Decimal) qm.QueryMod {
+	return qmhelper.Where(w.field, qmhelper.GT, x)
+}
+func (w whereHelpertypes_Decimal) GTE(x types.Decimal) qm.QueryMod {
+	return qmhelper.Where(w.field, qmhelper.GTE, x)
+}
+
 var FusenWhere = struct {
 	ID          whereHelperint
 	UserID      whereHelperint
@@ -150,6 +177,7 @@ var FusenWhere = struct {
 	Status      whereHelperint
 	CreatedAt   whereHelpertime_Time
 	UpdatedAt   whereHelpertime_Time
+	SortNo      whereHelpertypes_Decimal
 }{
 	ID:          whereHelperint{field: "\"fusens\".\"id\""},
 	UserID:      whereHelperint{field: "\"fusens\".\"user_id\""},
@@ -161,6 +189,7 @@ var FusenWhere = struct {
 	Status:      whereHelperint{field: "\"fusens\".\"status\""},
 	CreatedAt:   whereHelpertime_Time{field: "\"fusens\".\"created_at\""},
 	UpdatedAt:   whereHelpertime_Time{field: "\"fusens\".\"updated_at\""},
+	SortNo:      whereHelpertypes_Decimal{field: "\"fusens\".\"sort_no\""},
 }
 
 // FusenRels is where relationship names are stored.
@@ -201,9 +230,9 @@ func (r *fusenR) GetCheckpoints() CheckpointSlice {
 type fusenL struct{}
 
 var (
-	fusenAllColumns            = []string{"id", "user_id", "board_id", "title", "memo", "is_urgent", "is_important", "status", "created_at", "updated_at"}
+	fusenAllColumns            = []string{"id", "user_id", "board_id", "title", "memo", "is_urgent", "is_important", "status", "created_at", "updated_at", "sort_no"}
 	fusenColumnsWithoutDefault = []string{"user_id", "board_id", "title"}
-	fusenColumnsWithDefault    = []string{"id", "memo", "is_urgent", "is_important", "status", "created_at", "updated_at"}
+	fusenColumnsWithDefault    = []string{"id", "memo", "is_urgent", "is_important", "status", "created_at", "updated_at", "sort_no"}
 	fusenPrimaryKeyColumns     = []string{"id"}
 	fusenGeneratedColumns      = []string{}
 )
