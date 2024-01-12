@@ -299,6 +299,7 @@ func DeleteFusen (c echo.Context) error {
 	return c.JSON(200,"削除しました")
 }
 
+// 付箋のソート番号変更
 func UpdateFusenSortNo (c echo.Context) error {
 
 	type reqBody struct {
@@ -412,6 +413,46 @@ func UpdateFusenSortNo (c echo.Context) error {
 		return err
 	}
 
+	// ソート番号最適化
+	err = OptimizeFusenSortNo(c)
+	if err != nil {
+		return err
+	}
+
 	return c.JSON(200, "ソートしました")
 }
-// todo 付箋ソート番号の最適化
+
+// 付箋のソート番号最適化
+func OptimizeFusenSortNo (c echo.Context) error {
+	log.Println("付箋ソート最適化 開始")
+	db, err := db.Connect()
+	if err != nil {
+		return err
+	}
+	defer db.Close()
+
+	// リクエストユーザー
+	userID, err := auth.GetUserID(c)
+	if err != nil {
+		return err
+	}
+	// fusensテーブルのsort_noをascでソートし、行番号で更新する
+
+	query := `
+			UPDATE fusens as f1
+			SET sort_no = CAST(f2.row_num AS numeric(13,4))
+			FROM (
+				SELECT 
+					id, 
+					row_number() OVER (PARTITION BY user_id ORDER BY sort_no ASC) AS row_num
+				FROM fusens
+			) AS f2
+			WHERE  f1.user_id = $1
+			AND f1.id = f2.id
+		`
+	_, err = db.Exec(query, userID)
+	if err != nil {
+		return err
+	}
+	return nil
+}

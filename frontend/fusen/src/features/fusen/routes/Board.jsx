@@ -23,7 +23,7 @@ function Board(isDemo) {
 				<Tab />
 			</div> 
 			{/* サイドコンテンツエリア（常時新規登録用の内容を表示） */}
-			<div className="drawer-side min-h-screen h-fill-available z-20">
+			<div className="drawer-side min-h-dvh h-fill-available z-20">
 				<CreateFusen closeDrawer={closeDrawer} />
 			</div>
 		</div>
