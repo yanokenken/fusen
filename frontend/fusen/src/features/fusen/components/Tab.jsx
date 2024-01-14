@@ -26,29 +26,23 @@ function Tab() {
 
   return (
     <>
-      <div className="min-h-screen h-fill-available w-full p-4  flex flex-col">
-        <p className="accent-title text-accent my-[-16px] w-full text-center lg:hidden">
-          {settings.title}
-          <span className="text-[1.5rem] text-white"> Alpha</span>
-        </p>
-        <div className="flex justify-between mb-2">
-          <div className="tabs tabs-boxed bg-base-300">
-            <a id="list" className={`tab tab-md ${activeTab === 'list' ? 'tab-active' : ''}`} onClick={() => setActiveTab('list')}>ボード</a>
-            <a id="matrix" className={`tab tab-md ${activeTab === 'matrix' ? 'tab-active' : ''}`} onClick={() => setActiveTab('matrix')}>ボックス</a>
-            <a id="complete" className={`tab tab-md ${activeTab === 'complete' ? 'tab-active' : ''}`} onClick={() => setActiveTab('complete')}> 完了 </a>
-          </div>
-
-          <Menu />
-
-        </div>
-        <div className="tab-body  bg-neutral w-full flex-grow rounded-xl shadow-center">
-          {/* matrixViewにはfusen.status!=3以外 */}
-          {activeTab === 'list' && <ListView fusens={fusens} onFusenClick={handleFusenClick} />}
-          {activeTab === 'matrix' && <MatrixView fusens={fusens} onFusenClick={handleFusenClick} />}
-          {activeTab === 'complete' && <MatrixView fusens={fusens} onFusenClick={handleFusenClick} />}
-        </div>
+    <div className="flex justify-between mb-2">
+      <div className="tabs tabs-boxed bg-base-300">
+        <a id="list" className={`tab tab-md ${activeTab === 'list' ? 'tab-active' : ''}`} onClick={() => setActiveTab('list')}>ボード</a>
+        <a id="matrix" className={`tab tab-md ${activeTab === 'matrix' ? 'tab-active' : ''}`} onClick={() => setActiveTab('matrix')}>ボックス</a>
+        <a id="complete" className={`tab tab-md ${activeTab === 'complete' ? 'tab-active' : ''}`} onClick={() => setActiveTab('complete')}> 完了 </a>
       </div>
-      <FusenModal modalId="shosai_modal" selectedFusen={selectetedFusen} />
+      <Menu />
+    </div>
+    <div className="tab-body  bg-neutral w-full flex-grow rounded-xl shadow-center">
+        {/* matrixViewにはfusen.status!=3以外 */}
+        {activeTab === 'list' && <ListView fusens={fusens} onFusenClick={handleFusenClick} />}
+        {activeTab === 'matrix' && <MatrixView fusens={fusens} onFusenClick={handleFusenClick} />}
+        {activeTab === 'complete' && <MatrixView fusens={fusens} onFusenClick={handleFusenClick} />}
+    </div>
+
+    <FusenModal modalId="shosai_modal" selectedFusen={selectetedFusen} />
+
     </>
   );
 }

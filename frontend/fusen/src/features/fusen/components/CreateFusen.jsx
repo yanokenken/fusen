@@ -115,25 +115,14 @@ function CreateFusen({ closeDrawer }) {
       });
   setFusen(emptyFusen);
       closeDrawer();
-      // fusens一覧を更新する
     });
   };
 
   return (
     <>
-      <label
-        htmlFor="my-drawer-2"
-        aria-label="close sidebar"
-        className="drawer-overlay"
-        onClick={closeDrawer}
-      ></label>
-      <div className="w-96 lg:w-64 xl:w-80">
-        <div className="px-4 pb-4  h-[100vh] lg:h-[85vh] bg-base-300 overflow-x-auto always-show-scrollbar">
-          <p className="accent-title text-accent m-auto w-full text-center hidden lg:block relative">
-            {settings.title}
-            <span className="text-[1.5rem] text-white absolute bottom-2 right-0 flex items-center justify-center"> Alpha</span>
-          </p>
-          <div className="lg:hidden xl:h-[15vh] bg-base-300 text-base-content flex items-center justify-center border-t">
+      <div>
+        <div className="h-[100vh] lg:h-[85vh]">
+          <div className="lg:hidden bg-base-300 text-base-content flex items-center justify-center border-t">
             <div className="flex justify-between w-full mt-10">
               <div className="badge badge-outline badge-xl h-[2rem] cursor-pointer" onClick={closeDrawer}>✕</div>
               <div className="badge badge-primary badge-xl h-[2rem] cursor-pointer" onClick={addFusen}>登録する</div>
@@ -259,7 +248,8 @@ function CreateFusen({ closeDrawer }) {
             </div>
           </div>
         </div>
-        <div className="h-[15vh] bg-base-300 text-base-content hidden lg:flex items-center justify-center border-t">
+
+        <div className="h-[15vh] bg-base-300 text-base-content hidden lg:flex items-center justify-center border-t fixed inset-x-0 bottom-0">
           <button
             className="btn btn-primary  w-[80%] shadow-sm hidden lg:flex" 
             onClick={addFusen} 

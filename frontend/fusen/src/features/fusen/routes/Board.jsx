@@ -1,3 +1,5 @@
+import ContentLayout from '../../../components/Layout/ContentLayout';
+
 import React, { useState } from 'react';
 import Tab from '../components/Tab';
 import CreateFusen from '../components/CreateFusen';
@@ -9,24 +11,10 @@ function Board(isDemo) {
 	const closeDrawer = () => setIsDrawerOpen(false);
 
   return (
-		<div className="drawer lg:drawer-open">
-			<input id="my-drawer-2" type="checkbox" className="drawer-toggle" checked={isDrawerOpen} onChange={() => {}} />
-			<div className="drawer-content flex flex-col items-center justify-center">
-				{/* メインコンテンツエリア */}
-				{/* sp表示時の付箋追加ボタン start */}
-				<div className="fixed bottom-2 right-4 z-10 lg:hidden">
-					<label htmlFor="my-drawer-2" className="btn btn-primary btn-circle btn-md" onClick={openDrawer}>
-						<span className="material-icons">add</span>
-					</label>
-				</div>
-				{/* sp表示時の付箋追加ボタン end */}
-				<Tab />
-			</div> 
-			{/* サイドコンテンツエリア（常時新規登録用の内容を表示） */}
-			<div className="drawer-side min-h-dvh h-fill-available z-20">
-				<CreateFusen closeDrawer={closeDrawer} />
-			</div>
-		</div>
+		<ContentLayout>
+			<Tab />
+			<CreateFusen closeDrawer={closeDrawer} />
+		</ContentLayout>
 	);
 }
 
