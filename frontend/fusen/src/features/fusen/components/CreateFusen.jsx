@@ -8,6 +8,7 @@ import { getFusens } from "../api/getFusens";
 import {　useSetRecoilState, useRecoilValue } from "recoil";
 import { settingsState } from "../../../state/atoms";
 import { fusensState } from "../../../state/atoms";
+import { sideContentState } from "../../../state/atoms";
 
 function CreateFusen({ closeDrawer }) {
   let emptyFusen = {
@@ -21,6 +22,9 @@ function CreateFusen({ closeDrawer }) {
 
   const settings = useRecoilValue(settingsState);
   const setFusens = useSetRecoilState(fusensState);
+  const setSideContent = useSetRecoilState(sideContentState);
+	const sideClose = () => setSideContent({open:false})
+
   const [fusen, setFusen] = useState(emptyFusen); // 付箋の情報
 
   useEffect(() => {
@@ -113,8 +117,8 @@ function CreateFusen({ closeDrawer }) {
       .catch((err) => {
         console.error(err);
       });
-  setFusen(emptyFusen);
-      closeDrawer();
+      setFusen(emptyFusen);
+      sideClose()
     });
   };
 
@@ -124,7 +128,7 @@ function CreateFusen({ closeDrawer }) {
         <div className="h-[100vh] lg:h-[85vh]">
           <div className="lg:hidden bg-base-300 text-base-content flex items-center justify-center border-t">
             <div className="flex justify-between w-full mt-10">
-              <div className="badge badge-outline badge-xl h-[2rem] cursor-pointer" onClick={closeDrawer}>✕</div>
+              <div className="badge badge-outline badge-xl h-[2rem] cursor-pointer" onClick={sideClose}>✕</div>
               <div className="badge badge-primary badge-xl h-[2rem] cursor-pointer" onClick={addFusen}>登録する</div>
             </div>
           </div>

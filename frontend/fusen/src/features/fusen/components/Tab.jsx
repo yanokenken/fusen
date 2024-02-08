@@ -26,13 +26,13 @@ function Tab() {
 
   return (
     <>
-    <div className="flex justify-between mb-2">
+    <div className="flex justify-between my-2">
       <div className="tabs tabs-boxed bg-base-300">
         <a id="list" className={`tab tab-md ${activeTab === 'list' ? 'tab-active' : ''}`} onClick={() => setActiveTab('list')}>ボード</a>
         <a id="matrix" className={`tab tab-md ${activeTab === 'matrix' ? 'tab-active' : ''}`} onClick={() => setActiveTab('matrix')}>ボックス</a>
         <a id="complete" className={`tab tab-md ${activeTab === 'complete' ? 'tab-active' : ''}`} onClick={() => setActiveTab('complete')}> 完了 </a>
       </div>
-      <Menu />
+      {/* <Menu /> */}
     </div>
     <div className="tab-body  bg-neutral w-full flex-grow rounded-xl shadow-center">
         {/* matrixViewにはfusen.status!=3以外 */}

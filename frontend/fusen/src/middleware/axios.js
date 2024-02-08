@@ -22,10 +22,10 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use((response) => {
 	return response
 }, (error) => {
+	console.log('error', error);
 	if (error.response.status === 401) {
 		Cookies.remove('auth')
 		alert('ログイン情報が無効です。再度ログインしてください。')
-		window.location.href = '/landing'
 	}
 	return Promise.reject(error);
 });

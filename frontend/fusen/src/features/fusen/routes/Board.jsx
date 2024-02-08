@@ -7,7 +7,6 @@ import CreateFusen from '../components/CreateFusen';
 function Board(isDemo) {
 
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false); // サイドコンテンツエリアの表示状態
-	const openDrawer = () => setIsDrawerOpen(true);
 	const closeDrawer = () => setIsDrawerOpen(false);
 
   return (

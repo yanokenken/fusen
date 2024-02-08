@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import { authenticateUser } from "../api/login"; 
 import { getUser } from "../api/getUser";
 import { getFusens } from "../../fusen/api/getFusens";
+import { getPreference } from "../../preference/api/getPreference";
 import { useRecoilState } from "recoil";
 import { settingsState, userState, fusensState } from "../../../state/atoms";
 
@@ -25,12 +26,17 @@ function LoginModal(modalId) {
         // jwtをcookieに保存
         Cookies.set("auth", res.data, { path: "/", expires: 1 });
         // user情報を取得・state管理
+        console.log('login:getUser')
         getUser().then((res) => {
-          setUser(res.data);          
+          setUser(res.data);
         });
         // fusen一覧を取得・state管理
         getFusens().then((res) => {
           setFusens(res);
+        });
+        // preferenceを取得・state管理
+        getPreference().then((res) => {
+          setSettings({...settings, theme: res.theme});
         });
 
 

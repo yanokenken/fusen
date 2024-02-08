@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
 import Board from "../features/fusen/routes/Board";
-import Setting from "../features/setting/routes/Setting";
+import Setting from "../features/preference/routes/Setting";
 
 const App = () => {
   return (

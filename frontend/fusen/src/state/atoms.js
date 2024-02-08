@@ -25,3 +25,10 @@ export const fusensState = atom({
 	key: 'fusensState',
 	default: []
 })
+
+export const sideContentState = atom({
+	key: 'sideContentState',
+	default: {
+		open: false,
+	}
+})

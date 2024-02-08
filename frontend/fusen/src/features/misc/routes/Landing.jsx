@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import LoginModal from "../../auth/routes/LoginModal";
 import RegisterModal from "../../auth/routes/RegisterModal";
 import { useNavigate } from "react-router-dom";
@@ -16,6 +17,7 @@ function Landing() {
     setSettings({...settings, mode: "mock", title: "PREVIEW" });
     navigate("/demo");
   };
+
   return (
     <>
       <div className="min-h-screen bg-base-200 overflow-hidden">
@@ -55,9 +57,9 @@ function Landing() {
               <span className="text-xl">🐕🐢🐓</span>
             </p>
             <div className="flex justify-center mt-8">
-                <span className="badge badge-warning text-lg p-4 whitespace-nowrap">
-                  ※現在はアルファ版（開発初期段階）として公開しています。
-                </span>
+              <div className="alert alert-warning">
+                <span>※現在はアルファ版（開発初期段階）として公開しています。</span>
+              </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12 mx-auto">
 							<label htmlFor="login_modal" className="btn btn-outline btn-primary w-[10rem]">ログイン</label>

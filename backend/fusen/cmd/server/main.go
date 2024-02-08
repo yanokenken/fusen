@@ -40,6 +40,9 @@ func main() {
 	secure.POST("/fusen", handler.CreateFusen)
 	secure.DELETE("/fusen/:id", handler.DeleteFusen)
 
+	secure.GET("/preference", handler.GetPreference)
+	secure.PUT("/preference", handler.UpdatePreference)
+
 	e.Logger.Fatal(e.Start(":1323"))
 
 }
