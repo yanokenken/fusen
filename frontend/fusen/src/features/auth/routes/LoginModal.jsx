@@ -6,14 +6,14 @@ import { getUser } from "../api/getUser";
 import { getFusens } from "../../fusen/api/getFusens";
 import { getPreference } from "../../preference/api/getPreference";
 import { useRecoilState } from "recoil";
-import { settingsState, userState, fusensState } from "../../../state/atoms";
+import { preferenceState, userState, fusensState } from "../../../state/atoms";
 
 
 
 function LoginModal(modalId) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [settings, setSettings] = useRecoilState(settingsState);
+  const [preference, setPreference] = useRecoilState(preferenceState);
   const [user, setUser] = useRecoilState(userState);  
   const [fusens, setFusens] = useRecoilState(fusensState);
 
@@ -22,7 +22,7 @@ function LoginModal(modalId) {
   const login = () => {
     authenticateUser(email, password)
       .then((res) => {
-        setSettings({...settings, mode: "normal", title: "FUSEEN" });
+        setPreference({...preference, mode: "normal", title: "FUSEEN" });
         // jwtをcookieに保存
         Cookies.set("auth", res.data, { path: "/", expires: 1 });
         // user情報を取得・state管理
@@ -36,7 +36,7 @@ function LoginModal(modalId) {
         });
         // preferenceを取得・state管理
         getPreference().then((res) => {
-          setSettings({...settings, theme: res.theme});
+          setPreference({...preference, theme: res.theme});
         });
 
 

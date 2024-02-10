@@ -6,14 +6,14 @@ import ListView from "./ListView";
 import Menu from "../../misc/components/Menu";
 import Cookies from 'js-cookie';
 import { useRecoilState } from "recoil";
-import { settingsState, userState, fusensState } from "../../../state/atoms";
+import { preferenceState, userState, fusensState } from "../../../state/atoms";
 
 
 
 function Tab() {
   const [selectetedFusen, setSelectedFusen] = useState(null);
   const [activeTab, setActiveTab] = useState("list"); 
-  const [settings, setSettings] = useRecoilState(settingsState);
+  const [preference, setPreference] = useRecoilState(preferenceState);
   const [fusens, setFusens] = useRecoilState(fusensState);
 
   // 選択された付箋を拾ってモーダルに渡す

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useRecoilValue, useRecoilState } from "recoil";
-import { settingsState } from "../../state/atoms";
+import { preferenceState } from "../../state/atoms";
 import { sideContentState } from '../../state/atoms';
 import Menu from "../../features/misc/components/Menu";
 
@@ -10,7 +10,7 @@ import Menu from "../../features/misc/components/Menu";
 function ContentLayout({children}) {
 
 	const clildElements = React.Children.toArray(children);
-	const settings = useRecoilValue(settingsState);
+	const preference = useRecoilValue(preferenceState);
 	const [sideContent, setSideContent ] = useRecoilState(sideContentState);
 	const sideOpen = () => setSideContent({open:true})
 	const sideClose = () => setSideContent({open:false})
@@ -31,7 +31,7 @@ function ContentLayout({children}) {
 				{/* スマホ時のアプリロゴ */}
 				<div className="min-h-screen h-fill-available w-full p-4  flex flex-col">
 					<p className="accent-title text-accent my-[-16px] w-full text-center lg:hidden">
-						{settings.title}
+						{preference.title}
 						<span className="text-[1.5rem] text-white"> Alpha</span>
 					</p>
 					
@@ -56,7 +56,7 @@ function ContentLayout({children}) {
         <div className="px-4 pb-4  h-dvh bg-base-300 overflow-x-auto always-show-scrollbar">
 					{/* pc時のアプリロゴ */}
 					<p className="accent-title text-accent m-auto w-full text-center hidden lg:block relative">
-            {settings.title}
+            {preference.title}
             <span className="text-[1.5rem] text-white absolute bottom-2 right-0 flex items-center justify-center"> Alpha</span>
           </p>
 					{/* サイドコンテンツ */}

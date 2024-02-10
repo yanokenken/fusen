@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
 
-export const settingsState = atom({
-	key: 'settingsState',
+export const preferenceState = atom({
+	key: 'preferenceState',
 	default: {
 		theme: 'light',
 		lang: 'ja',

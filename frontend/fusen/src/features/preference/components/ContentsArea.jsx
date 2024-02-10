@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
-import { settingsState, userState, fusensState } from "../../../state/atoms";
+import { preferenceState, userState, fusensState } from "../../../state/atoms";
 import { getPreference } from "../api/getPreference";
 import { putTheme } from "../api/putPreference";
 
@@ -9,7 +9,7 @@ import { putTheme } from "../api/putPreference";
 
 
 function ContentsArea() {
-  const [settings, setSettings] = useRecoilState(settingsState);
+  const [preference, setPreference] = useRecoilState(preferenceState);
   const [activeTab, setActiveTab] = useState("system"); 
 
   // 表示されたタイミングでgetPreferencesを実行
@@ -17,7 +17,7 @@ function ContentsArea() {
     getPreference()
     .then((res) => {
       console.log(res);
-      setSettings({...settings, theme: res.theme});
+      setPreference({...preference, theme: res.theme});
       // id=select-themeの中にあるoptionのvalueが、res.themeと同じものに、'selected'を付与する
       const selectTheme = document.getElementById('select-theme');
       console.log(selectTheme);
@@ -36,7 +36,7 @@ function ContentsArea() {
 
   const setTheme = () => {
     return (e) => {
-      setSettings({...settings, theme: e.target.value});
+      setPreference({...preference, theme: e.target.value});
       console.log(e.target.value);
       putTheme({theme: e.target.value});
     }

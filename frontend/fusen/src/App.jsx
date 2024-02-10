@@ -7,7 +7,7 @@ import Cookies from "js-cookie";
 import { RecoilRoot } from 'recoil';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
-import { settingsState, userState, fusensState } from "./state/atoms";
+import { preferenceState, userState, fusensState } from "./state/atoms";
 
 import { getUser } from "./features/auth/api/getUser";
 import { getFusens} from "./features/fusen/api/getFusens"
@@ -16,14 +16,14 @@ import { getPreference } from './features/preference/api/getPreference';
 
 function InnerApp() {
   const setUser = useSetRecoilState(userState);  
-  const [settings, setSettings] = useRecoilState(settingsState);
+  const [preference, setPreference] = useRecoilState(preferenceState);
   const setFusens = useSetRecoilState(fusensState);
   useEffect(() => {
     const root = document.getElementById('root');
     if (root) {
-      root.setAttribute('data-theme', settings.theme);
+      root.setAttribute('data-theme', preference.theme);
     }
-  }, [settings.theme]);  
+  }, [preference.theme]);  
 
   useEffect(() => {
     // リロード時、ログインしている場合はuser情報を再取得
@@ -34,14 +34,14 @@ function InnerApp() {
         try {
           console.log('InnerApp:getUser')
           const user = await getUser();
-          const setting = await getPreference();
+          const preference = await getPreference();
           setUser(user.data);
-          setSettings({...settings, mode: "normal", title: "FUSEEN", theme: setting.theme});
+          setPreference({...preference, mode: "normal", title: "FUSEEN", theme: preference.theme});
           const fusens = await getFusens();
           setFusens(fusens);
         } catch (err) {
           setUser(null);
-          setSettings({...settings, mode: "mock", title: "PREVIEW" });
+          setPreference({...preference, mode: "mock", title: "PREVIEW" });
           setFusens([]);
         }
       })();

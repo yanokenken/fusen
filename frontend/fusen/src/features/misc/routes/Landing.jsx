@@ -3,18 +3,18 @@ import LoginModal from "../../auth/routes/LoginModal";
 import RegisterModal from "../../auth/routes/RegisterModal";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { settingsState, userState } from "../../../state/atoms";
+import { preferenceState, userState } from "../../../state/atoms";
 
 
 function Landing() {
-  const [settings, setSettings] = useRecoilState(settingsState);
+  const [preference, setPreference] = useRecoilState(preferenceState);
   const [user, setUser] = useRecoilState(userState);  
 
   const navigate = useNavigate();
 
   const playMock = () => {
     setUser({...user, name:"お試し太郎", });
-    setSettings({...settings, mode: "mock", title: "PREVIEW" });
+    setPreference({...preference, mode: "mock", title: "PREVIEW" });
     navigate("/demo");
   };
 

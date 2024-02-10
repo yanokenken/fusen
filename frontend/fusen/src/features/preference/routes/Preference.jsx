@@ -4,7 +4,7 @@ import ContentsArea from '../components/ContentsArea';
 
 
 
-function Setting(isDemo) {
+function Preference(isDemo) {
 
   return (
 		<ContentLayout>
@@ -14,4 +14,4 @@ function Setting(isDemo) {
 	);
 }
 
-export default Setting
+export default Preference

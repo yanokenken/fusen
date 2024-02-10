@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
 import Board from "../features/fusen/routes/Board";
-import Setting from "../features/preference/routes/Setting";
+import Preference from "../features/preference/routes/Preference";
 
 const App = () => {
   return (
@@ -16,7 +16,7 @@ export const protectedRoutes = [{
 	element: <App />,
 	children: [
 		{path: "/board", element: <Board />},
-		{path: "/setting", element: <Setting />},
+		{path: "/preference", element: <Preference />},
 		{path: "/", element: <Navigate to="/board" />},
 		{path: "*", element: <Navigate to="/board" />}
 	]

@@ -6,7 +6,7 @@ import { generateNanoId } from "../../../utils/generateId";
 import { postFusen } from "../api/postFusen";
 import { getFusens } from "../api/getFusens";
 import {　useSetRecoilState, useRecoilValue } from "recoil";
-import { settingsState } from "../../../state/atoms";
+import { preferenceState } from "../../../state/atoms";
 import { fusensState } from "../../../state/atoms";
 import { sideContentState } from "../../../state/atoms";
 
@@ -20,7 +20,7 @@ function CreateFusen({ closeDrawer }) {
     checkpoints: [],
   };
 
-  const settings = useRecoilValue(settingsState);
+  const preference = useRecoilValue(preferenceState);
   const setFusens = useSetRecoilState(fusensState);
   const setSideContent = useSetRecoilState(sideContentState);
 	const sideClose = () => setSideContent({open:false})
