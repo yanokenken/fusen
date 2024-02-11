@@ -3692,6 +3692,10 @@ details.collapse summary::-webkit-details-marker {
   margin: 0.5rem;
 }
 
+.m-4 {
+  margin: 1rem;
+}
+
 .m-auto {
   margin: auto;
 }
@@ -3850,6 +3854,10 @@ details.collapse summary::-webkit-details-marker {
   width: 14rem;
 }
 
+.w-80 {
+  width: 20rem;
+}
+
 .w-96 {
   width: 24rem;
 }
@@ -3988,6 +3996,12 @@ details.collapse summary::-webkit-details-marker {
 
 .gap-x-4 {
   column-gap: 1rem;
+}
+
+.space-y-2 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
 }
 
 .overflow-auto {

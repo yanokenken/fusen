@@ -16,7 +16,6 @@ function ContentsArea() {
   useEffect(() => {
     getPreference()
     .then((res) => {
-      console.log(res);
       setPreference({...preference, theme: res.theme});
       // id=select-themeの中にあるoptionのvalueが、res.themeと同じものに、'selected'を付与する
       const selectTheme = document.getElementById('select-theme');
@@ -27,17 +26,13 @@ function ContentsArea() {
         }else{
           selectTheme.options[i].selected = false;
         }
-      }
-
-
-
+      }      
     })
   } ,[]);
 
   const setTheme = () => {
     return (e) => {
       setPreference({...preference, theme: e.target.value});
-      console.log(e.target.value);
       putTheme({theme: e.target.value});
     }
   }
@@ -50,23 +45,22 @@ function ContentsArea() {
       <div className="tabs tabs-boxed bg-base-300">
         <a id="system" className={`tab tab-md ${activeTab === 'system' ? 'tab-active' : ''}`} onClick={() => setActiveTab('system')}>システム</a>
       </div>
-      {/* <Menu /> */}
     </div>
     <div className="tab-body bg-base-200 w-full flex-grow rounded-xl shadow-center">
       <div className="py-2 px-4">
-        <div class="form-control w-full max-w-xs">
-          <label class="label">
-            <span class="label-text">テーマカラー</span>
+        <div className="form-control w-full max-w-xs">
+          <label className="label">
+            <span className="label-text">テーマカラー</span>
           </label>
-          <select id="select-theme" class="select select-bordered" onChange={setTheme()}>
-            <option selected>light</option>
-            <option>light2</option>
-            <option>light3</option>
-            <option>light4</option>
-            <option>dark</option>
-            <option>dark2</option>
-            <option>dark3</option>
-            <option>dark4</option>
+          <select id="select-theme" className="select select-bordered" value={preference.theme} onChange={setTheme()}>
+            <option value="light">light</option>
+            <option value="light2">light2</option>
+            <option value="light3">light3</option>
+            <option value="light4">light4</option>
+            <option value="dark">dark</option>
+            <option value="dark2">dark2</option>
+            <option value="dark3">dark3</option>
+            <option value="dark4">dark4</option>
           </select>
         </div>
       </div>

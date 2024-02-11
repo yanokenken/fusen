@@ -6,7 +6,7 @@ export const preferenceState = atom({
 		theme: 'light',
 		lang: 'ja',
 		mode: 'mock',
-		title: 'PREVIEW'
+		title: 'FUSEEN'
 	}
 })
 
@@ -17,8 +17,8 @@ export const userState = atom({
 		slug: '',
 		name: '',
 		avatar: '',
-
-	}
+		email: '',
+	},
 })
 
 export const fusensState = atom({
@@ -30,5 +30,14 @@ export const sideContentState = atom({
 	key: 'sideContentState',
 	default: {
 		open: false,
+	}
+})
+
+// 設定画面で選択されたメニューの状態
+export const menuState = atom({
+	key: 'menuState',
+	default: {
+		isPreferenceMode: false,
+		selectedMenu: "preference",
 	}
 })

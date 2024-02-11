@@ -25,7 +25,6 @@ api.interceptors.response.use((response) => {
 	console.log('error', error);
 	if (error.response.status === 401) {
 		Cookies.remove('auth')
-		alert('ログイン情報が無効です。再度ログインしてください。')
 	}
 	return Promise.reject(error);
 });

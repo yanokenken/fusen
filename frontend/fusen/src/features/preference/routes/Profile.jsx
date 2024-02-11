@@ -1,10 +1,10 @@
 import ContentLayout from '../../../components/Layout/ContentLayout';
 import SideMenu from '../components/SideMenu';
-import ContentsArea from '../components/PreferencefContentsArea';
+import ContentsArea from '../components/ProfileContentsArea';
 
 
 
-function Preference(isDemo) {
+function Profile(isDemo) {
 
   return (
 		<ContentLayout>
@@ -14,4 +14,4 @@ function Preference(isDemo) {
 	);
 }
 
-export default Preference
+export default Profile

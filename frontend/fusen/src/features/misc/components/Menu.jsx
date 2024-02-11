@@ -1,7 +1,7 @@
 import { useNavigate, Link } from "react-router-dom";
 
 import { useRecoilState } from "recoil";
-import { preferenceState, userState } from "../../../state/atoms";
+import { userState, menuState } from "../../../state/atoms";
 
 import Cookies from 'js-cookie';
 
@@ -16,15 +16,12 @@ function Avatar() {
 }
 
 function Menu () {
-	const [preference, setPreference] = useRecoilState(preferenceState);
   const [user, setUser] = useRecoilState(userState);
-
+	const [menu, setMenu] = useRecoilState(menuState);
 	const navigate = useNavigate();
 
 	const logout = () => {
     Cookies.remove('auth');
-    setUser({...user, name:"お試し太郎", });
-    setPreference({...preference, mode: "mock", title: "preview" });
     navigate("/");
   };
 
@@ -34,16 +31,13 @@ function Menu () {
 				<Link to="/board" >
 					<div className="flex justify-between items-center w-full">
 						<Avatar />
-						<div>{user && user.name}</div>
+						<div className="hidden lg:block" >{user && user.name}</div>
 					</div>
 				</Link>
 			</div>
-			<label tabIndex={0} className="btn btn-ghost btn-circle">
-				<span className="material-icons-outlined">menu</span>
-			</label>
 			<ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
 				<li>
-					<Link to="/preference">
+					<Link to="/preference" onClick={()=> setMenu({...menu, isPreferenceMode:true})}>
 						<span className="material-icons-outlined">settings</span>
 						<span>設定</span>
 					</Link>

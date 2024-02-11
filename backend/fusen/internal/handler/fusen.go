@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"database/sql"
 	"encoding/json"
 	"fusen/db"
 	"fusen/internal/auth"
@@ -122,11 +123,13 @@ func CreateFusen (c echo.Context) error {
 	// リクエストユーザー
 	userID, err := auth.GetUserID(c)
 	if err != nil {
+		log.Println("リクエストユーザー取得エラー")
 		return err
 	}
 
 	customFusen := new(CustomFusen)
 	if err := c.Bind(&customFusen); err != nil {
+		log.Println("リクエストバインドエラー")
 		return err
 	}
 
@@ -138,9 +141,13 @@ func CreateFusen (c echo.Context) error {
 		qm.OrderBy("sort_no DESC"),
 	).One(c.Request().Context(), db)
 	if err != nil {
-		return err
-	}
-
+    if err == sql.ErrNoRows {
+			maxSortRecord = nil
+    } else {
+			log.Println("sort_no最大値取得エラー")
+			return err
+    }
+}
 	// sort_noを作成
 	if maxSortRecord == nil {
 		customFusen.SortNo = types.NewDecimal(decimal.New(1, 0))
@@ -167,6 +174,7 @@ func CreateFusen (c echo.Context) error {
 
 	err = fusen.Insert(c.Request().Context(), db, boil.Infer())
 	if err != nil {
+		log.Println("fusen insert エラー")
 		return err
 	}
 
@@ -183,6 +191,7 @@ func CreateFusen (c echo.Context) error {
 		}
 		err = checkpoint.Insert(c.Request().Context(), db, boil.Infer())
 		if err != nil {
+			log.Println("checkpoint insert エラー")
 			return err
 		}
 	}
@@ -219,7 +228,8 @@ func UpdateFusen (c echo.Context) error {
 	customFusen.UserID = int64(userID)
 
 	_, err = models.Fusens(
-			models.FusenWhere.ID.EQ(int(customFusen.ID)), models.FusenWhere.UserID.EQ(userID)).
+			models.FusenWhere.ID.EQ(int(customFusen.ID)), 
+			models.FusenWhere.UserID.EQ(userID)).
 			UpdateAll(c.Request().Context(), db, models.M{
 					"title":        customFusen.Title,
 					"memo":         customFusen.Memo,

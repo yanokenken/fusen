@@ -41,7 +41,6 @@ function InnerApp() {
           setFusens(fusens);
         } catch (err) {
           setUser(null);
-          setPreference({...preference, mode: "mock", title: "PREVIEW" });
           setFusens([]);
         }
       })();

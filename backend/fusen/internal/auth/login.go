@@ -20,9 +20,13 @@ func Login(c echo.Context) error {
 		return err
 	}
 
-	loginUser, err := models.Users(models.UserWhere.Email.EQ(user.Email), models.UserWhere.AccountType.EQ("free") ).One(c.Request().Context(), db)
+	loginUser, err := models.Users(
+			models.UserWhere.Email.EQ(user.Email), 
+			models.UserWhere.AccountType.EQ("free"),
+			models.UserWhere.DeletedAt.IsNull(),
+	).One(c.Request().Context(), db)
 	if err != nil {
-		return err
+		return c.JSON(http.StatusUnauthorized, "メールアドレス、またはパスワードが間違っています")
 	}
 
 	if loginUser.Email == "" {

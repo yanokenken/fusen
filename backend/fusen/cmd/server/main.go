@@ -34,6 +34,7 @@ func main() {
 	api.POST("/login", auth.Login)
 
 	secure.GET("/user", handler.GetUser)
+	secure.DELETE("/user", handler.DeteteUser)
 	secure.GET("/fusens", handler.GetFusens)
 	secure.PUT("/fusen", handler.UpdateFusen)
 	secure.PUT("/fusen/sortno", handler.UpdateFusenSortNo)
