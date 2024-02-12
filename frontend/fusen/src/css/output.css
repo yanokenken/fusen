@@ -4376,6 +4376,10 @@ details.collapse summary::-webkit-details-marker {
 }
 
 @media (min-width: 640px) {
+  .sm\:h-tab-sp {
+    height: calc(100vh - 158px);
+  }
+
   .sm\:grid-cols-1 {
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
@@ -4431,6 +4435,10 @@ details.collapse summary::-webkit-details-marker {
 
   .lg\:h-\[85vh\] {
     height: 85vh;
+  }
+
+  .lg\:h-tab-pc {
+    height: calc(100vh - 90px);
   }
 
   .lg\:h-tab-sp {

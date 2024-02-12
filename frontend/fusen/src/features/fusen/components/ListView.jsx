@@ -46,7 +46,7 @@ function MatrixView({ fusens, onFusenClick }) {
 
   return (
     <>
-      <div className="grid grid-rows-1 grid-cols-1 lg:grid-cols-4 gap-6 py-2 px-4 lg:h-tab-sp xl:h-tab-pc">
+      <div className="grid grid-rows-1 grid-cols-1 lg:grid-cols-4 gap-6 py-2 px-4 sm:h-tab-sp lg:h-tab-pc">
         <DndContext 
             sensors={sensors} 
             collisionDetection={closestCenter} 
