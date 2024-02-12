@@ -4,7 +4,7 @@ import { generateNanoId } from "../../../utils/generateId";
 
 
 import { postFusen } from "../api/postFusen";
-import { getFusens } from "../api/getFusens";
+import { getFusens, getKanryoFusens } from "../api/getFusens";
 import {　useSetRecoilState, useRecoilValue } from "recoil";
 import { preferenceState } from "../../../state/atoms";
 import { fusensState } from "../../../state/atoms";
@@ -108,15 +108,12 @@ function CreateFusen({ closeDrawer }) {
   };
 
   const addFusen = () => {
-    postFusen(fusen).then((res) => {
+    postFusen(fusen).then(async (res) => {
       // 付箋一覧を更新
-      getFusens()
-      .then((res) => {
-        setFusens(res);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+      const fusens = await getFusens();
+      const kanryoFusens = await getKanryoFusens();
+      setFusens(fusens.concat(kanryoFusens));
+
       setFusen(emptyFusen);
       sideClose()
     });

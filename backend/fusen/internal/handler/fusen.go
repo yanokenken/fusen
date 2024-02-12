@@ -44,7 +44,7 @@ type CustomFusen struct {
 }
 
 
-
+// 完了以外の付箋情報取得
 func GetFusens(c echo.Context) error {
 	log.Println("付箋情報取得 開始")
 	db, err := db.Connect()
@@ -62,6 +62,7 @@ func GetFusens(c echo.Context) error {
 	// fusensテーブルにcheckpointsとしてfusen_idが一致するcheckpointsテーブルのリストを追加する
 	fusens, err := models.Fusens(
 		models.FusenWhere.UserID.EQ(userID),
+		models.FusenWhere.Status.NEQ(3), // 3:完了
 		qm.OrderBy("sort_no ASC"),
 	).All(c.Request().Context(), db)
 	if err != nil {
@@ -110,6 +111,78 @@ func GetFusens(c echo.Context) error {
 
 	return c.JSONBlob(200, jsonBytes)
 }
+
+
+// 完了状態の付箋情報取得
+func GetKanryoFusens(c echo.Context) error {
+	log.Println("付箋情報取得 開始")
+	db, err := db.Connect()
+	if err != nil {
+		return err
+	}
+	defer db.Close()
+
+	// リクエストユーザー
+	userID, err := auth.GetUserID(c)
+	if err != nil {
+		return err
+	}
+
+	// fusensテーブルにcheckpointsとしてfusen_idが一致するcheckpointsテーブルのリストを追加する
+	fusens, err := models.Fusens(
+		models.FusenWhere.UserID.EQ(userID),
+		models.FusenWhere.Status.EQ(3), // 3:完了
+		qm.OrderBy("updated_at DESC"),
+		qm.Limit(10),
+	).All(c.Request().Context(), db)
+	if err != nil {
+		return err
+	}
+	for _, fusen := range fusens {
+		err = fusen.L.LoadCheckpoints(c.Request().Context(), db, true, fusen, nil )
+		if err != nil {
+			return err
+		}
+	}
+
+	// 返却用の構造体に詰め替える
+	customFusens := make([]CustomFusen, len(fusens))
+	for i, fusen := range fusens {
+
+			customFusen := CustomFusen{
+					ID:          int64(fusen.ID),
+					UserID:      int64(fusen.UserID),
+					BoardID:     fusen.BoardID,
+					Title:       fusen.Title,
+					Memo:        fusen.Memo.String,
+					IsUrgent:    fusen.IsUrgent,
+					IsImportant: fusen.IsImportant,
+					Status:      int8(fusen.Status),
+					CreatedAt:   fusen.CreatedAt,
+					UpdatedAt:   fusen.UpdatedAt,
+					SortNo:			 fusen.SortNo,					
+			}
+			for _, checkpoint := range fusen.R.Checkpoints {
+					customCheckpoint := CustomCheckpoint{
+							ID:        checkpoint.ID,
+							FusenID:   int64(checkpoint.FusenID),
+							Body:      checkpoint.Body,
+							IsChecked: checkpoint.IsChecked,
+					}
+					customFusen.Checkpoints = append(customFusen.Checkpoints, customCheckpoint)
+			}
+			customFusens[i] = customFusen
+	}
+
+	jsonBytes, err := json.Marshal(customFusens)
+	if err != nil {
+			return err
+	}
+
+	return c.JSONBlob(200, jsonBytes)
+}
+
+
 
 // CreateFusen 付箋作成
 func CreateFusen (c echo.Context) error {

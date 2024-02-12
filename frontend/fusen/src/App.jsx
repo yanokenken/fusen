@@ -10,7 +10,7 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import { preferenceState, userState, fusensState } from "./state/atoms";
 
 import { getUser } from "./features/auth/api/getUser";
-import { getFusens} from "./features/fusen/api/getFusens"
+import { getFusens,getKanryoFusens } from "./features/fusen/api/getFusens"
 import { getPreference } from './features/preference/api/getPreference';
 
 
@@ -38,7 +38,9 @@ function InnerApp() {
           setUser(user.data);
           setPreference({...preference, mode: "normal", title: "FUSEEN", theme: preference.theme});
           const fusens = await getFusens();
-          setFusens(fusens);
+          const kanryoFusens = await getKanryoFusens();
+          setFusens(fusens.concat(kanryoFusens));
+
         } catch (err) {
           setUser(null);
           setFusens([]);

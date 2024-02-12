@@ -3,7 +3,7 @@ import React, { useEffect, useState, useRef } from "react";
 import LabelCheckbox from "../../../components/LabelCheckbox";
 import { generateNanoId } from "../../../utils/generateId";
 import { putFusen } from "../api/putFusen";
-import { getFusens } from "../api/getFusens";
+import { getFusens, getKanryoFusens } from "../api/getFusens";
 import { deleteFusen } from "../api/deleteFusen";
 import { useSetRecoilState } from "recoil";
 import { fusensState } from "../../../state/atoms";
@@ -59,17 +59,14 @@ function FusenModal({ modalId, selectedFusen }) {
   }
   // 付箋削除処理
   const remove = () => {
-    deleteFusen(fusen.id).then((res) => {
+    deleteFusen(fusen.id).then(async (res) => {
       // 付箋一覧を更新する
       document.getElementById('delete_modal').close();
       document.getElementById(modalId).close();
-      getFusens()
-        .then((res) => {
-          setFusens(res);
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+      const fusens = await getFusens()
+      const kanryoFusens = await getKanryoFusens()
+      setFusens(fusens.concat(kanryoFusens));
+
     })
     .catch((err) => {
       console.error(err);
@@ -148,15 +145,12 @@ function FusenModal({ modalId, selectedFusen }) {
   // 付箋を更新する
   const handleUpdateClick = () => {
     putFusen(fusen)
-      .then((updatedFusen) => {
+      .then(async (updatedFusen) => {
         // 付箋一覧を更新する
-        getFusens()
-          .then((res) => {
-            setFusens(res);
-          })
-          .catch((err) => {
-            console.error(err);
-          });
+        const fusens = await getFusens()
+        const kanryoFusens = await getKanryoFusens()
+        setFusens(fusens.concat(kanryoFusens));
+  
       })
       .catch((err) => {
         console.error(err);

@@ -109,9 +109,12 @@ function Fusen(props) {
                 ""
               )}
             </div>
-            <div className="hidden lg:block">
-              <span className="material-icons cursor-grab" {...listeners}>drag_indicator</span>
-            </div>
+            {/* fusen.statusが完了の場合ソートハンドルは表示しない） */}
+            {fusen.status !== 3 &&
+              <div className="hidden lg:block">
+                <span className="material-icons cursor-grab" {...listeners}>drag_indicator</span>
+              </div>
+            }
           </div>
         </div>
       </div>

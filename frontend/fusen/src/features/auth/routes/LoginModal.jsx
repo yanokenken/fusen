@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import Cookies from "js-cookie";
 import { authenticateUser } from "../api/login"; 
 import { getUser } from "../api/getUser";
-import { getFusens } from "../../fusen/api/getFusens";
+import { getFusens,getKanryoFusens } from "../../fusen/api/getFusens";
+
 import { getPreference } from "../../preference/api/getPreference";
 import { useRecoilState } from "recoil";
 import { preferenceState, userState, fusensState } from "../../../state/atoms";
@@ -21,7 +22,7 @@ function LoginModal(modalId) {
 
   const login = () => {
     authenticateUser(email, password)
-      .then((res) => {
+      .then(async (res) => {
         setPreference({...preference, mode: "normal", title: "FUSEEN" });
         // jwtをcookieに保存
         Cookies.set("auth", res.data, { path: "/", expires: 1 });
@@ -31,13 +32,12 @@ function LoginModal(modalId) {
           setUser(res.data);
         });
         // fusen一覧を取得・state管理
-        getFusens().then((res) => {
-          setFusens(res);
-        });
+        const _fusens = await getFusens()
+        const _kanryoFusens = await getKanryoFusens()
+        setFusens(_fusens.concat(_kanryoFusens));
         // preferenceを取得・state管理
-        getPreference().then((res) => {
-          setPreference({...preference, theme: res.theme});
-        });
+        const _theme = await getPreference()
+        setPreference({...preference, theme: _theme.theme});
 
 
 

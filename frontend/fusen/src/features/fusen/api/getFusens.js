@@ -20,3 +20,8 @@ export const getFusens = async () => {
 	const res = await api.get('/api/secure/fusens')
 	return res.data;
 }
+
+export const getKanryoFusens = async () => {
+	const res = await api.get('/api/secure/fusens/kanryo')
+	return res.data;
+}

@@ -55,7 +55,7 @@ function MatrixView({ fusens, onFusenClick }) {
             <ListContainer id="fusens_1" statusLabel="未着手" fusens={allFusens.fusens_1} onFusenClick={onFusenClick} borderColor="border-warning" />
             <ListContainer id="fusens_2" statusLabel="進行中" fusens={allFusens.fusens_2} onFusenClick={onFusenClick} borderColor="border-primary" />
             <ListContainer id="fusens_3" statusLabel="今日やる！" fusens={allFusens.fusens_3} onFusenClick={onFusenClick} borderColor="border-accent" />
-            <ListContainer id="fusens_4" statusLabel="完了" fusens={allFusens.fusens_4} onFusenClick={onFusenClick} borderColor="border-default" />
+            <ListContainer id="fusens_4" statusLabel="完了（直近10件）" fusens={allFusens.fusens_4} onFusenClick={onFusenClick} borderColor="border-default" />
         </DndContext>
       </div>
     </>
