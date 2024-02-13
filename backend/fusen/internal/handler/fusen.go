@@ -115,6 +115,9 @@ func GetFusens(c echo.Context) error {
 
 // 完了状態の付箋情報取得
 func GetKanryoFusens(c echo.Context) error {
+	search := c.QueryParam("search")
+	log.Println("search: ", search)
+
 	log.Println("付箋情報取得 開始")
 	db, err := db.Connect()
 	if err != nil {
@@ -128,16 +131,21 @@ func GetKanryoFusens(c echo.Context) error {
 		return err
 	}
 
-	// fusensテーブルにcheckpointsとしてfusen_idが一致するcheckpointsテーブルのリストを追加する
-	fusens, err := models.Fusens(
+	// searchがallの場合は全件取得
+	queryMods := []qm.QueryMod{
 		models.FusenWhere.UserID.EQ(userID),
 		models.FusenWhere.Status.EQ(3), // 3:完了
 		qm.OrderBy("updated_at DESC"),
-		qm.Limit(10),
-	).All(c.Request().Context(), db)
+	}
+	if search != "all" {
+		queryMods = append(queryMods, qm.Limit(10))
+	}
+	fusens, err := models.Fusens(queryMods...).All(c.Request().Context(), db)
 	if err != nil {
 		return err
 	}
+	
+	// fusensテーブルにcheckpointsとしてfusen_idが一致するcheckpointsテーブルのリストを追加する
 	for _, fusen := range fusens {
 		err = fusen.L.LoadCheckpoints(c.Request().Context(), db, true, fusen, nil )
 		if err != nil {

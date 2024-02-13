@@ -10,7 +10,7 @@ import { fusensState } from "../../../state/atoms";
 
 
 
-function FusenModal({ modalId, selectedFusen }) {
+function FusenModal({ modalId, selectedFusen , fromCompleteList }) {
 
   // 選択された付箋の情報
   const [fusen, setFusen] = useState({ ...selectedFusen });
@@ -63,7 +63,9 @@ function FusenModal({ modalId, selectedFusen }) {
       // 付箋一覧を更新する
       document.getElementById('delete_modal').close();
       document.getElementById(modalId).close();
-      const fusens = await getFusens()
+      const param = fromCompleteList ? 'all':'';
+      console.log(param)
+      const fusens = await getFusens(param)
       const kanryoFusens = await getKanryoFusens()
       setFusens(fusens.concat(kanryoFusens));
 
@@ -148,7 +150,9 @@ function FusenModal({ modalId, selectedFusen }) {
       .then(async (updatedFusen) => {
         // 付箋一覧を更新する
         const fusens = await getFusens()
-        const kanryoFusens = await getKanryoFusens()
+        const param = fromCompleteList ? 'all':'';
+        console.log(param)
+        const kanryoFusens = await getKanryoFusens(param)
         setFusens(fusens.concat(kanryoFusens));
   
       })

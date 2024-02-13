@@ -21,7 +21,13 @@ export const getFusens = async () => {
 	return res.data;
 }
 
-export const getKanryoFusens = async () => {
-	const res = await api.get('/api/secure/fusens/kanryo')
+export const getKanryoFusens = async (param='') => {
+	console.log('getKanryoFusens:', param)
+	const res = await api.get('/api/secure/fusens/kanryo', {
+		params: {
+			search: param
+		}
+	})
+	console.log("res.data: ",res.data)
 	return res.data;
 }
