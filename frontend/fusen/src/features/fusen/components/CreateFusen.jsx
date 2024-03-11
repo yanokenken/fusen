@@ -2,11 +2,9 @@ import React, { useEffect, useState } from "react";
 import LabelCheckbox from "../../../components/LabelCheckbox";
 import { generateNanoId } from "../../../utils/generateId";
 
-
 import { postFusen } from "../api/postFusen";
 import { getFusens, getKanryoFusens } from "../api/getFusens";
-import {　useSetRecoilState, useRecoilValue } from "recoil";
-import { preferenceState } from "../../../state/atoms";
+import { useSetRecoilState } from "recoil";
 import { fusensState } from "../../../state/atoms";
 import { sideContentState } from "../../../state/atoms";
 
@@ -20,19 +18,19 @@ function CreateFusen({ closeDrawer }) {
     checkpoints: [],
   };
 
-  const preference = useRecoilValue(preferenceState);
   const setFusens = useSetRecoilState(fusensState);
   const setSideContent = useSetRecoilState(sideContentState);
-	const sideClose = () => setSideContent({open:false})
+  const sideClose = () => setSideContent({ open: false });
 
   const [fusen, setFusen] = useState(emptyFusen); // 付箋の情報
+  const [errors, setErrors] = useState({}); // エラーメッセージ
 
   useEffect(() => {
     setFusen(emptyFusen);
   }, []);
 
   const addCheckPoint = () => {
-    const id = generateNanoId('new', 5);
+    const id = generateNanoId("new", 5);
     const item = { id: id, body: "", is_checked: false };
     setFusen((prevFusen) => ({
       ...prevFusen,
@@ -108,6 +106,11 @@ function CreateFusen({ closeDrawer }) {
   };
 
   const addFusen = () => {
+    let newErrors = {};
+    if (!fusen.title) newErrors.title = "タスク名は必須です";
+    setErrors(newErrors);
+    if (Object.keys(newErrors).length > 0) return;
+
     postFusen(fusen).then(async (res) => {
       // 付箋一覧を更新
       const fusens = await getFusens();
@@ -115,7 +118,7 @@ function CreateFusen({ closeDrawer }) {
       setFusens(fusens.concat(kanryoFusens));
 
       setFusen(emptyFusen);
-      sideClose()
+      sideClose();
     });
   };
 
@@ -125,22 +128,37 @@ function CreateFusen({ closeDrawer }) {
         <div className="h-[calc(85vh - 84px)] overflow-scroll">
           <div className="lg:hidden bg-base-300 text-base-content flex items-center justify-center border-t">
             <div className="flex justify-between w-full mt-10">
-              <div className="badge badge-outline badge-xl h-[2rem] cursor-pointer" onClick={sideClose}>✕</div>
-              <div className="badge badge-primary badge-xl h-[2rem] cursor-pointer" onClick={addFusen}>登録する</div>
+              <div
+                className="badge badge-outline badge-xl h-[2rem] cursor-pointer"
+                onClick={sideClose}
+              >
+                ✕
+              </div>
+              <div
+                className="badge badge-primary badge-xl h-[2rem] cursor-pointer"
+                onClick={addFusen}
+              >
+                登録する
+              </div>
             </div>
           </div>
           <div className="form-control ">
             <label className="label">
-              <span className="label-text">タスク名</span>
+              <span className="label-text">タスク名（必須）</span>
             </label>
             <input
               type="text"
               maxLength={200}
-              className="input w-full mb-4 xl:mt-0 raunded-xl"
+              className="input w-full xl:mt-0 raunded-xl"
               placeholder="タスク名"
               value={fusen ? fusen.title : ""}
               onChange={(e) => handleInputChange(e, fusen.id, "title")}
             />
+            <label className="label">
+              <span className="label-text-alt text-error">
+                {errors.title}
+              </span>
+            </label>
           </div>
           <label className="label">
             <span className="label-text text-sm">メモ</span>
@@ -250,14 +268,16 @@ function CreateFusen({ closeDrawer }) {
           </div>
         </div>
 
-        <div className="
+        <div
+          className="
             h-[15vh] bg-base-300 text-base-content hidden lg:flex 
             items-center justify-center 
             border-t 
-            fixed inset-x-0 bottom-0">
+            fixed inset-x-0 bottom-0"
+        >
           <button
-            className="btn btn-primary  w-[80%] shadow-sm hidden lg:flex" 
-            onClick={addFusen} 
+            className="btn btn-primary  w-[80%] shadow-sm hidden lg:flex"
+            onClick={addFusen}
           >
             <span>登録する</span>
             <span className="material-icons-outlined">sticky_note_2</span>

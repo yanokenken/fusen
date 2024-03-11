@@ -3974,6 +3974,10 @@ details.collapse summary::-webkit-details-marker {
   align-items: center;
 }
 
+.justify-end {
+  justify-content: flex-end;
+}
+
 .justify-center {
   justify-content: center;
 }
@@ -3984,6 +3988,10 @@ details.collapse summary::-webkit-details-marker {
 
 .gap-1 {
   gap: 0.25rem;
+}
+
+.gap-2 {
+  gap: 0.5rem;
 }
 
 .gap-4 {
