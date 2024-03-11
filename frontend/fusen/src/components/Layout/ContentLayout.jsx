@@ -59,9 +59,9 @@ function ContentLayout({children}) {
         className="drawer-overlay"
         onClick={sideClose}
       ></label>
-      <div className="w-96 lg:w-64 xl:w-80">
+      <div className="w-96 lg:w-64 xl:w-80 h-full">
 
-        <div className="px-4 pb-4  h-dvh bg-base-300 overflow-x-auto always-show-scrollbar">
+        <div className="px-4 pb-4  h-dvh bg-base-300 always-show-scrollbar">
 					{/* pc時のアプリロゴ */}
 					<Link to="/board" onClick={()=>setMenu({...menu, isPreferenceMode:false})} className="accent-title text-accent m-auto w-full text-center hidden lg:block relative">
             {preference.title}

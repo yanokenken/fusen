@@ -3830,6 +3830,10 @@ details.collapse summary::-webkit-details-marker {
   height: -webkit-fill-available;
 }
 
+.h-full {
+  height: 100%;
+}
+
 .max-h-\[18rem\] {
   max-height: 18rem;
 }
@@ -4012,8 +4016,8 @@ details.collapse summary::-webkit-details-marker {
   overflow: hidden;
 }
 
-.overflow-x-auto {
-  overflow-x: auto;
+.overflow-scroll {
+  overflow: scroll;
 }
 
 .whitespace-normal {

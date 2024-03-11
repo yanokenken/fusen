@@ -23,11 +23,7 @@ func HashAndSalt(pwd string) (string, error) {
 func CompareHashAndPassword(hashedPwd, plainPwd string) bool {
 
 	err := bcrypt.CompareHashAndPassword([]byte(hashedPwd), []byte(plainPwd))
-
-	if err != nil {
-		return false
-	}
-	return true
+	return err == nil
 }
 
 // 認証済みのユーザーIDを取得する

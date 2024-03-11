@@ -22,7 +22,7 @@
   },
   "scripts": {
     "prestart": "tailwindcss build -o ./src/css/output.css",
-    "start": "react-scripts start",
+    "start": "HTTPS=true react-scripts start",
     "build": "react-scripts build",
     "cssbuild": "tailwindcss build -o ./src/css/output.css",
     "test": "react-scripts test",

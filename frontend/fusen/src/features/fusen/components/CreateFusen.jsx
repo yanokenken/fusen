@@ -121,8 +121,8 @@ function CreateFusen({ closeDrawer }) {
 
   return (
     <>
-      <div>
-        <div className="h-[100vh] lg:h-[85vh]">
+      <div className="">
+        <div className="h-[calc(85vh - 84px)] overflow-scroll">
           <div className="lg:hidden bg-base-300 text-base-content flex items-center justify-center border-t">
             <div className="flex justify-between w-full mt-10">
               <div className="badge badge-outline badge-xl h-[2rem] cursor-pointer" onClick={sideClose}>✕</div>
@@ -190,7 +190,7 @@ function CreateFusen({ closeDrawer }) {
             <div className="collapse-title text-md font-medium">
               チェックポイント
             </div>
-            <div className="collapse-content p-0">
+            <div className="collapse-content p-0 overflow-auto">
               <div className="ps-2">
                 <table className="table table-xs">
                   <thead></thead>
@@ -250,7 +250,11 @@ function CreateFusen({ closeDrawer }) {
           </div>
         </div>
 
-        <div className="h-[15vh] bg-base-300 text-base-content hidden lg:flex items-center justify-center border-t fixed inset-x-0 bottom-0">
+        <div className="
+            h-[15vh] bg-base-300 text-base-content hidden lg:flex 
+            items-center justify-center 
+            border-t 
+            fixed inset-x-0 bottom-0">
           <button
             className="btn btn-primary  w-[80%] shadow-sm hidden lg:flex" 
             onClick={addFusen} 

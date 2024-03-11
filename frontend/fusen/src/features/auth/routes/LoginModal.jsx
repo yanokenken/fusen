@@ -25,7 +25,14 @@ function LoginModal(modalId) {
       .then(async (res) => {
         setPreference({...preference, mode: "normal", title: "FUSEEN" });
         // jwtをcookieに保存
-        Cookies.set("auth", res.data, { path: "/", expires: 1 });
+        Cookies.set(
+          "auth", 
+          res.data, { 
+            path: "/", 
+            expires: 1, 
+            sameSite: "strict",
+            secure: true,
+          });
         // user情報を取得・state管理
         console.log('login:getUser')
         getUser().then((res) => {
