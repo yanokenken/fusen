@@ -23,7 +23,6 @@ function LoginModal(modalId) {
   const login = () => {
     authenticateUser(email, password)
       .then(async (res) => {
-        setPreference({...preference, mode: "normal", title: "FUSEEN" });
         // jwtをcookieに保存
         Cookies.set(
           "auth", 
@@ -33,22 +32,27 @@ function LoginModal(modalId) {
             sameSite: "strict",
             secure: true,
           });
+        setPreference({...preference, mode: "normal", title: "FUSEEN" });
         // user情報を取得・state管理
         console.log('login:getUser')
         getUser().then((res) => {
+          console.log('login:getUser:成功')
           setUser(res.data);
         });
         // fusen一覧を取得・state管理
-        const _fusens = await getFusens()
-        const _kanryoFusens = await getKanryoFusens()
+        let _fusens = await getFusens()
+        let _kanryoFusens = await getKanryoFusens()
         setFusens(_fusens.concat(_kanryoFusens));
         // preferenceを取得・state管理
         const _theme = await getPreference()
         setPreference({...preference, theme: _theme.theme});
-
-
-
-        navigate("/board");
+        // landingにいる場合、boardに遷移
+        if (window.location.pathname === "/") {
+          console.log('go to board')
+          navigate("/board");
+        }
+        // モーダルを閉じる
+        document.getElementById('login_modal').close();
       }).catch((error) => {
         if (error.response) {
           console.error(error.response.data);
@@ -64,8 +68,7 @@ function LoginModal(modalId) {
 
   return (
     <>
-      <input type="checkbox" id="login_modal" className="modal-toggle" onChange={()=>{}} />
-      <div className="modal">
+      <dialog id="login_modal" className="modal">
         <div className="modal-box">
           <h1 className="text-center">
             <span className="font-bold text-lg px-2">fuseen</span>
@@ -92,9 +95,11 @@ function LoginModal(modalId) {
             Googleアカウントでログイン（準備中）
           </button>
         </div>
-        <label className="modal-backdrop" htmlFor="login_modal"
-        >Close</label>
-      </div>
+        <form method="dialog" className="modal-backdrop">
+          <button>Close</button>
+        </form>
+      {/* </div> */}
+      </dialog>
     </>
   );
 }

@@ -74,8 +74,7 @@ function RegisterModal(modalId) {
 
   return (
     <>
-      <input type="checkbox" id="register_modal" className="modal-toggle" onChange={()=>{}}/>
-      <div className="modal">
+      <dialog id="register_modal" className="modal">
         <div className="modal-box">
           <h1 className="text-center">
             <span className="font-bold text-lg px-2">新規登録</span>
@@ -170,7 +169,10 @@ function RegisterModal(modalId) {
         <label className="modal-backdrop" htmlFor="register_modal">
           Close
         </label>
-      </div>
+        <form method="dialog" className="modal-backdrop">
+          <button>Close</button>
+        </form>
+      </dialog>
       <SimpleModal
         modalId="confirm_modal"
         title="メールを送信しました"

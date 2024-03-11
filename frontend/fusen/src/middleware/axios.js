@@ -16,17 +16,24 @@ api.interceptors.request.use((config) => {
 	}
 	return config;
 }, (error) => {
-	return Promise.reject(error);
+	// 401の場合はログインモーダルを表示
+	if (error.response.status === 401) {
+		document.getElementById('login_modal').showModal();
+	}else {
+		return Promise.reject(error);
+	}
 });
 
 api.interceptors.response.use((response) => {
 	return response
 }, (error) => {
 	console.log('error', error);
+	// 401の場合はログインモーダルを表示
 	if (error.response.status === 401) {
-		Cookies.remove('auth')
+		document.getElementById('login_modal').showModal();
+	}else {
+		return Promise.reject(error);
 	}
-	return Promise.reject(error);
 });
 
 export default api;

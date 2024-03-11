@@ -17,17 +17,20 @@ const fusenMocks = Promise.resolve([
 ]);
 
 export const getFusens = async () => {
-	const res = await api.get('/api/secure/fusens')
-	return res.data;
+	const ret = await api.get('/api/secure/fusens')
+	.then((res) => {
+		return res.data;
+	})
+	return ret;
 }
 
 export const getKanryoFusens = async (param='') => {
-	console.log('getKanryoFusens:', param)
-	const res = await api.get('/api/secure/fusens/kanryo', {
+	const ret = await api.get('/api/secure/fusens/kanryo', {
 		params: {
 			search: param
 		}
+	}).then((res) => {
+		return res.data;
 	})
-	console.log("res.data: ",res.data)
-	return res.data;
+	return ret;
 }

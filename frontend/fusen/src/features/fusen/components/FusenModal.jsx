@@ -154,7 +154,7 @@ function FusenModal({ modalId, selectedFusen , fromCompleteList }) {
         console.log(param)
         const kanryoFusens = await getKanryoFusens(param)
         setFusens(fusens.concat(kanryoFusens));
-  
+        document.getElementById(modalId).close();
       })
       .catch((err) => {
         console.error(err);
@@ -317,7 +317,6 @@ function FusenModal({ modalId, selectedFusen , fromCompleteList }) {
                   event.preventDefault();
                   // fusenを更新する
                   handleUpdateClick(fusen);
-                  document.getElementById(modalId).close();
                 }}
               >
                 更新する

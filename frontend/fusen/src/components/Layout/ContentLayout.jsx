@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { preferenceState, sideContentState, menuState } from "../../state/atoms";
 
+import LoginModal from "../../features/auth/routes/LoginModal";
 import Menu from "../../features/misc/components/Menu";
 
 
@@ -19,6 +20,7 @@ function ContentLayout({children}) {
 
 
   return (
+		<>
 		<div className="drawer lg:drawer-open">
 			<input id="my-drawer-2" type="checkbox" className="drawer-toggle" checked={sideContent.open} onChange={() => {}} />
 			<div className="drawer-content flex flex-col items-center justify-center">
@@ -71,10 +73,10 @@ function ContentLayout({children}) {
 					{clildElements[1]}
         </div>
       </div>
-
-
 			</div>
 		</div>
+		<LoginModal />
+		</>
 	);
 }
 

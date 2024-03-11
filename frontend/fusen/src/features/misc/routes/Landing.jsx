@@ -62,8 +62,8 @@ function Landing() {
               </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12 mx-auto">
-							<label htmlFor="login_modal" className="btn btn-outline btn-primary w-[10rem]">ログイン</label>
-							<label htmlFor="register_modal" className="btn btn-primary w-[10rem]">新規登録はこちら</label>
+							<button className="btn btn-outline btn-primary w-[10rem]" onClick={()=>{document.getElementById('login_modal').showModal()}}>ログイン</button>
+							<button className="btn btn-primary w-[10rem]" onClick={()=>{document.getElementById('register_modal').showModal()}}>新規登録はこちら</button>
             </div>
           </div>
 
