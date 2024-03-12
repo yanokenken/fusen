@@ -48,7 +48,7 @@ function Confirm() {
 								<br />
 								そのままログインしてください
 							</p>
-							<label htmlFor="login_modal" className="btn btn-outline btn-primary w-[10rem]">ログイン</label>
+							<button className="btn btn-outline btn-primary w-[10rem]" onClick={()=>{document.getElementById('login_modal').showModal();}}>ログイン</button>
 						</>
 						:
 						<>

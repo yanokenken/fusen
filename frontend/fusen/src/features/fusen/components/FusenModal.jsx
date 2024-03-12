@@ -5,8 +5,8 @@ import { generateNanoId } from "../../../utils/generateId";
 import { putFusen } from "../api/putFusen";
 import { getFusens, getKanryoFusens } from "../api/getFusens";
 import { deleteFusen } from "../api/deleteFusen";
-import { useSetRecoilState } from "recoil";
-import { fusensState } from "../../../state/atoms";
+import { useSetRecoilState, useRecoilState } from "recoil";
+import { fusensState, fusenStatusState} from "../../../state/atoms";
 
 function FusenModal({ modalId, selectedFusen, fromCompleteList }) {
   // 選択された付箋の情報
@@ -14,6 +14,7 @@ function FusenModal({ modalId, selectedFusen, fromCompleteList }) {
   const [errors, setErrors] = useState({}); // エラーメッセージ
   // 付箋を更新したときに付箋一覧を更新するためのstate
   const setFusens = useSetRecoilState(fusensState);
+  const [fusenStatus] = useRecoilState(fusenStatusState);
 
   useEffect(() => {
     setFusen({ ...selectedFusen });
@@ -136,6 +137,12 @@ function FusenModal({ modalId, selectedFusen, fromCompleteList }) {
           status: Number(value),
         }));
         break;
+      case "remaind_at": // リマインダーの変更
+        setFusen((prevFusen) => ({
+          ...prevFusen,
+          remaind_at: value,
+        }));
+        break;
       default:
         break;
     }
@@ -237,11 +244,28 @@ function FusenModal({ modalId, selectedFusen, fromCompleteList }) {
               onChange={(e) => handleInputChange(e, fusen.id, "status")}
             />
             <div className="w-full flex justify-between text-xs px-2">
-              <span>未着手</span>
-              <span>進行中</span>
-              <span>今日やる！</span>
-              <span>完了</span>
+              <span>{fusenStatus[0]}</span>
+              <span>{fusenStatus[1]}</span>
+              <span>{fusenStatus[2]}</span>
+              <span>{fusenStatus[3]}</span>
             </div>
+          </div>
+
+          <div className="form-control ">
+            <label className="label">
+              <span className="label-text">リマインダー</span>
+            </label>
+            <input
+              type="date"
+              className="input input-bordered w-full mt-4 lg:mt-0"
+              placeholder=""
+              value={fusen ? fusen.remaind_at : ""}
+              onChange={(e) => handleInputChange(e, fusen.id, "remaind_at")}
+            />
+            <label className="label">
+              <span className="text-xs">                
+              </span>
+            </label>
           </div>
 
           <div className="collapse collapse-open w-full mb-4 border border-base-300 shadow-xl">

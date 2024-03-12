@@ -7,7 +7,7 @@ function Fusen(props) {
     isUrgent: props.fusen.isUrgent, // 急ぎ
     isImportant: props.fusen.isImportant, // 重要
     status: props.fusen.status, // 進行ステータス（未着手/進行中/今日やる/完了）
-    fusenColor: "fusen3", // 付箋の色
+    fusenColor: "bg-base-100", // 付箋の色
     checkpoints: props.fusen.checkpoints, // チェックポイント
   });
 
@@ -18,7 +18,7 @@ function Fusen(props) {
       isUrgent: props.fusen.isUrgent,
       isImportant: props.fusen.isImportant,
       status: props.fusen.status,
-      fusenColor: "bg-base-100",
+      fusenColor: props.fusen.color,
       checkpoints: props.fusen.checkpoints,
     });
   }, [props]);

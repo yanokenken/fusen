@@ -41,6 +41,7 @@ type CustomFusen struct {
 	CreatedAt   time.Time `json:"created_at"`
 	UpdatedAt   time.Time `json:"updated_at"`
 	SortNo      types.Decimal `json:"sort_no"`
+	RemaindAt   string `json:"remaind_at"`
 }
 
 
@@ -90,7 +91,8 @@ func GetFusens(c echo.Context) error {
 					Status:      int8(fusen.Status),
 					CreatedAt:   fusen.CreatedAt,
 					UpdatedAt:   fusen.UpdatedAt,
-					SortNo:			 fusen.SortNo,					
+					SortNo:			 fusen.SortNo,
+					RemaindAt:  fusen.RemaindAt.String,
 			}
 			for _, checkpoint := range fusen.R.Checkpoints {
 					customCheckpoint := CustomCheckpoint{
@@ -168,7 +170,8 @@ func GetKanryoFusens(c echo.Context) error {
 					Status:      int8(fusen.Status),
 					CreatedAt:   fusen.CreatedAt,
 					UpdatedAt:   fusen.UpdatedAt,
-					SortNo:			 fusen.SortNo,					
+					SortNo:			 fusen.SortNo,
+					RemaindAt:	 fusen.RemaindAt.String,
 			}
 			for _, checkpoint := range fusen.R.Checkpoints {
 					customCheckpoint := CustomCheckpoint{
@@ -250,6 +253,7 @@ func CreateFusen (c echo.Context) error {
 		CreatedAt:   now,
 		UpdatedAt:   now,
 		SortNo:			 customFusen.SortNo,
+		RemaindAt:   null.StringFrom(customFusen.RemaindAt),
 	}
 
 
@@ -318,6 +322,7 @@ func UpdateFusen (c echo.Context) error {
 					"is_important": customFusen.IsImportant,
 					"status":       customFusen.Status,
 					"updated_at":   customFusen.UpdatedAt,
+					"remaind_at":   customFusen.RemaindAt,
 			})
 
 	if err != nil {
@@ -473,20 +478,12 @@ func UpdateFusenSortNo (c echo.Context) error {
 	// var prevSortNo types.Decimal = prevFusen.SortNo
 	var activeFusenSortNo types.Decimal = activeFusen.SortNo
 	var calcTargetSortNo types.Decimal
-	log.Println("----------------------------------------0")
-	log.Println("active: ", activeFusenSortNo.Big)
-	log.Println("over: ", overFusen.SortNo.Big)
-	log.Println("next: ", nextFusen.SortNo.Big)
-	log.Println("prev: ", prevFusen.SortNo.Big)
-	log.Println(activeFusenSortNo.Big.Cmp(overFusen.SortNo.Big))
 	// 移動中の付箋が移動先の付箋よりも大きい場合
 	if overFusen != nil && activeFusenSortNo.Big.Cmp(overFusen.SortNo.Big) > 0 {
 		// 位置が上がる時
-		log.Println("--------------------------------------1")
 		calcTargetSortNo = prevFusen.SortNo
 	} else {
 		// 位置が下がる時
-		log.Println("--------------------------------------2")
 		calcTargetSortNo = nextFusen.SortNo
 
 	}

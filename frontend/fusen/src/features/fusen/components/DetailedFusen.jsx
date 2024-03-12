@@ -9,7 +9,7 @@ function Fusen(props) {
     isUrgent: props.fusen.is_urgent, // 急ぎ
     isImportant: props.fusen.is_important, // 重要
     status: props.fusen.status, // 進行ステータス（未着手/進行中/今日やる/完了）
-    fusenColor: "fusen3", // 付箋の色
+    fusenColor: "bg-base-100", // 付箋の色
     checkpoints: props.fusen.checkpoints, // チェックポイント
   });
 
@@ -27,8 +27,9 @@ function Fusen(props) {
       isUrgent: props.fusen.is_urgent,
       isImportant: props.fusen.is_important,
       status: props.fusen.status,
-      fusenColor: "bg-base-100",
+      fusenColor: props.fusenColor,
       checkpoints: props.fusen.checkpoints,
+      isRemaind: props.isRemaind,
     });
   }, [props]);
 
@@ -42,7 +43,10 @@ function Fusen(props) {
         onClick={(e) => props.onClick(e)}
       >
         <div className="card-body relative">
-          <h2 className="card-title">{fusen.fusenTitle}</h2>
+          <h2 className="card-title">
+            {fusen.isRemaind ? (<span class="material-symbols-outlined text-error">local_fire_department</span>) : ("")}
+            {fusen.fusenTitle}
+          </h2>
           {fusen && fusen.fusenMemo !== "" ? (
             <p className="bg-base-100 shadow-md rounded-xl p-1 text-sm break-words whitespace-pre-wrap max-h-[18rem] overflow-auto hidden lg:block">
               {fusen.fusenMemo}

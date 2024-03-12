@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import LabelCheckbox from "../../../components/LabelCheckbox";
+import SimpleModal from "../../../components/SimpleModal";
 import { generateNanoId } from "../../../utils/generateId";
 
 import { postFusen } from "../api/postFusen";
 import { getFusens, getKanryoFusens } from "../api/getFusens";
-import { useSetRecoilState } from "recoil";
-import { fusensState } from "../../../state/atoms";
-import { sideContentState } from "../../../state/atoms";
+import { useSetRecoilState, useRecoilState } from "recoil";
+import { fusensState, sideContentState, fusenStatusState } from "../../../state/atoms";
 
 function CreateFusen({ closeDrawer }) {
   let emptyFusen = {
@@ -15,11 +15,14 @@ function CreateFusen({ closeDrawer }) {
     is_urgent: false,
     is_important: false,
     status: 0,
+    remaind_at: "",
     checkpoints: [],
   };
 
   const setFusens = useSetRecoilState(fusensState);
   const setSideContent = useSetRecoilState(sideContentState);
+  const [fusenStatus] = useRecoilState(fusenStatusState);
+
   const sideClose = () => setSideContent({ open: false });
 
   const [fusen, setFusen] = useState(emptyFusen); // 付箋の情報
@@ -98,6 +101,12 @@ function CreateFusen({ closeDrawer }) {
         setFusen((prevFusen) => ({
           ...prevFusen,
           status: Number(value),
+        }));
+        break;
+      case "remaind_at": // リマインダーの変更
+        setFusen((prevFusen) => ({
+          ...prevFusen,
+          remaind_at: value,
         }));
         break;
       default:
@@ -198,12 +207,43 @@ function CreateFusen({ closeDrawer }) {
               onChange={(e) => handleInputChange(e, fusen.id, "status")}
             />
             <div className="w-full flex justify-between text-xs px-2">
-              <span>未着手</span>
-              <span>進行中</span>
-              <span>今日やる！</span>
-              <span>完了</span>
+              {/* 初期値：未着手/進行中/今日やる！/完了 */}
+              <span>{fusenStatus[0]}</span>
+              <span>{fusenStatus[1]}</span>
+              <span>{fusenStatus[2]}</span>
+              <span>{fusenStatus[3]}</span>
             </div>
           </div>
+
+          <div className="form-control ">
+            <label className="label">
+              <span className="label-text">リマインダー</span>
+              <button className="label-text-alt btn btn-ghost btn-xs" onClick={()=>{document.getElementById('remainder_tips_modal').showModal()}}>
+                <span class="material-symbols-outlined">help</span>
+              </button>
+              <SimpleModal
+                modalId="remainder_tips_modal"
+                title="リマインダーとは"
+                body={
+                  `設定した日付を過ぎたら、対象の付箋はリストの上部に表示されます。\n"作業予定日" や "期限日" を設定すると、タスクの優先順位を見直すのに便利です。
+                `}
+                button="閉じる"
+              />
+            </label>
+
+            <input
+              type="date"
+              className="input w-full xl:mt-0 raunded-xl"
+              placeholder=""
+              value={fusen ? fusen.remaind_at : ""}
+              onChange={(e) => handleInputChange(e, fusen.id, "remaind_at")}
+            />
+            <label className="label">
+              <span className="text-xs">                
+              </span>
+            </label>
+          </div>
+
           <div className="collapse collapse-open bg-base-200 w-full mb-4">
             <div className="collapse-title text-md font-medium">
               チェックポイント

@@ -1,16 +1,10 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import FusenModal from "./FusenModal";
 import MatrixView from "./MatrixView";
 import ListView from "./ListView";
 import CompleteListView from "./CompleteListView";
-import Menu from "../../misc/components/Menu";
-import Cookies from 'js-cookie';
 import { useRecoilState } from "recoil";
-import { preferenceState, userState, fusensState } from "../../../state/atoms";
-import { getKanryoFusens } from "../api/getFusens";
-
-
+import { preferenceState, fusensState } from "../../../state/atoms";
 
 function Tab() {
   const [selectetedFusen, setSelectedFusen] = useState(null);

@@ -41,3 +41,14 @@ export const menuState = atom({
 		selectedMenu: "preference",
 	}
 })
+
+// 付箋の状態（未着手、進行中、完了）
+export const fusenStatusState = atom({
+	key: 'fusenStatusState',
+	default: {
+		0: "未着手",
+		1: "進行中",
+		2: "今日やる！",
+		3: "完了",
+	}
+})

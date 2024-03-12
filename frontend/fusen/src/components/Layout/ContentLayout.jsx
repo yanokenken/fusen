@@ -61,7 +61,7 @@ function ContentLayout({children}) {
         className="drawer-overlay"
         onClick={sideClose}
       ></label>
-      <div className="w-96 lg:w-64 xl:w-80 h-full">
+      <div className="w-full lg:w-64 xl:w-80 h-full">
 
         <div className="px-4 pb-4  h-dvh bg-base-300 always-show-scrollbar">
 					{/* pc時のアプリロゴ */}

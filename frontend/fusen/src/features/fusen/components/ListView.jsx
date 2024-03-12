@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import { putFusenSortNo } from "../api/putFusen";
+import { useRecoilState } from "recoil";
+import { fusenStatusState } from "../../../state/atoms";
+
 import {
   DndContext, 
   closestCenter,
@@ -17,6 +20,7 @@ import ListContainer from "./ListContainer";
 
 
 function ListView({ fusens, onFusenClick }) {
+  const [fusensState] = useRecoilState(fusenStatusState);
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -31,7 +35,6 @@ function ListView({ fusens, onFusenClick }) {
     fusens_3: [],
     fusens_4: [],      
   });
-
   useEffect(() => {
     if (fusens) {
       setAllFusens({
@@ -52,10 +55,10 @@ function ListView({ fusens, onFusenClick }) {
             collisionDetection={closestCenter} 
             onDragEnd={handleDragEnd}
         >            
-            <ListContainer id="fusens_1" statusLabel="未着手" fusens={allFusens.fusens_1} onFusenClick={onFusenClick} borderColor="border-warning" />
-            <ListContainer id="fusens_2" statusLabel="進行中" fusens={allFusens.fusens_2} onFusenClick={onFusenClick} borderColor="border-primary" />
-            <ListContainer id="fusens_3" statusLabel="今日やる！" fusens={allFusens.fusens_3} onFusenClick={onFusenClick} borderColor="border-accent" />
-            <ListContainer id="fusens_4" statusLabel="完了（直近10件）" fusens={allFusens.fusens_4} onFusenClick={onFusenClick} borderColor="border-default" />
+            <ListContainer id="fusens_1" statusLabel={fusensState[0]} fusens={allFusens.fusens_1} onFusenClick={onFusenClick} borderColor="border-warning" />
+            <ListContainer id="fusens_2" statusLabel={fusensState[1]} fusens={allFusens.fusens_2} onFusenClick={onFusenClick} borderColor="border-primary" />
+            <ListContainer id="fusens_3" statusLabel={fusensState[2]} fusens={allFusens.fusens_3} onFusenClick={onFusenClick} borderColor="border-accent" />
+            <ListContainer id="fusens_4" statusLabel={fusensState[3] + '（直近10件）'} fusens={allFusens.fusens_4} onFusenClick={onFusenClick} borderColor="border-default" />
         </DndContext>
       </div>
     </>
