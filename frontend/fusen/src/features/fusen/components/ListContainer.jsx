@@ -56,7 +56,8 @@ function ListContainer(props) {
 								fusen={fusen}
 								onClick={() => onFusenClick(fusen)}
 								isRemaind={isRemaind(fusen.remaind_at)}
-								fusenColor={isRemaind(fusen.remaind_at) ? "bg-base-100 border-[3px] border-warning" : "bg-base-100"}
+								fusenColor={isRemaind(fusen.remaind_at) ? "bg-base-100" : "bg-base-100"}
+								titleColor={isRemaind(fusen.remaind_at) ? "text-error" : ""}
 							/>
 						))}
 					</SortableContext>

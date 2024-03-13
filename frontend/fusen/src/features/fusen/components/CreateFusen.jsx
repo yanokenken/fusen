@@ -51,7 +51,6 @@ function CreateFusen({ closeDrawer }) {
       ),
     }));
   };
-
   const handleInputChange = (e, id, type) => {
     const { value } = e.target;
     switch (type) {
@@ -239,7 +238,7 @@ function CreateFusen({ closeDrawer }) {
               onChange={(e) => handleInputChange(e, fusen.id, "remaind_at")}
             />
             <label className="label">
-              <span className="text-xs">                
+              <span className="text-xs">
               </span>
             </label>
           </div>

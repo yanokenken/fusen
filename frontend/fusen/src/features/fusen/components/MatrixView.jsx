@@ -1,40 +1,73 @@
 import { useEffect, useState } from "react";
 import DetailedFusen from "./DetailedFusen";
+import Fusen from "./Fusen";
 
-function MatrixView({fusens, onFusenClick}) {
+function MatrixView({ fusens, onFusenClick }) {
   const [fusens_1, setFusens_1] = useState([]);
   const [fusens_2, setFusens_2] = useState([]);
   const [fusens_3, setFusens_3] = useState([]);
   const [fusens_4, setFusens_4] = useState([]);
 
+  //今日の日付(時間は含まない)
+  const today = new Date(new Date().toLocaleDateString());
 
+  const isRemaind = (remaind_at) => {
+    // 付箋のリマインド日付(時間は含まない)
+    const remaindDate = new Date(new Date(remaind_at).toLocaleDateString());
 
+    // かつ今日>=remaind_atの場合true
+    return today >= remaindDate;
+  };
+
+  // fusenのリマインドソート
+  const fusenSort = (fusens) => {
+    fusens.sort((a, b) => {
+      if (isRemaind(a.remaind_at) && !isRemaind(b.remaind_at)) {
+        return -1;
+      } else if (!isRemaind(a.remaind_at) && isRemaind(b.remaind_at)) {
+        return 1;
+      }
+      return 0;
+    });
+    return fusens;
+  };
 
   // fusensをstatusでフィルタリング
   useEffect(() => {
-    console.log('ボックスのfusens：',fusens);
+    console.log("ボックスのfusens：", fusens);
     if (fusens) {
       console.log("isImportant: ", fusens[0].is_important);
       console.log(typeof fusens[0].is_important);
 
       // fusensが定義されていることを確認
       const fusens_1 = fusens.filter(
-
-        (fusen) => fusen.is_important === true && fusen.is_urgent === true && fusen.status !== 3
+        (fusen) =>
+          fusen.is_important === true &&
+          fusen.is_urgent === true &&
+          fusen.status !== 3
       );
-      setFusens_1(fusens_1);
+      setFusens_1(fusenSort(fusens_1));
       const fusens_2 = fusens.filter(
-        (fusen) => fusen.is_important === true && fusen.is_urgent === false && fusen.status !== 3
+        (fusen) =>
+          fusen.is_important === true &&
+          fusen.is_urgent === false &&
+          fusen.status !== 3
       );
-      setFusens_2(fusens_2);
+      setFusens_2(fusenSort(fusens_2));
       const fusens_3 = fusens.filter(
-        (fusen) => fusen.is_important === false && fusen.is_urgent === true && fusen.status !== 3
+        (fusen) =>
+          fusen.is_important === false &&
+          fusen.is_urgent === true &&
+          fusen.status !== 3
       );
-      setFusens_3(fusens_3);
+      setFusens_3(fusenSort(fusens_3));
       const fusens_4 = fusens.filter(
-        (fusen) => fusen.is_important === false && fusen.is_urgent === false && fusen.status !== 3
+        (fusen) =>
+          fusen.is_important === false &&
+          fusen.is_urgent === false &&
+          fusen.status !== 3
       );
-      setFusens_4(fusens_4);
+      setFusens_4(fusenSort(fusens_4));
     }
   }, [fusens]);
 
@@ -62,10 +95,15 @@ function MatrixView({fusens, onFusenClick}) {
                   overflow-auto"
             >
               {fusens_1.map((fusen) => (
-                <DetailedFusen
+                <Fusen
                   key={fusen.id}
                   fusen={fusen}
                   onClick={() => onFusenClick(fusen)}
+                  isRemaind={isRemaind(fusen.remaind_at)}
+                  fusenColor={
+                    isRemaind(fusen.remaind_at) ? "bg-base-100" : "bg-base-100"
+                  }
+                  titleColor={isRemaind(fusen.remaind_at) ? "text-error" : ""}
                 />
               ))}
             </div>
@@ -76,18 +114,23 @@ function MatrixView({fusens, onFusenClick}) {
             <div className="badge w-full">2 重要だが緊急ではない</div>
             <div
               className="grid gap-4 m-2 
-									xl:grid-cols-2
-									md:grid-cols-2 
-									sm:grid-cols-1 									
-									overflow-auto"
+                xl:grid-cols-2
+                md:grid-cols-2
+                sm:grid-cols-1
+                overflow-auto"
             >
               {fusens_2.map((fusen) => (
-                <DetailedFusen
-                key={fusen.id}
-                fusen={fusen}
-                onClick={() => onFusenClick(fusen)}
-              />
-            ))}
+                <Fusen
+                  key={fusen.id}
+                  fusen={fusen}
+                  onClick={() => onFusenClick(fusen)}
+                  isRemaind={isRemaind(fusen.remaind_at)}
+                  fusenColor={
+                    isRemaind(fusen.remaind_at) ? "bg-base-100 " : "bg-base-100"
+                  }
+                  titleColor={isRemaind(fusen.remaind_at) ? "text-error" : ""}
+                />
+              ))}
             </div>
           </div>
         </div>
@@ -98,16 +141,21 @@ function MatrixView({fusens, onFusenClick}) {
               className="grid gap-4 m-2 
 									xl:grid-cols-2 
 									md:grid-cols-2 
-									sm:grid-cols-1 									
+									sm:grid-cols-1
 									overflow-auto"
             >
               {fusens_3.map((fusen) => (
-                <DetailedFusen
-                key={fusen.id}
-                fusen={fusen}
-                onClick={() => onFusenClick(fusen)}
-              />
-            ))}
+                <Fusen
+                  key={fusen.id}
+                  fusen={fusen}
+                  onClick={() => onFusenClick(fusen)}
+                  isRemaind={isRemaind(fusen.remaind_at)}
+                  fusenColor={
+                    isRemaind(fusen.remaind_at) ? "bg-base-100 " : "bg-base-100"
+                  }
+                  titleColor={isRemaind(fusen.remaind_at) ? "text-error" : ""}
+                />
+              ))}
             </div>
           </div>
         </div>
@@ -116,18 +164,24 @@ function MatrixView({fusens, onFusenClick}) {
             <div className="ps-2 badge w-full">4 重要でも緊急でもない</div>
             <div
               className="grid gap-4 m-2 
-									xl:grid-cols-2 
-									md:grid-cols-2 
-									sm:grid-cols-1 
-									overflow-auto"
+                xl:grid-cols-2 
+                md:grid-cols-2 
+                sm:grid-cols-1 
+                overflow-auto"
             >
               {fusens_4.map((fusen) => (
-                <DetailedFusen
-                key={fusen.id}
-                fusen={fusen}
-                onClick={() => onFusenClick(fusen)}
-              />
-            ))}
+                <Fusen
+                  key={fusen.id}
+                  fusen={fusen}
+                  onClick={() => onFusenClick(fusen)}
+                  isRemaind={isRemaind(fusen.remaind_at)}
+                  fusenColor={
+                    isRemaind(fusen.remaind_at) ? "bg-base-100 " : "bg-base-100"
+                  }
+                  titleColor={isRemaind(fusen.remaind_at) ? "text-error" : ""}
+
+                />
+              ))}
             </div>
           </div>
         </div>

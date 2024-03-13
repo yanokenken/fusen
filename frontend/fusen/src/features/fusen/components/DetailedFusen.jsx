@@ -39,11 +39,11 @@ function Fusen(props) {
         ref={setNodeRef}
         style={style}
         {...attributes}
-        className={`card fusen bg-base-200 text-base-content shadow-lg my-2 cursor-pointer ${fusen.fusenColor}  hover:bg-red" `}
+        className={`card fusen bg-base-200 text-base-content shadow-lg my-2 cursor-pointer ${fusen.fusenColor}  hover:bg-red `}
         onClick={(e) => props.onClick(e)}
       >
         <div className="card-body relative">
-          <h2 className="card-title">
+          <h2 className={`${props.titleColor} card-title`}>
             {fusen.isRemaind ? (<span class="material-symbols-outlined text-error">local_fire_department</span>) : ("")}
             {fusen.fusenTitle}
           </h2>
@@ -137,13 +137,20 @@ function Fusen(props) {
               )}
             </div>
             {/* fusen.statusが完了の場合ソートハンドルは表示しない） */}
-            <div className="hidden lg:block">
-              {fusen.status !== 3 && (
-                <span className="material-icons cursor-grab" {...listeners}>
-                  drag_indicator
-                </span>
-              )}
-            </div>
+            {fusen.isRemaind ? (
+              <div className="">
+                <span className="material-symbols-outlined rotated-text">keep</span>
+              </div>
+            ) : (
+              <div className="hidden lg:block">
+                {fusen.status !== 3 && (
+                  <span className="material-icons cursor-grab" {...listeners}>
+                    drag_indicator
+                  </span>
+                )}
+              </div>
+            )}
+
           </div>
         </div>
       </div>
