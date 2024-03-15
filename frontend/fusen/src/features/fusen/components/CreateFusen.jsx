@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import LabelCheckbox from "../../../components/LabelCheckbox";
 import SimpleModal from "../../../components/SimpleModal";
 import { generateNanoId } from "../../../utils/generateId";
@@ -27,10 +27,17 @@ function CreateFusen({ closeDrawer }) {
 
   const [fusen, setFusen] = useState(emptyFusen); // 付箋の情報
   const [errors, setErrors] = useState({}); // エラーメッセージ
+  const scrollRef = useRef(null);
 
   useEffect(() => {
     setFusen(emptyFusen);
   }, []);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [fusen]);
 
   const addCheckPoint = () => {
     const id = generateNanoId("new", 5);
@@ -132,196 +139,194 @@ function CreateFusen({ closeDrawer }) {
 
   return (
     <>
-      <div className="">
-        <div className="h-[calc(85vh - 84px)] overflow-scroll">
-          <div className="lg:hidden bg-base-300 text-base-content flex items-center justify-center border-t">
-            <div className="flex justify-between w-full mt-10">
-              <div
-                className="badge badge-outline badge-xl h-[2rem] cursor-pointer"
-                onClick={sideClose}
-              >
-                ✕
-              </div>
-              <div
-                className="badge badge-primary badge-xl h-[2rem] cursor-pointer"
-                onClick={addFusen}
-              >
-                登録する
-              </div>
+      <div className="flex-grow overflow-scroll px-1">
+        <div className="lg:hidden bg-base-300 text-base-content flex items-center justify-center">
+          <div className="flex justify-between w-full mt-10">
+            <div
+              className="badge badge-outline badge-xl h-[2rem] cursor-pointer"
+              onClick={sideClose}
+            >
+              ✕
+            </div>
+            <div
+              className="badge badge-primary badge-xl h-[2rem] cursor-pointer min-w-[6rem]"
+              onClick={addFusen}
+            >
+              登録
             </div>
           </div>
-          <div className="form-control ">
-            <label className="label">
-              <span className="label-text">タスク名（必須）</span>
-            </label>
-            <input
-              type="text"
-              maxLength={200}
-              className="input w-full xl:mt-0 raunded-xl"
-              placeholder="タスク名"
-              value={fusen ? fusen.title : ""}
-              onChange={(e) => handleInputChange(e, fusen.id, "title")}
-            />
-            <label className="label">
-              <span className="label-text-alt text-error">
-                {errors.title}
-              </span>
-            </label>
-          </div>
+        </div>
+        <div className="form-control ">
           <label className="label">
-            <span className="label-text text-sm">メモ</span>
+            <span className="label-text ">タスク名（必須）</span>
           </label>
-          <textarea
-            className="textarea h-[8rem] w-full mb-4 raunded-xl"
-            maxLength={1000}
-            placeholder="メモ"
-            value={fusen ? fusen.memo : ""}
-            onChange={(e) => handleInputChange(e, fusen.id, "memo")}
-          ></textarea>
-          <div className="form-control w-full flex mb-4">
-            <LabelCheckbox
-              label="重要"
-              checked={fusen ? fusen.is_important : false}
-              onChange={(e) => {
-                handleInputChange(e, fusen.id, "isImportant");
-              }}
-              colorSuffix="warning"
-            />
-            <LabelCheckbox
-              label="緊急"
-              checked={fusen ? fusen.is_urgent : false}
-              onChange={(e) => {
-                handleInputChange(e, fusen.id, "isUrgent");
-              }}
-              colorSuffix="error"
-            />
+          <input
+            type="text"
+            maxLength={200}
+            className="input w-full xl:mt-0 raunded-xl"
+            placeholder="タスク名"
+            value={fusen ? fusen.title : ""}
+            onChange={(e) => handleInputChange(e, fusen.id, "title")}
+          />
+          <label className="label">
+            <span className="label-text-alt text-error">
+              {errors.title}
+            </span>
+          </label>
+        </div>
+        <label className="label">
+          <span className="label-text ">メモ</span>
+        </label>
+        <textarea
+          className="textarea h-[8rem] w-full mb-4 raunded-xl"
+          maxLength={1000}
+          placeholder="メモ"
+          value={fusen ? fusen.memo : ""}
+          onChange={(e) => handleInputChange(e, fusen.id, "memo")}
+        ></textarea>
+        <div className="form-control w-full flex mb-4">
+          <LabelCheckbox
+            label="重要"
+            checked={fusen ? fusen.is_important : false}
+            onChange={(e) => {
+              handleInputChange(e, fusen.id, "isImportant");
+            }}
+            colorSuffix="warning"
+          />
+          <LabelCheckbox
+            label="緊急"
+            checked={fusen ? fusen.is_urgent : false}
+            onChange={(e) => {
+              handleInputChange(e, fusen.id, "isUrgent");
+            }}
+            colorSuffix="error"
+          />
+        </div>
+        <div className="w-full mb-4">
+          <input
+            type="range"
+            min={0}
+            max={3}
+            value={fusen ? fusen.status : 0}
+            className="range range-primary"
+            onChange={(e) => handleInputChange(e, fusen.id, "status")}
+          />
+          <div className="w-full flex justify-between text-xs px-2">
+            {/* 初期値：未着手/進行中/今日やる！/完了 */}
+            <span>{fusenStatus[0]}</span>
+            <span>{fusenStatus[1]}</span>
+            <span>{fusenStatus[2]}</span>
+            <span>{fusenStatus[3]}</span>
           </div>
-          <div className="w-full mb-4">
-            <input
-              type="range"
-              min={0}
-              max={3}
-              value={fusen ? fusen.status : 0}
-              className="range range-primary"
-              onChange={(e) => handleInputChange(e, fusen.id, "status")}
+        </div>
+
+        <div className="form-control ">
+          <label className="label">
+            <span className="label-text">リマインダー</span>
+            <button className="label-text-alt btn btn-ghost btn-xs" onClick={()=>{document.getElementById('remainder_tips_modal').showModal()}}>
+              <span class="material-symbols-outlined">help</span>
+            </button>
+            <SimpleModal
+              modalId="remainder_tips_modal"
+              title="リマインダーを設定すると・・・"
+              body={
+                `設定した日付を過ぎた時から、対象の付箋はリストの上部に表示されます。\n"作業予定日" や "期限" などを設定すると、タスクの優先順位を見直すのに便利です。
+              `}
+              button="閉じる"
             />
-            <div className="w-full flex justify-between text-xs px-2">
-              {/* 初期値：未着手/進行中/今日やる！/完了 */}
-              <span>{fusenStatus[0]}</span>
-              <span>{fusenStatus[1]}</span>
-              <span>{fusenStatus[2]}</span>
-              <span>{fusenStatus[3]}</span>
-            </div>
+          </label>
+
+          <input
+            type="date"
+            className="input w-full xl:mt-0 raunded-xl"
+            placeholder=""
+            value={fusen ? fusen.remaind_at : ""}
+            onChange={(e) => handleInputChange(e, fusen.id, "remaind_at")}
+          />
+          <label className="label">
+            <span className="text-xs">
+            </span>
+          </label>
+        </div>
+
+        <div className="collapse collapse-open bg-base-200 w-full mb-4">
+          <div className="p-2 ps-4 pb-0 text-md font-medium">
+            チェックポイント
           </div>
+          <div className="collapse-content p-0 overflow-auto">
+            <div className="ps-2">
+              <table className="table table-xs">
+                <thead></thead>
+                <tbody>
+                  {fusen &&
+                    fusen.checkpoints &&
+                    fusen.checkpoints.map((checkpoint,index) => (
 
-          <div className="form-control ">
-            <label className="label">
-              <span className="label-text">リマインダー</span>
-              <button className="label-text-alt btn btn-ghost btn-xs" onClick={()=>{document.getElementById('remainder_tips_modal').showModal()}}>
-                <span class="material-symbols-outlined">help</span>
-              </button>
-              <SimpleModal
-                modalId="remainder_tips_modal"
-                title="リマインダーとは"
-                body={
-                  `設定した日付を過ぎたら、対象の付箋はリストの上部に表示されます。\n"作業予定日" や "期限日" を設定すると、タスクの優先順位を見直すのに便利です。
-                `}
-                button="閉じる"
-              />
-            </label>
-
-            <input
-              type="date"
-              className="input w-full xl:mt-0 raunded-xl"
-              placeholder=""
-              value={fusen ? fusen.remaind_at : ""}
-              onChange={(e) => handleInputChange(e, fusen.id, "remaind_at")}
-            />
-            <label className="label">
-              <span className="text-xs">
-              </span>
-            </label>
-          </div>
-
-          <div className="collapse collapse-open bg-base-200 w-full mb-4">
-            <div className="collapse-title text-md font-medium">
-              チェックポイント
-            </div>
-            <div className="collapse-content p-0 overflow-auto">
-              <div className="ps-2">
-                <table className="table table-xs">
-                  <thead></thead>
-                  <tbody>
-                    {fusen &&
-                      fusen.checkpoints &&
-                      fusen.checkpoints.map((checkpoint) => (
-                        <tr key={checkpoint.id} id={checkpoint.id}>
-                          <td>
-                            <input
-                              type="text"
-                              maxLength={200}
-                              className="input input-sm input-bordered w-full max-w-xs"
-                              placeholder="チェックポイント"
-                              defaultValue={checkpoint.body}
-                              onChange={(e) =>
-                                handleInputChange(
-                                  e,
-                                  checkpoint.id,
-                                  "checkpointBody"
-                                )
-                              }
-                            />
-                          </td>
-                          <td className="whitespace-nowrap px-0">
-                            <div className="dropdown dropdown-end">
-                              <label
-                                tabIndex={0}
-                                className="btn btn-sm btn-ghost m-1 ms-0"
+                      <tr key={checkpoint.id} id={checkpoint.id} ref={index === fusen.checkpoints.length - 1 ? scrollRef : null}>
+                        <td>
+                          <input
+                            type="text"
+                            maxLength={200}
+                            className="input input-sm input-bordered w-full max-w-xs"
+                            placeholder="チェックポイント"
+                            defaultValue={checkpoint.body}
+                            onChange={(e) =>
+                              handleInputChange(
+                                e,
+                                checkpoint.id,
+                                "checkpointBody"
+                              )
+                            }
+                          />
+                        </td>
+                        <td className="whitespace-nowrap px-0">
+                          <div className="dropdown dropdown-end">
+                            <label
+                              tabIndex={0}
+                              className="btn btn-sm btn-ghost m-1 ms-0"
+                            >
+                              <span
+                                className="material-icons-outlined"
+                                onClick={deleteCP}
                               >
-                                <span
-                                  className="material-icons-outlined"
-                                  onClick={deleteCP}
-                                >
-                                  delete
-                                </span>
-                              </label>
-                            </div>
-                          </td>
-                        </tr>
-                      ))}
-                  </tbody>
-                </table>
-              </div>
-              <div className="flex justify-center my-4">
-                <button
-                  className="btn btn-outline w-[90%] hover:btn-neutral"
-                  onClick={addCheckPoint}
-                >
-                  <span>チェックポイントを追加</span>
-                  <span className="material-icons-outlined">
-                    add_circle_outline
-                  </span>
-                </button>
-              </div>
+                                delete
+                              </span>
+                            </label>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="flex justify-center my-4">
+              <button
+                className="btn btn-outline w-[90%] hover:btn-neutral"
+                onClick={addCheckPoint}
+              >
+                <span>追加</span>
+                <span className="material-icons-outlined">
+                  add_circle_outline
+                </span>
+              </button>
             </div>
           </div>
         </div>
+      </div>
 
-        <div
-          className="
-            h-[15vh] bg-base-300 text-base-content hidden lg:flex 
-            items-center justify-center 
-            border-t 
-            fixed inset-x-0 bottom-0"
+      <div
+        className="
+          h-[15vh] bg-base-300 text-base-content hidden lg:flex 
+          items-center justify-center 
+          border-t "
+      >
+        <button
+          className="btn btn-primary  w-[80%] shadow-sm hidden lg:flex"
+          onClick={addFusen}
         >
-          <button
-            className="btn btn-primary  w-[80%] shadow-sm hidden lg:flex"
-            onClick={addFusen}
-          >
-            <span>登録する</span>
-            <span className="material-icons-outlined">sticky_note_2</span>
-          </button>
-        </div>
+          <span>登録</span>
+          <span className="material-icons-outlined">sticky_note_2</span>
+        </button>
       </div>
     </>
   );

@@ -5,21 +5,16 @@
 .accent-title {
 	font-family: 'Rubik Bubbles', sans-serif;
 	font-family: 'Modak', sans-serif;
-	/* font-family: 'Bowlby One SC', sans-serif; */
-	/* font-family: 'Titan One', sans-serif; */
-	/* font-family: 'Fugaz One', sans-serif; */
-	/* font-family: 'Knewave', sans-serif; */
-	/* font-family: 'Sixtyfour', sans-serif; */
-
 
 	-webkit-text-stroke: 1.5px #181b26;
 	text-stroke: 1.5px #393939;
 	text-shadow: 5px 5px 0px #393939;
-	/* -webkit-text-stroke: 1.5px blue; */
-	/* text-shadow: 3px 3px 0px red; */
 	font-size: 3.5rem;
-	/* font-weight: 1; */
 	transform: skew(-14deg);
+}
+
+.dots-font {
+	font-family: 'DotGothic16', sans-serif;
 }
 
 .bg-yellow {

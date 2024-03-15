@@ -34,11 +34,7 @@ function MatrixView({ fusens, onFusenClick }) {
 
   // fusensをstatusでフィルタリング
   useEffect(() => {
-    console.log("ボックスのfusens：", fusens);
     if (fusens) {
-      console.log("isImportant: ", fusens[0].is_important);
-      console.log(typeof fusens[0].is_important);
-
       // fusensが定義されていることを確認
       const fusens_1 = fusens.filter(
         (fusen) =>

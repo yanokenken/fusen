@@ -4,6 +4,7 @@ import App from "./App";
 import "./css/output.css";
 import "./css/custom.css";
 import "material-icons/iconfont/material-icons.css";
+import 'material-symbols';
 import reportWebVitals from "./reportWebVitals";
 
 

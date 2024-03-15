@@ -39,7 +39,7 @@ function SideMenu({ closeDrawer }) {
   return (
     <>
       <div className="h-[100vh] lg:h-[85vh] py-4">
-        <div className="lg:hidden badge badge-outline badge-xl h-[2rem] cursor-pointer mb-4" onClick={sideClose}>✕</div>
+        <div className="lg:hidden badge badge-outline badge-xl h-[2rem] cursor-pointer mb-4 mt-6" onClick={sideClose}>✕</div>
         <ul className="menu bg-base-200 w-full rounded-box m-auto space-y-2">
           <li>
             <Link to="/board" onClick={() => {selectMenu(''); sideClose(); setMenu({...menu, isPreferenceMode:false})}}>

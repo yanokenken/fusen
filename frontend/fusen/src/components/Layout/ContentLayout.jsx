@@ -23,7 +23,8 @@ function ContentLayout({children}) {
 		<>
 		<div className="drawer lg:drawer-open">
 			<input id="my-drawer-2" type="checkbox" className="drawer-toggle" checked={sideContent.open} onChange={() => {}} />
-			<div className="drawer-content flex flex-col items-center justify-center">
+
+			<div className="drawer-content items-center justify-center">
 				{/* sp表示時の付箋追加ボタン start */}
 				<div className="fixed bottom-2 right-4 z-10 lg:hidden">
 					{menu.isPreferenceMode ?
@@ -61,14 +62,16 @@ function ContentLayout({children}) {
         className="drawer-overlay"
         onClick={sideClose}
       ></label>
-      <div className="w-full lg:w-64 xl:w-80 h-full">
+      <div className="w-full lg:w-64 xl:w-80">
 
-        <div className="px-4 pb-4  h-dvh bg-base-300 always-show-scrollbar">
+        <div className="px-10 lg:px-4 pb-4 bg-base-300 h-screen flex flex-col">
 					{/* pc時のアプリロゴ */}
-					<Link to="/board" onClick={()=>setMenu({...menu, isPreferenceMode:false})} className="accent-title text-accent m-auto w-full text-center hidden lg:block relative">
-            {preference.title}
-            <span className="text-[1.5rem] text-white absolute bottom-2 right-0 flex items-center justify-center"> Beta</span>
-          </Link>
+					<div className=" hidden lg:block h-[8vh] text-center">
+						<Link to="/board" onClick={()=>setMenu({...menu, isPreferenceMode:false})} className="block accent-title text-accent relative">
+							{preference.title}
+							<span className="text-[1.5rem] text-white absolute bottom-2 right-4 flex items-center justify-center">Beta</span>
+						</Link>
+					</div>
 					{/* サイドコンテンツ */}
 					{clildElements[1]}
         </div>

@@ -21,13 +21,13 @@ function ContentsArea() {
     <>
     <div className="flex justify-between my-2">
       <div className="tabs tabs-boxed bg-base-300">
-        <a id="profile" className={`tab tab-md ${activeTab === 'profile' ? 'tab-active' : ''}`} onClick={() => setActiveTab('profile')}>プロフィール</a>
-        <a id="cancellation" className={`tab tab-md ${activeTab === 'cancellation' ? 'tab-active' : ''}`} onClick={() => setActiveTab('cancellation')}>アカウント削除</a>
+        <a id="profile" className={`tab tab-md ${activeTab === 'profile' ? 'tab-active' : ''} dots-font`} onClick={() => setActiveTab('profile')}>Profile</a>
+        <a id="cancellation" className={`tab tab-md ${activeTab === 'cancellation' ? 'tab-active' : ''} dots-font`} onClick={() => setActiveTab('cancellation')}>Delete account</a>
         {/* <a id="support" className={`tab tab-md ${activeTab === 'support' ? 'tab-active' : ''}`} onClick={() => setActiveTab('support')} disabled>サポート（未実装）</a> */}
       </div>
       {/* <Menu /> */}
     </div>
-    <div className="tab-body bg-base-200 w-full flex-grow rounded-xl shadow-center">
+    <div className="tab-body bg-neutral text-neutral-content w-full flex-grow rounded-xl shadow-center">
     {activeTab === 'profile' && <ProfileTab />}
     {activeTab === 'cancellation' && <CancellationTab />}
     </div>

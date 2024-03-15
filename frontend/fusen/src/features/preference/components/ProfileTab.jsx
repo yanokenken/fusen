@@ -14,12 +14,12 @@ function ProfileTab() {
       <div className="py-2 px-4">
         <div className="form-control ">
           <label className="label">
-            <span className="label-text">名前</span>
+            <span className="label-text text-neutral-content">名前</span>
           </label>
           <input
             type="text"
             maxLength={200}
-            className="input w-56 mb-4 xl:mt-0 raunded-xl"
+            className="input text-base-content w-56 mb-4 xl:mt-0 raunded-xl"
             placeholder="名前"
             value={user.name}
             onChange={() => {}}
@@ -28,12 +28,12 @@ function ProfileTab() {
 
         <div className="form-control ">
           <label className="label">
-            <span className="label-text">Eメール</span>
+            <span className="label-text text-neutral-content">Eメール</span>
           </label>
           <input
             type="text"
             maxLength={200}
-            className="input w-80 mb-4 xl:mt-0 raunded-xl"
+            className="input text-base-content w-80 mb-4 xl:mt-0 raunded-xl"
             placeholder="Eメール"
             value={user.email}
             onChange={() => {}}

@@ -27,27 +27,20 @@ function Landing() {
             <h1 className="mb-5 text-5xl sm:text-4xl font-bold">
               <span className="md:inline-block inline-block md:whitespace-nowrap whitespace-normal">こんにちは,　</span>
               <span className="accent-title text-accent bg-white p-2 md:inline-block inline-block md:whitespace-nowrap whitespace-normal">FUSEEN</span>
-              <span className="md:inline-block inline-block md:whitespace-nowrap whitespace-normal">です</span>
+              <span className="ps-2 md:inline-block inline-block md:whitespace-nowrap whitespace-normal">です</span>
             </h1>
             <p className="mb-5 text-lg">
               <span className="font-semibold">
-                FUSEEN（フセーン）は手元のタスクを管理するためのツールです
+                FUSEEN（フセーン）は手元のタスクをフセンで管理するためのツールです
               </span>
             </p>
             <p className="mb-5 text-md">
-              以下の課題を解決するために作りました
+              「ただただフセンをカンバンボードっぽい感じでどこでも使えるようにしたい！」という気持ちで作られました。
+            </p>
+            <p className="mb-5 text-md">
+              機能はシンプルで、書いて貼って動かして剥がすだけです。
             </p>
             <ul className="list-disc ps-10 leading-loose">
-              <li>
-                個人タスクを管理しているメモ帳データが増えすぎてつらい…
-              </li>
-              <li>
-                n◯tion, Trell◯はハイテクすぎて使いこなせない…
-              </li>
-              <li>
-                複数プロジェクトを縦割りせずに状態を把握したい…
-              </li>
-              <li>趣味のプロジェクトもちょっと管理したい…</li>
 
             </ul>
             <p className="mt-6">
@@ -58,7 +51,7 @@ function Landing() {
             </p>
             <div className="flex justify-center mt-8">
               <div className="alert alert-warning">
-                <span>※現在はアルファ版（開発初期段階）として公開しています。</span>
+                <span>※現在はベータ版として公開しています。</span>
               </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12 mx-auto">

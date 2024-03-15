@@ -22,12 +22,19 @@ function FusenModal({ modalId, selectedFusen, fromCompleteList }) {
 
   // モーダルを開いたときにフォーカスを外す
   const inputRef = useRef();
+  const scrollRef = useRef(null);
   const modalIsOpen = document.getElementById(modalId)?.open;
   useEffect(() => {
     if (modalIsOpen) {
       inputRef.current.blur();
     }
   }, [modalIsOpen]);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [fusen.checkpoints]);
 
   // モーダルを閉じる
   const handleClose = () => {
@@ -171,15 +178,15 @@ function FusenModal({ modalId, selectedFusen, fromCompleteList }) {
 
   const dateFormatted = (date) => {
     const d = new Date(date);
-    return `${d.getFullYear()}年${
+    return `${d.getFullYear()}.${
       d.getMonth() + 1
-    }月${d.getDate()}日 ${d.getHours()}:${d.getMinutes()}`;
+    }.${d.getDate()} ${d.getHours()}:${d.getMinutes()}`;
   };
 
   return (
     <>
       <dialog id={modalId ? modalId : ""} className="modal">
-        <div className="modal-box">
+        <div className="modal-box bg-base-200">
           <label className="label">
             <span className="label-text">タスク名（必須）</span>
           </label>
@@ -211,6 +218,9 @@ function FusenModal({ modalId, selectedFusen, fromCompleteList }) {
                 handleInputChange(e, fusen.id, "memo");
               }}
             />
+            <label className="label">
+              <span className="label-text-alt text-error"></span>
+            </label>
           </div>
 
           <div className="form-control w-full flex mb-4">
@@ -263,13 +273,13 @@ function FusenModal({ modalId, selectedFusen, fromCompleteList }) {
               onChange={(e) => handleInputChange(e, fusen.id, "remaind_at")}
             />
             <label className="label">
-              <span className="text-xs">                
+              <span className="text-xs">
               </span>
             </label>
           </div>
 
           <div className="collapse collapse-open w-full mb-4 border border-base-300 shadow-xl">
-            <div className="collapse-title text-md font-medium">
+            <div className="p-2 ps-4 pb-0 text-md font-medium">
               チェックポイント
             </div>
             <div className="collapse-content p-0">
@@ -278,8 +288,8 @@ function FusenModal({ modalId, selectedFusen, fromCompleteList }) {
                   <tbody>
                     {fusen &&
                       fusen.checkpoints &&
-                      fusen.checkpoints.map((checkpoint) => (
-                        <tr key={checkpoint.id} id={checkpoint.id}>
+                      fusen.checkpoints.map((checkpoint, index) => (
+                        <tr key={checkpoint.id} id={checkpoint.id} ref={index === fusen.checkpoints.length - 1 ? scrollRef : null}>
                           <td className="text-center">
                             <label className={`label cursor-pointer block`}>
                               <input
@@ -337,7 +347,7 @@ function FusenModal({ modalId, selectedFusen, fromCompleteList }) {
                   className="btn btn-outline w-[90%] hover:btn-neutral"
                   onClick={addCheckPoint}
                 >
-                  <span>チェックポイントを追加</span>
+                  <span>追加</span>
                   <span className="material-icons-outlined">
                     add_circle_outline
                   </span>
@@ -346,12 +356,13 @@ function FusenModal({ modalId, selectedFusen, fromCompleteList }) {
             </div>
           </div>
 
-          <div className="flex gap-2 justify-end">
-            <p className="text-xs">
-              <span className="font-bold">作成日：</span>{dateFormatted(fusen.created_at)}
+          <div className="flex gap-4 justify-end">
+            <p className="text-[0.9em] dots-font">
+              <span className="font-bold">created：</span>{dateFormatted(fusen.created_at)}
             </p>
-            <p className="text-xs">
-            <span className="font-bold">更新日：</span>{dateFormatted(fusen.updated_at)}
+            /
+            <p className="text-[0.9em] dots-font">
+            <span className="font-bold">updated：</span>{dateFormatted(fusen.updated_at)}
             </p>
           </div>
 
@@ -360,29 +371,29 @@ function FusenModal({ modalId, selectedFusen, fromCompleteList }) {
               className="link link-error block my-auto"
               onClick={beforeDeleteFusen}
             >
-              削除する
+              削除
             </button>
 
-            <div>
-              <button
-                className={`btn btn-primary`}
-                onClick={(event) => {
-                  event.preventDefault();
-                  // fusenを更新する
-                  handleUpdateClick(fusen);
-                }}
-              >
-                更新する
-              </button>
-              {/* 閉じるボタンでモーダルを閉じる */}
-              <button
-                className="btn ms-2"
+            <div className="flex gap-2">
+            <button
+                className="btn bg-base-300"
                 onClick={(event) => {
                   event.preventDefault();
                   handleClose();
                 }}
               >
                 閉じる
+              </button>
+
+              <button
+                className={`btn btn-primary min-w-[5rem]`}
+                onClick={(event) => {
+                  event.preventDefault();
+                  // fusenを更新する
+                  handleUpdateClick(fusen);
+                }}
+              >
+                更新
               </button>
             </div>
           </div>
@@ -395,11 +406,10 @@ function FusenModal({ modalId, selectedFusen, fromCompleteList }) {
           <p className="py-4">この付箋を削除します。よろしいですか？</p>
           <div className="modal-action">
             <form method="dialog">
-              {/* if there is a button in form, it will close the modal */}
-              <button className="btn btn-error" onClick={remove}>
+              <button className="btn ">キャンセル</button>
+              <button className="btn btn-error ms-2 min-w-[5rem]" onClick={remove}>
                 削除
               </button>
-              <button className="btn ms-2">キャンセル</button>
             </form>
           </div>
         </div>

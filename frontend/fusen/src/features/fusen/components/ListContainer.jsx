@@ -60,6 +60,8 @@ function ListContainer(props) {
 								titleColor={isRemaind(fusen.remaind_at) ? "text-error" : ""}
 							/>
 						))}
+						{_fusens.length === 0 && <div className="dots-font text-center text-lg p-4 ">- empty -</div>}
+						
 					</SortableContext>
 			</div>
     </>

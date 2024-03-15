@@ -29,7 +29,7 @@ function LoginModal(modalId) {
       <div className="modal">
         <div className="modal-box">
           <h1 className="text-center">
-            <span className="font-bold text-lg px-2">アカウントを完全に削除して良いですか？</span>
+            <span className="font-bold text-lg px-2 text-base-content">アカウントを完全に削除して良いですか？</span>
           </h1>
           <button type="submit" className="btn btn-error w-full mt-4 " onClick={cancellation}>
             はい

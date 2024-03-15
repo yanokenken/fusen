@@ -43,16 +43,16 @@ function ContentsArea() {
     <>
     <div className="flex justify-between my-2">
       <div className="tabs tabs-boxed bg-base-300">
-        <a id="system" className={`tab tab-md ${activeTab === 'system' ? 'tab-active' : ''}`} onClick={() => setActiveTab('system')}>システム</a>
+        <a id="system" className={`tab tab-md ${activeTab === 'system' ? 'tab-active' : ''} dots-font`} onClick={() => setActiveTab('system')}>System</a>
       </div>
     </div>
-    <div className="tab-body bg-base-200 w-full flex-grow rounded-xl shadow-center">
+    <div className="tab-body bg-neutral text-neutral-content w-full flex-grow rounded-xl shadow-center">
       <div className="py-2 px-4">
         <div className="form-control w-full max-w-xs">
           <label className="label">
-            <span className="label-text">テーマカラー</span>
+            <span className="label-text text-neutral-content">テーマカラー</span>
           </label>
-          <select id="select-theme" className="select select-bordered" value={preference.theme} onChange={setTheme()}>
+          <select id="select-theme" className="select select-bordered text-base-content" value={preference.theme} onChange={setTheme()}>
             <option value="light">light</option>
             <option value="light2">light2</option>
             <option value="light3">light3</option>
