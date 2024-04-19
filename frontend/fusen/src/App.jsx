@@ -13,6 +13,7 @@ import { getUser } from "./features/auth/api/getUser";
 import { getFusens,getKanryoFusens } from "./features/fusen/api/getFusens"
 import { getPreference } from './features/preference/api/getPreference';
 
+import Toast from "./components/Toast";
 
 function InnerApp() {
   const setUser = useSetRecoilState(userState);  
@@ -61,6 +62,7 @@ function InnerApp() {
 function App() {
   return (
     <RecoilRoot>
+      <Toast />
       <InnerApp />
     </RecoilRoot>
   );

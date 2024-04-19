@@ -7,8 +7,6 @@ import LoginModal from "../../features/auth/routes/LoginModal";
 import Menu from "../../features/misc/components/Menu";
 
 
-
-
 function ContentLayout({children}) {
 
 	const clildElements = React.Children.toArray(children);

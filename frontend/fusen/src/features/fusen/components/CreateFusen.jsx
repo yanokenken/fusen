@@ -6,7 +6,7 @@ import { generateNanoId } from "../../../utils/generateId";
 import { postFusen } from "../api/postFusen";
 import { getFusens, getKanryoFusens } from "../api/getFusens";
 import { useSetRecoilState, useRecoilState } from "recoil";
-import { fusensState, sideContentState, fusenStatusState } from "../../../state/atoms";
+import { fusensState, sideContentState, fusenStatusState, toastState } from "../../../state/atoms";
 
 function CreateFusen({ closeDrawer }) {
   let emptyFusen = {
@@ -119,7 +119,7 @@ function CreateFusen({ closeDrawer }) {
         break;
     }
   };
-
+  const setToast = useSetRecoilState(toastState);
   const addFusen = () => {
     let newErrors = {};
     if (!fusen.title) newErrors.title = "タスク名は必須です";
@@ -133,6 +133,8 @@ function CreateFusen({ closeDrawer }) {
       setFusens(fusens.concat(kanryoFusens));
 
       setFusen(emptyFusen);
+      // 通知
+      setToast({ message: "付箋を登録しました", type: "success", time: 3000 });
       sideClose();
     });
   };

@@ -52,3 +52,13 @@ export const fusenStatusState = atom({
 		3: "完了",
 	}
 })
+
+// toast
+export const toastState = atom({
+	key: 'toastState',
+	default: {
+		message: '',
+		type: 'info',
+		time: 3000,
+	}
+})

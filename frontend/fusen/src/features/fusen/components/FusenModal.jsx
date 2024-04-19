@@ -6,7 +6,7 @@ import { putFusen } from "../api/putFusen";
 import { getFusens, getKanryoFusens } from "../api/getFusens";
 import { deleteFusen } from "../api/deleteFusen";
 import { useSetRecoilState, useRecoilState } from "recoil";
-import { fusensState, fusenStatusState} from "../../../state/atoms";
+import { fusensState, fusenStatusState, toastState} from "../../../state/atoms";
 
 function FusenModal({ modalId, selectedFusen, fromCompleteList }) {
   // 選択された付箋の情報
@@ -15,6 +15,7 @@ function FusenModal({ modalId, selectedFusen, fromCompleteList }) {
   // 付箋を更新したときに付箋一覧を更新するためのstate
   const setFusens = useSetRecoilState(fusensState);
   const [fusenStatus] = useRecoilState(fusenStatusState);
+  const setToast = useSetRecoilState(toastState);
 
   useEffect(() => {
     setFusen({ ...selectedFusen });
@@ -75,6 +76,7 @@ function FusenModal({ modalId, selectedFusen, fromCompleteList }) {
         const fusens = await getFusens(param);
         const kanryoFusens = await getKanryoFusens();
         setFusens(fusens.concat(kanryoFusens));
+        setToast({ message: "削除しました", type: "info", time: 3000 });
       })
       .catch((err) => {
         console.error(err);
@@ -170,6 +172,7 @@ function FusenModal({ modalId, selectedFusen, fromCompleteList }) {
         const kanryoFusens = await getKanryoFusens(param);
         setFusens(fusens.concat(kanryoFusens));
         document.getElementById(modalId).close();
+        setToast({ message: "更新しました", type: "info", time: 3000 });
       })
       .catch((err) => {
         console.error(err);
