@@ -44,7 +44,7 @@ function Fusen(props) {
           rounded-xl 
           bg-base-200 text-base-content 
           shadow-[4px_4px_0_0] shadow-[#020202]
-          border border-[#020202]
+          border-2 border-[#020202]
           my-3 cursor-pointer 
           ${fusen.fusenColor} 
           hover:bg-base-100
