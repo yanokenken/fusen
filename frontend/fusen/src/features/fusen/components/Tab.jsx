@@ -23,15 +23,15 @@ function Tab() {
     <>
     <div className="tab-component flex justify-between my-2">
       <div className="tabs tabs-boxed dots-font">
-        <a id="list" className={`tab tab-md flex items-center ${activeTab === 'list' ? 'tab-active' : ''}`} onClick={() => {setActiveTab('list'); setFromCompleteList(false)}}>
+        <a id="list" className={`tab tab-md flex items-center ${activeTab === 'list' ? 'btn-primary' : ''}`} onClick={() => {setActiveTab('list'); setFromCompleteList(false)}}>
           <span className="me-1">Kanban Board</span>
           <span className="material-symbols-outlined">view_kanban</span>
         </a>
-        <a id="matrix" className={`tab tab-md hidden lg:flex items-center ${activeTab === 'matrix' ? 'tab-active' : ''}`} onClick={() => {setActiveTab('matrix'); setFromCompleteList(false)}}>
+        <a id="matrix" className={`tab tab-md hidden lg:flex items-center ${activeTab === 'matrix' ? 'btn-primary' : ''}`} onClick={() => {setActiveTab('matrix'); setFromCompleteList(false)}}>
           <span className="me-1">Priority Matrix</span>
           <span className="material-symbols-outlined">grid_view</span>
         </a>
-        <a id="complete" className={`tab tab-md flex items-center ${activeTab === 'complete' ? 'tab-active' : ''}`} onClick={() => {setActiveTab('complete'); setFromCompleteList(true)}}>
+        <a id="complete" className={`tab tab-md flex items-center ${activeTab === 'complete' ? 'btn-primary' : ''}`} onClick={() => {setActiveTab('complete'); setFromCompleteList(true)}}>
           <span className="me-1">Completed</span>
           <span className="material-symbols-outlined">done_all</span>
         </a>

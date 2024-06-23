@@ -64,7 +64,7 @@ func GetFusens(c echo.Context) error {
 	fusens, err := models.Fusens(
 		models.FusenWhere.UserID.EQ(userID),
 		models.FusenWhere.Status.NEQ(3), // 3:完了
-		qm.OrderBy("sort_no ASC"),
+		qm.OrderBy("sort_no DESC"),
 	).All(c.Request().Context(), db)
 	if err != nil {
 		return err

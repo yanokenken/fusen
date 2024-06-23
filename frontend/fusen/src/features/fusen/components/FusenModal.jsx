@@ -189,7 +189,7 @@ function FusenModal({ modalId, selectedFusen, fromCompleteList }) {
   return (
     <>
       <dialog id={modalId ? modalId : ""} className="modal">
-        <div className="modal-box bg-base-200">
+        <div className="modal-box bg-base-200 border-2 border-[#020202]">
           <label className="label">
             <span className="label-text">タスク名（必須）</span>
           </label>

@@ -49,14 +49,14 @@ function ListView({ fusens, onFusenClick }) {
 
   return (
     <>
-      <div className="grid grid-rows-1 grid-cols-1 lg:grid-cols-4 gap-6 py-2 px-4 lg:h-tab-pc">
+      <div className="grid grid-rows-1 grid-cols-1 lg:grid-cols-4 py-2 px-4 lg:h-tab-pc">
         <DndContext 
             sensors={sensors} 
             collisionDetection={closestCenter} 
             onDragEnd={handleDragEnd}
         >            
             <ListContainer id="fusens_1" statusLabel={fusensState[0]} fusens={allFusens.fusens_1} onFusenClick={onFusenClick} borderColor="border-warning" />
-            <ListContainer id="fusens_2" statusLabel={fusensState[1]} fusens={allFusens.fusens_2} onFusenClick={onFusenClick} borderColor="border-primary" />
+            <ListContainer id="fusens_2" statusLabel={fusensState[1]} fusens={allFusens.fusens_2} onFusenClick={onFusenClick} borderColor="border-secondary" />
             <ListContainer id="fusens_3" statusLabel={fusensState[2]} fusens={allFusens.fusens_3} onFusenClick={onFusenClick} borderColor="border-accent" />
             <ListContainer id="fusens_4" statusLabel={fusensState[3] + '（直近10件）'} fusens={allFusens.fusens_4} onFusenClick={onFusenClick} borderColor="border-default" />
         </DndContext>

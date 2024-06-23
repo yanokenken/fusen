@@ -84,7 +84,7 @@ function MatrixView({ fusens, onFusenClick }) {
           <div className="">
             <div className="badge w-full ">1 重要かつ緊急</div>
             <div
-              className="grid gap-x-4 m-2
+              className="grid 
                   xl:grid-cols-2 
                   md:grid-cols-2 
                   sm:grid-cols-1
@@ -109,7 +109,7 @@ function MatrixView({ fusens, onFusenClick }) {
           <div className="">
             <div className="badge w-full">2 重要だが緊急ではない</div>
             <div
-              className="grid gap-4 m-2 
+              className="grid
                 xl:grid-cols-2
                 md:grid-cols-2
                 sm:grid-cols-1
@@ -134,7 +134,7 @@ function MatrixView({ fusens, onFusenClick }) {
           <div className="">
             <div className="badge w-full">3 重要ではないが緊急</div>
             <div
-              className="grid gap-4 m-2 
+              className="grid
 									xl:grid-cols-2 
 									md:grid-cols-2 
 									sm:grid-cols-1
@@ -159,7 +159,7 @@ function MatrixView({ fusens, onFusenClick }) {
           <div className="">
             <div className="ps-2 badge w-full">4 重要でも緊急でもない</div>
             <div
-              className="grid gap-4 m-2 
+              className="grid
                 xl:grid-cols-2 
                 md:grid-cols-2 
                 sm:grid-cols-1 

@@ -39,7 +39,16 @@ function Fusen(props) {
         ref={setNodeRef}
         style={style}
         {...attributes}
-        className={`card fusen bg-base-200 text-base-content shadow-lg my-2 cursor-pointer ${fusen.fusenColor}  hover:bg-red" `}
+        className={`
+          fusen 
+          rounded-xl 
+          bg-base-200 text-base-content 
+          m-2 cursor-pointer 
+          ${fusen.fusenColor} 
+          shadow-[4px_4px_0_0] shadow-[#020202]
+          border-2 border-[#020202]
+          hover:bg-base-100
+        `}
         onClick={(e) => props.onClick(e)}
       >
         <div className="card-body relative">

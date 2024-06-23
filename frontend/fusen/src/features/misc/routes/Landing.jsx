@@ -44,7 +44,7 @@ function Landing() {
 
             </ul>
             <p className="mt-6">
-            <span className="text-md ">
+            <span className="text-md">
                 よかったら使ってみてください
               </span>
               <span className="text-xl">🐕🐢🐓</span>
