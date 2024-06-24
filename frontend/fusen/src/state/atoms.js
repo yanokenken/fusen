@@ -62,3 +62,9 @@ export const toastState = atom({
 		time: 3000,
 	}
 })
+
+// ローダーの表示制御
+export const loadingState = atom({
+	key: 'loadingState',
+	default: false,
+})

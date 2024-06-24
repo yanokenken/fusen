@@ -888,12 +888,12 @@ html {
   --pf: 225 79% 51%;
   --sf: 52 100% 60%;
   --af: 7 100% 63%;
-  --nf: 0 0% 87%;
-  --bc: 145 0% 17%;
+  --nf: 78 100% 77%;
+  --bc: 145 0% 18%;
   --pc: 238 81% 93%;
   --sc: 50 34% 14%;
   --ac: 9 33% 15%;
-  --nc: 145 0% 18%;
+  --nc: 77 15% 17%;
   --inc: 194 12% 16%;
   --suc: 238 81% 93%;
   --wac: 47 48% 13%;
@@ -910,10 +910,10 @@ html {
   --tab-radius: 0.5rem;
   --s: 52 100% 67%;
   --a: 7 100% 70%;
-  --n: 0 0% 94%;
-  --b1: 0 0% 86%;
-  --b2: 0 3% 77%;
-  --b3: 0 0% 76%;
+  --n: 78 100% 84%;
+  --b1: 0 0% 95%;
+  --b2: 0 0% 90%;
+  --b3: 0 0% 85%;
   --in: 193 61% 78%;
   --su: 225 79% 58%;
   --wa: 51 100% 51%;
@@ -1969,6 +1969,15 @@ html {
 .link {
   cursor: pointer;
   text-decoration-line: underline;
+}
+
+.mask {
+  -webkit-mask-size: contain;
+          mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+          mask-position: center;
 }
 
 .menu {

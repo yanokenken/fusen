@@ -53,7 +53,7 @@ function Fusen(props) {
       >
         <div className="card-body relative">
         <h2 className={`${props.titleColor} card-title`}>
-            {fusen.isRemaind ? (<span class="material-symbols-outlined text-error">local_fire_department</span>) : ("")}
+            {fusen.isRemaind ? (<span className="material-symbols-outlined text-error">local_fire_department</span>) : ("")}
             {fusen.fusenTitle}
           </h2>
 

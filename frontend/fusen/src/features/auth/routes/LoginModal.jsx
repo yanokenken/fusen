@@ -7,7 +7,7 @@ import { getFusens,getKanryoFusens } from "../../fusen/api/getFusens";
 
 import { getPreference } from "../../preference/api/getPreference";
 import { useRecoilState } from "recoil";
-import { preferenceState, userState, fusensState } from "../../../state/atoms";
+import { preferenceState, userState, fusensState, loadingState } from "../../../state/atoms";
 
 
 
@@ -15,14 +15,16 @@ function LoginModal(modalId) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [preference, setPreference] = useRecoilState(preferenceState);
-  const [user, setUser] = useRecoilState(userState);  
-  const [fusens, setFusens] = useRecoilState(fusensState);
+  const [, setUser] = useRecoilState(userState);  
+  const [, setFusens] = useRecoilState(fusensState);
+    const [, setLoading] = useRecoilState(loadingState);
 
   const navigate = useNavigate();
 
   const login = () => {
     authenticateUser(email, password)
       .then(async (res) => {
+        setLoading(true);
         // jwtをcookieに保存
         Cookies.set(
           "auth", 
@@ -53,7 +55,9 @@ function LoginModal(modalId) {
         }
         // モーダルを閉じる
         document.getElementById('login_modal').close();
+        setLoading(false);
       }).catch((error) => {
+        setLoading(false);
         if (error.response) {
           console.error(error.response.data);
           alert(error.response.data);

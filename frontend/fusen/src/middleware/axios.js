@@ -1,6 +1,5 @@
 import axios from "axios";
-import Cookies from 'js-cookie'
-import { useHistory } from "react-router-dom";
+import Cookies from 'js-cookie';
 
 const api = axios.create({
 	baseURL: process.env.REACT_APP_API_URL,
@@ -25,8 +24,10 @@ api.interceptors.request.use((config) => {
 });
 
 api.interceptors.response.use((response) => {
+
 	return response
 }, (error) => {
+
 	console.log('error', error);
 	// 401の場合はログインモーダルを表示
 	if (error.response.status === 401) {

@@ -17,6 +17,8 @@ const fusenMocks = Promise.resolve([
 ]);
 
 export const getFusens = async () => {
+	// debug用１秒待機
+	// await new Promise(resolve => setTimeout(resolve, 1000));
 	const ret = await api.get('/api/secure/fusens')
 	.then((res) => {
 		return res.data;

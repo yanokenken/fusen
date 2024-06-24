@@ -6,7 +6,7 @@ import { generateNanoId } from "../../../utils/generateId";
 import { postFusen } from "../api/postFusen";
 import { getFusens, getKanryoFusens } from "../api/getFusens";
 import { useSetRecoilState, useRecoilState } from "recoil";
-import { fusensState, sideContentState, fusenStatusState, toastState } from "../../../state/atoms";
+import { fusensState, sideContentState, fusenStatusState, toastState, loadingState } from "../../../state/atoms";
 
 function CreateFusen({ closeDrawer }) {
   let emptyFusen = {
@@ -22,6 +22,7 @@ function CreateFusen({ closeDrawer }) {
   const setFusens = useSetRecoilState(fusensState);
   const setSideContent = useSetRecoilState(sideContentState);
   const [fusenStatus] = useRecoilState(fusenStatusState);
+  const setLoading = useSetRecoilState(loadingState);
 
   const sideClose = () => setSideContent({ open: false });
 
@@ -125,7 +126,7 @@ function CreateFusen({ closeDrawer }) {
     if (!fusen.title) newErrors.title = "タスク名は必須です";
     setErrors(newErrors);
     if (Object.keys(newErrors).length > 0) return;
-
+    setLoading(true);
     postFusen(fusen).then(async (res) => {
       // 付箋一覧を更新
       const fusens = await getFusens();
@@ -133,11 +134,17 @@ function CreateFusen({ closeDrawer }) {
       setFusens(fusens.concat(kanryoFusens));
 
       setFusen(emptyFusen);
+      await setLoading(false);
       // 通知
       setToast({ message: "付箋を登録しました", type: "success", time: 3000 });
       sideClose();
-    });
-  };
+    },
+      (error) => {
+        setToast({ message: "付箋の登録に失敗しました", type: "error", time: 3000 });
+        setLoading(false);
+      }
+
+    )};
 
   return (
     <>
@@ -226,7 +233,7 @@ function CreateFusen({ closeDrawer }) {
           <label className="label">
             <span className="label-text">リマインダー</span>
             <button className="label-text-alt btn btn-ghost btn-xs" onClick={()=>{document.getElementById('remainder_tips_modal').showModal()}}>
-              <span class="material-symbols-outlined">help</span>
+              <span className="material-symbols-outlined">help</span>
             </button>
             <SimpleModal
               modalId="remainder_tips_modal"
