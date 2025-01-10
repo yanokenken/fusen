@@ -3,7 +3,7 @@ services:
   nginx:
     image: nginx
     restart: always
-    container_name: nginx
+    container_name: fusen_nginx
     environment:
       - DOMAIN=${DOMAIN}
     ports:

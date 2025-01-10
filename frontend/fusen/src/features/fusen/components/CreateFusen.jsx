@@ -148,19 +148,13 @@ function CreateFusen({ closeDrawer }) {
 
   return (
     <>
-      <div className="flex-grow overflow-scroll px-1">
-        <div className="lg:hidden bg-base-300 text-base-content flex items-center justify-center">
+      <div className="lg:h-[77vh] md:flex-grow overflow-scroll hidden-scrollbar p-2 md:bg-base-200 rounded-md">
+        <div className="lg:hidden text-base-content flex items-center justify-center">
           <div className="flex justify-between w-full mt-10">
-            <div
-              className="badge badge-outline badge-xl h-[2rem] cursor-pointer"
-              onClick={sideClose}
-            >
+            <div className="badge badge-outline badge-xl h-[2rem] cursor-pointer" onClick={sideClose}>
               ✕
             </div>
-            <div
-              className="badge badge-primary badge-xl h-[2rem] cursor-pointer min-w-[6rem]"
-              onClick={addFusen}
-            >
+            <div className="badge badge-primary badge-xl h-[2rem] cursor-pointer min-w-[6rem]" onClick={addFusen}>
               登録
             </div>
           </div>
@@ -326,8 +320,7 @@ function CreateFusen({ closeDrawer }) {
       <div
         className="
           h-[15vh] bg-base-300 text-base-content hidden lg:flex 
-          items-center justify-center 
-          border-t "
+          items-center justify-center"
       >
         <button
           className="btn btn-primary  w-[80%] shadow-sm hidden lg:flex"

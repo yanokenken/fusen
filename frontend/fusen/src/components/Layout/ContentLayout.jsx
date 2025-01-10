@@ -62,7 +62,7 @@ function ContentLayout({children}) {
       ></label>
       <div className="w-full lg:w-64 xl:w-80">
 
-        <div className="px-10 lg:px-4 pb-4 bg-base-300 h-screen flex flex-col">
+        <div className="px-10 lg:ps-4 lg:pe-0 pb-4 bg-base-300 h-screen flex flex-col">
 					{/* pc時のアプリロゴ */}
 					<div className=" hidden lg:block h-[8vh] text-center">
 						<Link to="/board" onClick={()=>setMenu({...menu, isPreferenceMode:false})} className="block accent-title text-accent relative">

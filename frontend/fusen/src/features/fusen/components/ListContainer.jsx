@@ -44,7 +44,7 @@ function ListContainer(props) {
 
   return (
     <>
-			<div className={`overflow-auto border-l-4 border-t-4 px-3 rounded-tl-xl ${borderColor} lg:border-0`}>
+			<div className={`overflow-auto sbar border-l-4 border-t-4 px-3 rounded-tl-xl ${borderColor} lg:border-0 mb-6 md:mb-0 `}>
 				<div className="badge w-full">{statusLabel}</div>
 					<SortableContext items={_fusens} strategy={verticalListSortingStrategy}>
 

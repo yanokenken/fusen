@@ -195,11 +195,12 @@ function FusenModal({ modalId, selectedFusen, fromCompleteList }) {
   return (
     <>
       <dialog id={modalId ? modalId : ""} className="modal">
-        <div className="modal-box bg-base-200 border-2 border-[#020202]">
+        <div className="modal-box hidden-scrollbar bg-base-200 border-2 border-[#020202]">
           <label className="label">
             <span className="label-text">タスク名（必須）</span>
           </label>
           <input
+            className="leading-normal "
             ref={inputRef}
             type="text"
             maxLength={100}
@@ -219,7 +220,7 @@ function FusenModal({ modalId, selectedFusen, fromCompleteList }) {
               <span className="label-text">メモ</span>
             </label>
             <textarea
-              className={`textarea textarea-bordered min-h-[10rem]`}
+              className={`textarea textarea-bordered min-h-[10rem] sbar`}
               maxLength={1000}
               placeholder="メモ"
               value={fusen ? fusen.memo : ""}
@@ -318,7 +319,7 @@ function FusenModal({ modalId, selectedFusen, fromCompleteList }) {
                           <td className="text-center">
                             <textarea
                               maxLength={100}
-                              className="input input-sm input-bordered w-full max-w-xs"
+                              className="input input-md input-bordered w-full max-w-xs sbar"
                               placeholder="チェックポイント"
                               value={checkpoint.body}
                               onChange={(e) =>
@@ -328,6 +329,7 @@ function FusenModal({ modalId, selectedFusen, fromCompleteList }) {
                                   "checkpointBody"
                                 )
                               }
+
                             />
                           </td>
                           <td className="whitespace-nowrap px-0 text-center">

@@ -7,6 +7,7 @@ var TableNames = struct {
 	Boards      string
 	Checkpoints string
 	Fusens      string
+	FusensTag   string
 	Preferences string
 	Tags        string
 	Users       string
@@ -14,6 +15,7 @@ var TableNames = struct {
 	Boards:      "boards",
 	Checkpoints: "checkpoints",
 	Fusens:      "fusens",
+	FusensTag:   "fusens_tag",
 	Preferences: "preferences",
 	Tags:        "tags",
 	Users:       "users",

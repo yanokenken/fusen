@@ -26,6 +26,7 @@ services:
       - /certbot/letsencrypt:/etc/letsencrypt
       - ./frontend/fusen/build:/var/www
     command: ["--version"]
+    
   react:
     container_name: fusen_react
     build: ./frontend

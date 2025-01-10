@@ -47,7 +47,8 @@ function Fusen(props) {
           border-2 border-[#020202]
           my-3 cursor-pointer 
           ${fusen.fusenColor} 
-          hover:bg-base-100
+          hover:border-accent
+          hover:shadow-[4px_4px_4px_0]
         `}
         onClick={(e) => props.onClick(e)}
       >
@@ -57,7 +58,7 @@ function Fusen(props) {
             {fusen.fusenTitle}
           </h2>
           {fusen && fusen.fusenMemo !== "" ? (
-            <p className="bg-base-100 shadow-md rounded-xl p-1 text-sm break-words whitespace-pre-wrap max-h-[18rem] overflow-auto hidden lg:block">
+            <p className="bg-base-100 shadow-md rounded-xl p-1 text-sm break-words whitespace-pre-wrap max-h-[18rem] overflow-auto hidden lg:block sbar">
               {fusen.fusenMemo}
             </p>
           ) : (

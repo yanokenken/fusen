@@ -47,7 +47,7 @@ function Fusen(props) {
           ${fusen.fusenColor} 
           shadow-[4px_4px_0_0] shadow-[#020202]
           border-2 border-[#020202]
-          hover:bg-base-100
+          hover:bg-base-neutral
         `}
         onClick={(e) => props.onClick(e)}
       >

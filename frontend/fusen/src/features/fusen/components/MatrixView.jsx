@@ -155,7 +155,7 @@ function MatrixView({ fusens, onFusenClick }) {
             </div>
           </div>
         </div>
-        <div className="overflow-auto h-[calc((100vh - 50px) / 2 - 1rem)] border-color-gray p-2">
+        <div className="overflow-auto hidden-scrollbar h-[calc((100vh - 50px) / 2 - 1rem)] border-color-gray p-2">
           <div className="">
             <div className="ps-2 badge w-full">4 重要でも緊急でもない</div>
             <div

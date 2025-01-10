@@ -12,6 +12,8 @@ func TestUpsert(t *testing.T) {
 
 	t.Run("Fusens", testFusensUpsert)
 
+	t.Run("FusensTags", testFusensTagsUpsert)
+
 	t.Run("Preferences", testPreferencesUpsert)
 
 	t.Run("Tags", testTagsUpsert)
