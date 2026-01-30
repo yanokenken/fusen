@@ -32,9 +32,9 @@ api.interceptors.response.use((response) => {
 	// 401の場合はログインモーダルを表示
 	if (error.response.status === 401) {
 		document.getElementById('login_modal').showModal();
-	}else {
-		return Promise.reject(error);
 	}
+	// 常にrejectを返す（呼び出し元のcatchに入るようにする）
+	return Promise.reject(error);
 });
 
 export default api;

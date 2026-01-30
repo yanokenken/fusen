@@ -72,7 +72,7 @@ function LoginModal(modalId) {
 
   return (
     <>
-      <dialog id="login_modal" className="modal">
+      <dialog id="login_modal" className="modal z-[100]">
         <div className="modal-box">
           <h1 className="text-center">
             <span className="font-bold text-lg px-2">fuseen</span>

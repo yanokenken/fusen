@@ -1,19 +1,20 @@
 package main
 
 import (
-	"fusen/internal/auth"
-	"fusen/internal/handler"
 	"net/http"
 	"os"
+
+	"fusen/internal/auth"
+	"fusen/internal/handler"
 
 	jwt "github.com/labstack/echo-jwt/v4"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-)	
+)
 
 func main() {
 	e := echo.New()
-	
+
 	e.Use(middleware.Logger())
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins: []string{"http://localhost:3000", "http://localhost", os.Getenv(("ROOT_URL"))},
@@ -26,7 +27,7 @@ func main() {
 	secure.Use(jwt.JWT([]byte(os.Getenv("JWT_KEY"))))
 
 	api.GET("/", func(c echo.Context) error {
-		return c.String(http.StatusOK, "Hello, World!")	
+		return c.String(http.StatusOK, "Hello, World!")
 	})
 
 	api.POST("/register", auth.Register)
@@ -46,5 +47,4 @@ func main() {
 	secure.PUT("/preference", handler.UpdatePreference)
 
 	e.Logger.Fatal(e.Start(":1323"))
-
 }

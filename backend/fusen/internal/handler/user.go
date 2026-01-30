@@ -62,6 +62,31 @@ func DeteteUser(c echo.Context) error {
 	return c.JSON(200, "ユーザー削除完了")
 }
 
+// ユーザー情報更新
+func UpdateUser(c echo.Context) error {
+	log.Println("ユーザー情報更新　開始")
+	db, err := db.Connect()
+	if err != nil {
+		return err
+	}
+	defer db.Close()
 
+	//jwtからユーザーIDを取得
+	userID, err := auth.GetUserID(c)
+	if err != nil {
+		return err
+	}
 
+	updateUser := new(models.User)
+	if err := c.Bind(updateUser); err != nil {
+		return err
+	}
+
+	_, err = models.Users(models.UserWhere.ID.EQ(userID)).UpdateAll(c.Request().Context(), db, models.M{
+		"name":  updateUser.Name,
+		"email": updateUser.Email,
+	})
+	if err != nil {
+		return err
+	}
 

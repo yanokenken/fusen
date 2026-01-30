@@ -11,7 +11,7 @@ export const putFusen =  async (fusen) => {
 		})
 		.catch((error) => {
 			console.error(error);
-			return error;
+			throw error;  // エラーを再throwしてrejectを維持
 		});
 };
 
