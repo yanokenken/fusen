@@ -4703,6 +4703,14 @@ details.collapse summary::-webkit-details-marker {
   bottom: 0.5rem;
 }
 
+.bottom-full {
+  bottom: 100%;
+}
+
+.left-4 {
+  left: 1rem;
+}
+
 .right-0 {
   right: 0px;
 }
@@ -4850,6 +4858,10 @@ details.collapse summary::-webkit-details-marker {
   margin-top: 3rem;
 }
 
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
 .mt-3 {
   margin-top: 0.75rem;
 }
@@ -4922,6 +4934,10 @@ details.collapse summary::-webkit-details-marker {
   height: -webkit-fill-available;
 }
 
+.h-full {
+  height: 100%;
+}
+
 .h-screen {
   height: 100vh;
 }
@@ -4942,8 +4958,16 @@ details.collapse summary::-webkit-details-marker {
   max-height: 35vh;
 }
 
-.min-h-\[10rem\] {
-  min-height: 10rem;
+.max-h-none {
+  max-height: none;
+}
+
+.min-h-0 {
+  min-height: 0px;
+}
+
+.min-h-\[15rem\] {
+  min-height: 15rem;
 }
 
 .min-h-screen {
@@ -5070,6 +5094,10 @@ details.collapse summary::-webkit-details-marker {
   cursor: pointer;
 }
 
+.resize-y {
+  resize: vertical;
+}
+
 .resize {
   resize: both;
 }
@@ -5114,6 +5142,10 @@ details.collapse summary::-webkit-details-marker {
   flex-wrap: nowrap;
 }
 
+.items-end {
+  align-items: flex-end;
+}
+
 .items-center {
   align-items: center;
 }
@@ -5136,6 +5168,10 @@ details.collapse summary::-webkit-details-marker {
 
 .gap-2 {
   gap: 0.5rem;
+}
+
+.gap-3 {
+  gap: 0.75rem;
 }
 
 .gap-4 {
@@ -5409,6 +5445,10 @@ details.collapse summary::-webkit-details-marker {
 
 .pb-4 {
   padding-bottom: 1rem;
+}
+
+.pb-6 {
+  padding-bottom: 1.5rem;
 }
 
 .pe-0 {
@@ -5836,12 +5876,28 @@ details.collapse summary::-webkit-details-marker {
     height: calc(100vh - 158px);
   }
 
+  .lg\:max-h-\[40vh\] {
+    max-height: 40vh;
+  }
+
+  .lg\:min-h-0 {
+    min-height: 0px;
+  }
+
+  .lg\:min-h-\[20rem\] {
+    min-height: 20rem;
+  }
+
   .lg\:w-64 {
     width: 16rem;
   }
 
   .lg\:max-w-\[60vw\] {
     max-width: 60vw;
+  }
+
+  .lg\:flex-1 {
+    flex: 1 1 0%;
   }
 
   .lg\:translate-x-36 {
@@ -5859,6 +5915,14 @@ details.collapse summary::-webkit-details-marker {
 
   .lg\:flex-row {
     flex-direction: row;
+  }
+
+  .lg\:flex-col {
+    flex-direction: column;
+  }
+
+  .lg\:items-start {
+    align-items: flex-start;
   }
 
   .lg\:border-0 {

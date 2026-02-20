@@ -90,3 +90,5 @@ func UpdateUser(c echo.Context) error {
 		return err
 	}
 
+	return c.JSON(200, "ユーザー情報更新完了")
+}

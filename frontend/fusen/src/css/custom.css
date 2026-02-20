@@ -201,3 +201,12 @@
     border-radius: 100px;
     border: 1px solid hsl(var(--b1) / var(--tw-bg-opacity));
 }
+
+/* PC時のモーダル幅と高さを広げる */
+@media (min-width: 1024px) {
+  .modal-box-wide {
+    max-width: 72rem !important;
+    width: 90%;
+    min-height: 90vh;
+  }
+}

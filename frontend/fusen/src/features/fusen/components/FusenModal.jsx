@@ -195,185 +195,194 @@ function FusenModal({ modalId, selectedFusen, fromCompleteList }) {
   return (
     <>
       <dialog id={modalId ? modalId : ""} className="modal">
-        <div className="modal-box hidden-scrollbar bg-base-200 border-2 border-[#020202]">
-          <label className="label">
-            <span className="label-text">タスク名（必須）</span>
-          </label>
-          <input
-            className="leading-normal "
-            ref={inputRef}
-            type="text"
-            maxLength={100}
-            className={`input input-bordered w-full mt-4 lg:mt-0 `}
-            placeholder="タスク名"
-            value={fusen ? fusen.title : ""}
-            onChange={(e) => {
-              handleInputChange(e, fusen.id, "title");
-            }}
-          />
-          <label className="label">
-            <span className="label-text-alt text-error">{errors.title}</span>
-          </label>
-
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">メモ</span>
-            </label>
-            <textarea
-              className={`textarea textarea-bordered min-h-[10rem] sbar`}
-              maxLength={1000}
-              placeholder="メモ"
-              value={fusen ? fusen.memo : ""}
-              onChange={(e) => {
-                handleInputChange(e, fusen.id, "memo");
-              }}
-            />
-            <label className="label">
-              <span className="label-text-alt text-error"></span>
-            </label>
-          </div>
-
-          <div className="form-control w-full flex mb-4">
-            <LabelCheckbox
-              key={fusen ? `${fusen.id}-important` : "important-default-key"}
-              label="重要"
-              checked={fusen ? fusen.is_important : false}
-              onChange={(e) => {
-                handleInputChange(e, fusen.id, "isImportant");
-              }}
-              colorSuffix="warning"
-            />
-            <LabelCheckbox
-              key={fusen ? `${fusen.id}-urgent` : "urgent-default-key"}
-              label="緊急"
-              checked={fusen ? fusen.is_urgent : false}
-              onChange={(e) => {
-                handleInputChange(e, fusen.id, "isUrgent");
-              }}
-              colorSuffix="error"
-            />
-          </div>
-
-          <div className="w-full mb-4">
-            <input
-              type="range"
-              min={0}
-              max="3"
-              value={fusen ? fusen.status : 0}
-              className="range range-primary"
-              onChange={(e) => handleInputChange(e, fusen.id, "status")}
-            />
-            <div className="w-full flex justify-between text-xs px-2">
-              <span>{fusenStatus[0]}</span>
-              <span>{fusenStatus[1]}</span>
-              <span>{fusenStatus[2]}</span>
-              <span>{fusenStatus[3]}</span>
-            </div>
-          </div>
-
-          <div className="form-control ">
-            <label className="label">
-              <span className="label-text">リマインダー</span>
-            </label>
-            <input
-              type="date"
-              className="input input-bordered w-full mt-4 lg:mt-0"
-              placeholder=""
-              value={fusen ? fusen.remaind_at : ""}
-              onChange={(e) => handleInputChange(e, fusen.id, "remaind_at")}
-            />
-            <label className="label">
-              <span className="text-xs">
-              </span>
-            </label>
-          </div>
-
-          <div className="collapse collapse-open w-full mb-4 border border-base-300 shadow-xl">
-            <div className="p-2 ps-4 pb-0 text-md font-medium">
-              チェックポイント
-            </div>
-            <div className="collapse-content p-0">
-              <div className="px-2 max-h-[35vh] overflow-auto">
-                <table className="table table-xs">
-                  <tbody>
-                    {fusen &&
-                      fusen.checkpoints &&
-                      fusen.checkpoints.map((checkpoint, index) => (
-                        <tr key={checkpoint.id} id={checkpoint.id} ref={index === fusen.checkpoints.length - 1 ? scrollRef : null}>
-                          <td className="text-center">
-                            <label className={`label cursor-pointer block`}>
-                              <input
-                                type="checkbox"
-                                className="checkbox hover:checkbox-neutral"
-                                checked={checkpoint.is_checked}
-                                onChange={(e) =>
-                                  handleInputChange(
-                                    e,
-                                    checkpoint.id,
-                                    "checkpointStatus"
-                                  )
-                                }
-                              />
-                            </label>
-                          </td>
-                          <td className="text-center">
-                            <textarea
-                              maxLength={100}
-                              className="input input-md input-bordered w-full max-w-xs sbar"
-                              placeholder="チェックポイント"
-                              value={checkpoint.body}
-                              onChange={(e) =>
-                                handleInputChange(
-                                  e,
-                                  checkpoint.id,
-                                  "checkpointBody"
-                                )
-                              }
-
-                            />
-                          </td>
-                          <td className="whitespace-nowrap px-0 text-center">
-                            <div>
-                              <label
-                                tabIndex={0}
-                                className="btn btn-sm btn-ghost m-1 ms-0"
-                              >
-                                <span
-                                  className={`material-icons-outlined`}
-                                  onClick={deleteCP}
-                                >
-                                  delete
-                                </span>
-                              </label>
-                            </div>
-                          </td>
-                        </tr>
-                      ))}
-                  </tbody>
-                </table>
+        <div className="modal-box modal-box-wide hidden-scrollbar bg-base-200 border-3 border-[#020202] flex flex-col">
+          <div className="lg:flex gap-4 flex-1">
+            {/* 左ペイン */}
+            <div className="flex-1 flex flex-col">
+              {/* タスク名 */}
+              <div>
+                <label className="label">
+                  <span className="label-text">タスク名（必須）</span>
+                </label>
+                <input
+                  ref={inputRef}
+                  type="text"
+                  maxLength={100}
+                  className={`input input-bordered w-full mt-4 lg:mt-0`}
+                  placeholder="タスク名"
+                  value={fusen ? fusen.title : ""}
+                  onChange={(e) => {
+                    handleInputChange(e, fusen.id, "title");
+                  }}
+                />
+                <label className="label">
+                  <span className="label-text-alt text-error">{errors.title}</span>
+                </label>
               </div>
-              <div className={`flex justify-center my-4`}>
-                {/* ボタンクリックでcheckpoint追加 */}
-                <button
-                  className="btn btn-outline w-[90%] hover:btn-neutral"
-                  onClick={addCheckPoint}
-                >
-                  <span>追加</span>
-                  <span className="material-icons-outlined">
-                    add_circle_outline
-                  </span>
-                </button>
+              {/* メモ */}
+              <div className="form-control flex-1">
+                <label className="label">
+                  <span className="label-text">メモ</span>
+                </label>
+                <textarea
+                  className={`textarea textarea-bordered min-h-[15rem] lg:min-h-0 lg:flex-1 resize-y sbar`}
+                  maxLength={1000}
+                  placeholder="メモ"
+                  value={fusen ? fusen.memo : ""}
+                  onChange={(e) => {
+                    handleInputChange(e, fusen.id, "memo");
+                  }}
+                />
               </div>
             </div>
+
+            {/* 右ペイン */}
+            <div className="flex-1 lg:flex lg:flex-col">
+              {/* ステータス */}
+              <div className="w-full">
+                <label className="label">
+                  <span className="label-text">ステータス</span>
+                </label>
+                <input
+                  type="range"
+                  min={0}
+                  max="3"
+                  value={fusen ? fusen.status : 0}
+                  className="range range-primary"
+                  onChange={(e) => handleInputChange(e, fusen.id, "status")}
+                />
+                <div className="w-full flex justify-between text-xs px-2">
+                  <span>{fusenStatus[0]}</span>
+                  <span>{fusenStatus[1]}</span>
+                  <span>{fusenStatus[2]}</span>
+                  <span>{fusenStatus[3]}</span>
+                </div>
+              </div>
+              {/* リマインダー | 重要・緊急 */}
+              <div className="flex flex-col lg:flex-row gap-4 mt-2">
+                <div className="form-control flex-1">
+                  <div className="flex items-center gap-2 lg:flex-col lg:items-start">
+                    <label className="label">
+                      <span className="label-text whitespace-nowrap">リマインダー</span>
+                    </label>
+                    <input
+                      type="date"
+                      className="input input-bordered w-full"
+                      placeholder=""
+                      value={fusen ? fusen.remaind_at : ""}
+                      onChange={(e) => handleInputChange(e, fusen.id, "remaind_at")}
+                    />
+                  </div>
+                </div>
+                <div className="form-control flex-1 justify-end">
+                  <LabelCheckbox
+                    key={fusen ? `${fusen.id}-important` : "important-default-key"}
+                    label="重要"
+                    checked={fusen ? fusen.is_important : false}
+                    onChange={(e) => {
+                      handleInputChange(e, fusen.id, "isImportant");
+                    }}
+                    colorSuffix="warning"
+                  />
+                  <LabelCheckbox
+                    key={fusen ? `${fusen.id}-urgent` : "urgent-default-key"}
+                    label="緊急"
+                    checked={fusen ? fusen.is_urgent : false}
+                    onChange={(e) => {
+                      handleInputChange(e, fusen.id, "isUrgent");
+                    }}
+                    colorSuffix="error"
+                  />
+                </div>
+              </div>
+              {/* チェックポイント */}
+              <div className="collapse collapse-open w-full border border-base-300 shadow-xl lg:flex-1 mt-4">
+                <div className="p-2 ps-4 pb-0 text-md font-medium">
+                  チェックポイント
+                </div>
+                <div className="collapse-content p-0">
+                  <div className="px-2 max-h-[35vh] lg:max-h-[40vh] overflow-auto sbar">
+                    <table className="table table-xs">
+                      <tbody>
+                        {fusen &&
+                          fusen.checkpoints &&
+                          fusen.checkpoints.map((checkpoint, index) => (
+                            <tr key={checkpoint.id} id={checkpoint.id} ref={index === fusen.checkpoints.length - 1 ? scrollRef : null}>
+                              <td className="text-center">
+                                <label className={`label cursor-pointer block`}>
+                                  <input
+                                    type="checkbox"
+                                    className="checkbox hover:checkbox-neutral"
+                                    checked={checkpoint.is_checked}
+                                    onChange={(e) =>
+                                      handleInputChange(
+                                        e,
+                                        checkpoint.id,
+                                        "checkpointStatus"
+                                      )
+                                    }
+                                  />
+                                </label>
+                              </td>
+                              <td className="text-center">
+                                <textarea
+                                  maxLength={100}
+                                  className="input input-md input-bordered w-full max-w-xs sbar"
+                                  placeholder="チェックポイント"
+                                  value={checkpoint.body}
+                                  onChange={(e) =>
+                                    handleInputChange(
+                                      e,
+                                      checkpoint.id,
+                                      "checkpointBody"
+                                    )
+                                  }
+                                />
+                              </td>
+                              <td className="whitespace-nowrap px-0 text-center">
+                                <div>
+                                  <label
+                                    tabIndex={0}
+                                    className="btn btn-sm btn-ghost m-1 ms-0"
+                                  >
+                                    <span
+                                      className={`material-icons-outlined`}
+                                      onClick={deleteCP}
+                                    >
+                                      delete
+                                    </span>
+                                  </label>
+                                </div>
+                              </td>
+                            </tr>
+                          ))}
+                      </tbody>
+                    </table>
+                  </div>
+                  <div className={`flex justify-center my-4`}>
+                    <button
+                      className="btn btn-outline w-[90%] hover:btn-neutral"
+                      onClick={addCheckPoint}
+                    >
+                      <span>追加</span>
+                      <span className="material-icons-outlined">
+                        add_circle_outline
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div className="flex gap-4 justify-end">
+          {/* created/updated */}
+          <div className="flex gap-4 justify-end mt-4">
             <p className="text-[0.9em] dots-font">
               <span className="font-bold">created：</span>{dateFormatted(fusen.created_at)}
             </p>
             /
             <p className="text-[0.9em] dots-font">
-            <span className="font-bold">updated：</span>{dateFormatted(fusen.updated_at)}
+              <span className="font-bold">updated：</span>{dateFormatted(fusen.updated_at)}
             </p>
           </div>
 
@@ -386,7 +395,7 @@ function FusenModal({ modalId, selectedFusen, fromCompleteList }) {
             </button>
 
             <div className="flex gap-2">
-            <button
+              <button
                 className="btn bg-base-300"
                 onClick={(event) => {
                   event.preventDefault();
@@ -400,7 +409,6 @@ function FusenModal({ modalId, selectedFusen, fromCompleteList }) {
                 className={`btn btn-primary min-w-[5rem]`}
                 onClick={(event) => {
                   event.preventDefault();
-                  // fusenを更新する
                   handleUpdateClick(fusen);
                 }}
               >
