@@ -6,7 +6,7 @@ import { putFusen } from "../api/putFusen";
 import { getFusens, getKanryoFusens } from "../api/getFusens";
 import { deleteFusen } from "../api/deleteFusen";
 import { useSetRecoilState, useRecoilState } from "recoil";
-import { fusensState, fusenStatusState, toastState, loadingState} from "../../../state/atoms";
+import { fusensState, fusenStatusState, toastState, loadingState } from "../../../state/atoms";
 
 function FusenModal({ modalId, selectedFusen, fromCompleteList }) {
   // 選択された付箋の情報
@@ -25,6 +25,7 @@ function FusenModal({ modalId, selectedFusen, fromCompleteList }) {
   // モーダルを開いたときにフォーカスを外す
   const inputRef = useRef();
   const scrollRef = useRef(null);
+  const shouldScrollRef = useRef(false);
   const modalIsOpen = document.getElementById(modalId)?.open;
   useEffect(() => {
     if (modalIsOpen) {
@@ -33,8 +34,9 @@ function FusenModal({ modalId, selectedFusen, fromCompleteList }) {
   }, [modalIsOpen]);
 
   useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollIntoView({ behavior: 'smooth' });
+    if (shouldScrollRef.current && scrollRef.current) {
+      scrollRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      shouldScrollRef.current = false;
     }
   }, [fusen.checkpoints]);
 
@@ -49,12 +51,14 @@ function FusenModal({ modalId, selectedFusen, fromCompleteList }) {
     const id = generateNanoId(selectedFusen.id, 5);
     const item = { id: id, body: "", is_checked: false };
     if (Array.isArray(fusen.checkpoints) === false) {
+      shouldScrollRef.current = true;
       setFusen((prevFusen) => ({
         ...prevFusen,
         checkpoints: [item],
       }));
       return;
     } else {
+      shouldScrollRef.current = true;
       setFusen((prevFusen) => ({
         ...prevFusen,
         checkpoints: [...prevFusen.checkpoints, item],
@@ -187,9 +191,8 @@ function FusenModal({ modalId, selectedFusen, fromCompleteList }) {
 
   const dateFormatted = (date) => {
     const d = new Date(date);
-    return `${d.getFullYear()}.${
-      d.getMonth() + 1
-    }.${d.getDate()} ${d.getHours()}:${d.getMinutes()}`;
+    return `${d.getFullYear()}.${d.getMonth() + 1
+      }.${d.getDate()} ${d.getHours()}:${d.getMinutes()}`;
   };
 
   return (

@@ -5142,6 +5142,10 @@ details.collapse summary::-webkit-details-marker {
   flex-wrap: nowrap;
 }
 
+.items-start {
+  align-items: flex-start;
+}
+
 .items-end {
   align-items: flex-end;
 }
@@ -5882,10 +5886,6 @@ details.collapse summary::-webkit-details-marker {
 
   .lg\:min-h-0 {
     min-height: 0px;
-  }
-
-  .lg\:min-h-\[20rem\] {
-    min-height: 20rem;
   }
 
   .lg\:w-64 {
