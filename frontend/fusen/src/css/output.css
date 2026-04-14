@@ -4950,12 +4950,16 @@ details.collapse summary::-webkit-details-marker {
   height: calc(100vh - 158px);
 }
 
-.max-h-\[18rem\] {
-  max-height: 18rem;
-}
-
 .max-h-\[35vh\] {
   max-height: 35vh;
+}
+
+.max-h-\[4rem\] {
+  max-height: 4rem;
+}
+
+.max-h-\[6rem\] {
+  max-height: 6rem;
 }
 
 .max-h-none {
@@ -5092,6 +5096,15 @@ details.collapse summary::-webkit-details-marker {
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.touch-none {
+  touch-action: none;
+}
+
+.select-none {
+  -webkit-user-select: none;
+          user-select: none;
 }
 
 .resize-y {
@@ -5414,6 +5427,11 @@ details.collapse summary::-webkit-details-marker {
   padding-right: 2rem;
 }
 
+.py-1 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
 .py-10 {
   padding-top: 2.5rem;
   padding-bottom: 2.5rem;
@@ -5590,6 +5608,10 @@ details.collapse summary::-webkit-details-marker {
 .antialiased {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.opacity-50 {
+  opacity: 0.5;
 }
 
 .shadow {
@@ -5880,6 +5902,10 @@ details.collapse summary::-webkit-details-marker {
     height: calc(100vh - 158px);
   }
 
+  .lg\:max-h-\[18rem\] {
+    max-height: 18rem;
+  }
+
   .lg\:max-h-\[40vh\] {
     max-height: 40vh;
   }
@@ -5923,6 +5949,10 @@ details.collapse summary::-webkit-details-marker {
 
   .lg\:items-start {
     align-items: flex-start;
+  }
+
+  .lg\:overflow-auto {
+    overflow: auto;
   }
 
   .lg\:border-0 {

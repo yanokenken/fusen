@@ -70,7 +70,7 @@ func GetFusens(c echo.Context) error {
 		return err
 	}
 	for _, fusen := range fusens {
-		err = fusen.L.LoadCheckpoints(c.Request().Context(), db, true, fusen, nil )
+		err = fusen.L.LoadCheckpoints(c.Request().Context(), db, true, fusen, nil)
 		if err != nil {
 			return err
 		}
@@ -149,7 +149,7 @@ func GetKanryoFusens(c echo.Context) error {
 	
 	// fusensテーブルにcheckpointsとしてfusen_idが一致するcheckpointsテーブルのリストを追加する
 	for _, fusen := range fusens {
-		err = fusen.L.LoadCheckpoints(c.Request().Context(), db, true, fusen, nil )
+		err = fusen.L.LoadCheckpoints(c.Request().Context(), db, true, fusen, nil)
 		if err != nil {
 			return err
 		}

@@ -58,16 +58,16 @@ function Fusen(props) {
             {fusen.fusenTitle}
           </h2>
           {fusen && fusen.fusenMemo !== "" ? (
-            <p className="bg-base-100 shadow-md rounded-xl p-1 text-sm break-words whitespace-pre-wrap max-h-[18rem] overflow-auto hidden lg:block sbar">
+            <p className="bg-base-100 shadow-md rounded-xl p-1 text-sm break-words whitespace-pre-wrap max-h-[4rem] lg:max-h-[18rem] overflow-hidden lg:overflow-auto sbar">
               {fusen.fusenMemo}
             </p>
           ) : (
             ""
           )}
           {fusen && fusen.checkpoints && fusen.checkpoints.length > 0 ? (
-            <div className="collapse collapse-open bg-base-100 w-full p-2 shadow-md rounded-xl hidden lg:block">
+            <div className="collapse collapse-open bg-base-100 w-full p-2 shadow-md rounded-xl">
               <div className="collapse-content p-0">
-                <div className="max-h-[18rem] overflow-auto">
+                <div className="max-h-[6rem] lg:max-h-[18rem] overflow-hidden lg:overflow-auto">
                   <table className="table table-xs table-fixed w-full">
                     <tbody>
                       {fusen &&

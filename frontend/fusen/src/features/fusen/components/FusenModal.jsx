@@ -7,6 +7,22 @@ import { getFusens, getKanryoFusens } from "../api/getFusens";
 import { deleteFusen } from "../api/deleteFusen";
 import { useSetRecoilState, useRecoilState } from "recoil";
 import { fusensState, fusenStatusState, toastState, loadingState } from "../../../state/atoms";
+import {
+  DndContext,
+  closestCenter,
+  PointerSensor,
+  TouchSensor,
+  KeyboardSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+  arrayMove,
+  sortableKeyboardCoordinates,
+} from "@dnd-kit/sortable";
+import SortableCheckpoint from "./SortableCheckpoint";
 
 function FusenModal({ modalId, selectedFusen, fromCompleteList }) {
   // 選択された付箋の情報
@@ -21,6 +37,31 @@ function FusenModal({ modalId, selectedFusen, fromCompleteList }) {
   useEffect(() => {
     setFusen({ ...selectedFusen });
   }, [selectedFusen]);
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: { distance: 5 },
+    }),
+    useSensor(TouchSensor, {
+      activationConstraint: { delay: 200, tolerance: 5 },
+    }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+
+  const handleCheckpointDragEnd = (event) => {
+    const { active, over } = event;
+    if (!over || active.id === over.id) return;
+    setFusen((prevFusen) => {
+      const oldIndex = prevFusen.checkpoints.findIndex((cp) => cp.id === active.id);
+      const newIndex = prevFusen.checkpoints.findIndex((cp) => cp.id === over.id);
+      return {
+        ...prevFusen,
+        checkpoints: arrayMove(prevFusen.checkpoints, oldIndex, newIndex),
+      };
+    });
+  };
 
   // モーダルを開いたときにフォーカスを外す
   const inputRef = useRef();
@@ -92,8 +133,7 @@ function FusenModal({ modalId, selectedFusen, fromCompleteList }) {
   };
 
   // チェックポイントを削除
-  const deleteCP = (e) => {
-    const id = e.target.closest("tr").id;
+  const deleteCP = (id) => {
     setFusen((prevFusen) => ({
       ...prevFusen,
       checkpoints: prevFusen.checkpoints.filter(
@@ -198,8 +238,8 @@ function FusenModal({ modalId, selectedFusen, fromCompleteList }) {
   return (
     <>
       <dialog id={modalId ? modalId : ""} className="modal">
-        <div className="modal-box modal-box-wide hidden-scrollbar bg-base-200 border-3 border-[#020202] flex flex-col">
-          <div className="lg:flex gap-4 flex-1">
+        <div className="modal-box modal-box-wide bg-base-200 border-3 border-[#020202] flex flex-col overflow-hidden">
+          <div className="lg:flex gap-4 flex-1 min-h-0 overflow-auto sbar">
             {/* 左ペイン */}
             <div className="flex-1 flex flex-col">
               {/* タスク名 */}
@@ -305,62 +345,30 @@ function FusenModal({ modalId, selectedFusen, fromCompleteList }) {
                 </div>
                 <div className="collapse-content p-0">
                   <div className="px-2 max-h-[35vh] lg:max-h-[40vh] overflow-auto sbar">
-                    <table className="table table-xs">
-                      <tbody>
+                    <DndContext
+                      sensors={sensors}
+                      collisionDetection={closestCenter}
+                      onDragEnd={handleCheckpointDragEnd}
+                    >
+                      <SortableContext
+                        items={fusen.checkpoints || []}
+                        strategy={verticalListSortingStrategy}
+                      >
                         {fusen &&
                           fusen.checkpoints &&
                           fusen.checkpoints.map((checkpoint, index) => (
-                            <tr key={checkpoint.id} id={checkpoint.id} ref={index === fusen.checkpoints.length - 1 ? scrollRef : null}>
-                              <td className="text-center">
-                                <label className={`label cursor-pointer block`}>
-                                  <input
-                                    type="checkbox"
-                                    className="checkbox hover:checkbox-neutral"
-                                    checked={checkpoint.is_checked}
-                                    onChange={(e) =>
-                                      handleInputChange(
-                                        e,
-                                        checkpoint.id,
-                                        "checkpointStatus"
-                                      )
-                                    }
-                                  />
-                                </label>
-                              </td>
-                              <td className="text-center">
-                                <textarea
-                                  maxLength={100}
-                                  className="input input-md input-bordered w-full max-w-xs sbar"
-                                  placeholder="チェックポイント"
-                                  value={checkpoint.body}
-                                  onChange={(e) =>
-                                    handleInputChange(
-                                      e,
-                                      checkpoint.id,
-                                      "checkpointBody"
-                                    )
-                                  }
-                                />
-                              </td>
-                              <td className="whitespace-nowrap px-0 text-center">
-                                <div>
-                                  <label
-                                    tabIndex={0}
-                                    className="btn btn-sm btn-ghost m-1 ms-0"
-                                  >
-                                    <span
-                                      className={`material-icons-outlined`}
-                                      onClick={deleteCP}
-                                    >
-                                      delete
-                                    </span>
-                                  </label>
-                                </div>
-                              </td>
-                            </tr>
+                            <SortableCheckpoint
+                              key={checkpoint.id}
+                              checkpoint={checkpoint}
+                              isLast={index === fusen.checkpoints.length - 1}
+                              scrollRef={scrollRef}
+                              onStatusChange={handleInputChange}
+                              onBodyChange={handleInputChange}
+                              onDelete={deleteCP}
+                            />
                           ))}
-                      </tbody>
-                    </table>
+                      </SortableContext>
+                    </DndContext>
                   </div>
                   <div className={`flex justify-center my-4`}>
                     <button
